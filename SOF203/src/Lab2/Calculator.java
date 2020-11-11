@@ -46,7 +46,6 @@ public class Calculator {
 	 */
 	public Calculator() {
 		initialize();
-		///dfdfdffefee
 	}
 	/**
 	 * Initialize the contents of the frame.
