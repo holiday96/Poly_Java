@@ -12,9 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 public class DemoLayout extends JFrame implements ActionListener{
 	private JPanel panel1, panel2, panel3, panel4;
