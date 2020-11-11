@@ -24,7 +24,7 @@ public class JOptionPaneExample extends JFrame implements ActionListener {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-					JOptionPaneExample window = new JOptionPaneExample();
+					new JOptionPaneExample();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
