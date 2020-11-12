@@ -5,21 +5,29 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 public class DemoLayout extends JFrame implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8833661739380585019L;
 	private JPanel panel1, panel2, panel3, panel4;
 	private JButton btnRed, btnGreen, btnYellow;
 	private JButton btnNorth, btnCenter, btnSouth, btnEast, btnWest;
 	private JTextField txtComment;
+	private BoxLayout boxLayout;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -43,12 +51,14 @@ public class DemoLayout extends JFrame implements ActionListener{
 		this.setTitle("Demo Layout");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setSize(321, 375);
+		this.setSize(600, 500);
+		JPanel panel = new JPanel();
+        boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+        panel.setLayout(boxLayout);
+        this.add(panel);
 		
-		panel1 = new JPanel(new FlowLayout());
+		panel1 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 20));
 		panel1.setBackground(new Color(240, 230, 140));
-		panel1.setSize(800, 200);
-		getContentPane().add(panel1);
 		btnRed = new JButton("Red");
 		btnGreen = new JButton("Green");
 		btnYellow = new JButton("Yellow");
@@ -61,14 +71,17 @@ public class DemoLayout extends JFrame implements ActionListener{
 		btnGreen.addActionListener(this);
 		btnYellow.setActionCommand("yellow");
 		btnYellow.addActionListener(this);
+		panel.add(panel1);
 		
 		panel2 = new JPanel(new BorderLayout());
-		getContentPane().add(panel2);
 		btnNorth = new JButton("North");
 		btnCenter = new JButton("Center");
 		btnSouth = new JButton("South");
 		btnEast = new JButton("East");
 		btnWest = new JButton("West");
+		btnCenter.setSize(400, 100);
+		panel.add(panel2);
+		
 		panel2.add(btnNorth, BorderLayout.NORTH);
 		panel2.add(btnCenter, BorderLayout.CENTER);
 		panel2.add(btnSouth, BorderLayout.SOUTH);
@@ -86,22 +99,21 @@ public class DemoLayout extends JFrame implements ActionListener{
 		btnWest.addActionListener(this);
 		
 		panel3 = new JPanel();
-		getContentPane().add(panel3);
 		txtComment = new JTextField(10);
 		txtComment.setHorizontalAlignment(SwingConstants.CENTER);
 		panel3.add(txtComment);
+		panel.add(panel3);
 		
 		panel4 = new JPanel(new GridLayout(2, 5));
 		panel4.setBackground(new Color(255, 192, 203));
-		getContentPane().add(panel4);
 		for (int i = 0; i < 10; i++) {
 			JButton btn = new JButton(String.valueOf(i));
+			btn.setSize(50, 50);
 			panel4.add(btn);
 		}
+		panel.add(panel4);
 		
-		
-		getContentPane().setLayout(new GridLayout(4, 1));
-		this.pack();
+		panel.setBorder(new EmptyBorder(new Insets(10, 10, 50, 10)));
 	}
 
 	@Override
