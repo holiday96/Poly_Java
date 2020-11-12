@@ -44,6 +44,7 @@ public class DemoLayout extends JFrame implements ActionListener{
 	
 	public DemoLayout() {
 		initializer();
+		//f
 	}
 	
 	private void initializer() {
