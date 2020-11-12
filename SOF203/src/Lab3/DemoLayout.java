@@ -44,7 +44,6 @@ public class DemoLayout extends JFrame implements ActionListener{
 	
 	public DemoLayout() {
 		initializer();
-		//f
 	}
 	
 	private void initializer() {
@@ -57,7 +56,7 @@ public class DemoLayout extends JFrame implements ActionListener{
         boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
         panel.setLayout(boxLayout);
         this.add(panel);
-        //dd
+        //df
 		
 		panel1 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 20));
 		panel1.setBackground(new Color(240, 230, 140));
