@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import java.awt.Font;
 
 public class DemoLayout extends JFrame implements ActionListener{
 	/**
@@ -51,12 +52,11 @@ public class DemoLayout extends JFrame implements ActionListener{
 		this.setTitle("Demo Layout");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setSize(600, 500);
+		this.setSize(600, 430);
 		JPanel panel = new JPanel();
         boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
         panel.setLayout(boxLayout);
-        this.add(panel);
-        //df
+        getContentPane().add(panel);
 		
 		panel1 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 20));
 		panel1.setBackground(new Color(240, 230, 140));
@@ -80,7 +80,6 @@ public class DemoLayout extends JFrame implements ActionListener{
 		btnSouth = new JButton("South");
 		btnEast = new JButton("East");
 		btnWest = new JButton("West");
-		btnCenter.setSize(400, 100);
 		panel.add(panel2);
 		
 		panel2.add(btnNorth, BorderLayout.NORTH);
@@ -100,7 +99,10 @@ public class DemoLayout extends JFrame implements ActionListener{
 		btnWest.addActionListener(this);
 		
 		panel3 = new JPanel();
-		txtComment = new JTextField(10);
+		panel3.setBorder(new EmptyBorder(new Insets(5, 0, 5, 0)));
+		txtComment = new JTextField(40);
+		txtComment.setForeground(new Color(34, 139, 34));
+		txtComment.setFont(new Font("SansSerif", Font.BOLD, 15));
 		txtComment.setHorizontalAlignment(SwingConstants.CENTER);
 		panel3.add(txtComment);
 		panel.add(panel3);
@@ -109,7 +111,7 @@ public class DemoLayout extends JFrame implements ActionListener{
 		panel4.setBackground(new Color(255, 192, 203));
 		for (int i = 0; i < 10; i++) {
 			JButton btn = new JButton(String.valueOf(i));
-			btn.setSize(50, 50);
+			btn.setFont(new Font("SansSerif", Font.PLAIN, 30));
 			panel4.add(btn);
 		}
 		panel.add(panel4);
