@@ -79,7 +79,7 @@ public class JSlide extends JFrame implements ActionListener{
 	}
 	private void set() {
 		textField.setText(String.valueOf(slider.getValue()));
-		lblAll.setFont(new Font("SansSerif", Font.PLAIN, (int)slider.getValue()));
+		lblAll.setFont(new Font("Tahoma", 1, (int)slider.getValue()));
 	}
 	
 	public static void main(String[] args) {
