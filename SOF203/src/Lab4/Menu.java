@@ -212,6 +212,11 @@ public class Menu extends JFrame {
 		toolBar.add(btnNew);
 
 		JButton btnInfo = new JButton("");
+		btnInfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				about();
+			}
+		});
 		btnInfo.setIcon(new ImageIcon(this.getClass().getResource("/images/2.png")));
 		toolBar.add(btnInfo);
 
