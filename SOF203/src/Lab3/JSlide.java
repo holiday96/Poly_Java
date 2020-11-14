@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.SwingConstants;
 
-public class JSlide extends JFrame implements ActionListener{
+public class JSlide extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
@@ -27,7 +27,7 @@ public class JSlide extends JFrame implements ActionListener{
 	public JSlide() {
 		initializer();
 	}
-	
+
 	private void initializer() {
 		setVisible(true);
 		setLocationRelativeTo(null);
@@ -39,7 +39,7 @@ public class JSlide extends JFrame implements ActionListener{
 		panel.setBounds(0, 0, 434, 261);
 		getContentPane().add(panel);
 		panel.setLayout(null);
-		
+
 		slider = new JSlider();
 		slider.setValue(45);
 		slider.setMaximum(50);
@@ -49,39 +49,34 @@ public class JSlide extends JFrame implements ActionListener{
 		slider.setPaintLabels(true);
 		slider.setPaintTicks(true);
 		panel.add(slider);
-		
+
 		JLabel lblValue = new JLabel("Giá trị hiện tại");
 		lblValue.setForeground(Color.BLUE);
 		lblValue.setBounds(6, 90, 75, 16);
 		panel.add(lblValue);
-		
+
 		textField = new JTextField();
 		textField.setBounds(90, 84, 55, 28);
 		panel.add(textField);
 		textField.setColumns(2);
-		
+
 		JButton btnSet = new JButton("Set value");
 		btnSet.setBounds(159, 84, 78, 28);
 		panel.add(btnSet);
-		btnSet.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				set();
-			}
-		});
-		
+		btnSet.addActionListener(this);
+
 		lblAll = new JLabel("Font size");
 		lblAll.setVerticalAlignment(SwingConstants.TOP);
 		lblAll.setForeground(Color.BLUE);
 		lblAll.setBounds(249, 90, 179, 165);
 		panel.add(lblAll);
 	}
+
 	private void set() {
 		textField.setText(String.valueOf(slider.getValue()));
-		lblAll.setFont(new Font("Tahoma", 1, (int)slider.getValue()));
+		lblAll.setFont(new Font("Tahoma", 1, (int) slider.getValue()));
 	}
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -97,7 +92,6 @@ public class JSlide extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		set();
 	}
 }
