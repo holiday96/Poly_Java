@@ -89,6 +89,7 @@ public class Menu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		setLocationRelativeTo(null);
+		setResizable(false);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
