@@ -68,8 +68,7 @@ public class Menu extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-					Menu window = new Menu();
-					window.setVisible(true);
+					new Menu();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
