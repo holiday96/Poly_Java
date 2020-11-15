@@ -41,6 +41,9 @@ import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 
 public class Menu extends JFrame {
 
@@ -99,6 +102,7 @@ public class Menu extends JFrame {
 		menuBar.add(mnFile);
 
 		JMenuItem mntmNew = new JMenuItem("New");
+		mntmNew.setIcon(new ImageIcon(Menu.class.getResource("/images/1.png")));
 		mntmNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newSelect();
@@ -108,6 +112,7 @@ public class Menu extends JFrame {
 		mnFile.add(mntmNew);
 
 		JMenuItem mntmNewMenuItem = new JMenuItem("Open");
+		mntmNewMenuItem.setIcon(new ImageIcon(Menu.class.getResource("/images/open.png")));
 		mntmNewMenuItem.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent e) {
@@ -123,6 +128,7 @@ public class Menu extends JFrame {
 		mnFile.add(mntmNewMenuItem);
 
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Save");
+		mntmNewMenuItem_1.setIcon(new ImageIcon(Menu.class.getResource("/images/save.png")));
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				save();
@@ -204,6 +210,18 @@ public class Menu extends JFrame {
 		getContentPane().add(toolBar, BorderLayout.NORTH);
 
 		JButton btnNew = new JButton("");
+		btnNew.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnNew.setIcon(new ImageIcon(this.getClass().getResource("/images/1.png")));
+			}
+		});
+		btnNew.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				btnNew.setIcon(new ImageIcon(this.getClass().getResource("/images/1_hover.png")));
+			}
+		});
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newSelect();
@@ -213,6 +231,18 @@ public class Menu extends JFrame {
 		toolBar.add(btnNew);
 
 		JButton btnInfo = new JButton("");
+		btnInfo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnInfo.setIcon(new ImageIcon(this.getClass().getResource("/images/2.png")));
+			}
+		});
+		btnInfo.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				btnInfo.setIcon(new ImageIcon(this.getClass().getResource("/images/2_hover.png")));
+			}
+		});
 		btnInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				about();
@@ -222,6 +252,18 @@ public class Menu extends JFrame {
 		toolBar.add(btnInfo);
 
 		JButton btnExit = new JButton("");
+		btnExit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnExit.setIcon(new ImageIcon(this.getClass().getResource("/images/3.png")));
+			}
+		});
+		btnExit.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				btnExit.setIcon(new ImageIcon(this.getClass().getResource("/images/3_hover.png")));
+			}
+		});
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				exit();
