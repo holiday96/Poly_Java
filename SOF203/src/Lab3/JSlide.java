@@ -12,8 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class JSlide extends JFrame implements ActionListener {
 	/**
@@ -41,6 +43,11 @@ public class JSlide extends JFrame implements ActionListener {
 		panel.setLayout(null);
 
 		slider = new JSlider();
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				change();
+			}
+		});
 		slider.setValue(45);
 		slider.setMaximum(50);
 		slider.setBounds(6, 5, 422, 51);
@@ -55,7 +62,7 @@ public class JSlide extends JFrame implements ActionListener {
 		lblValue.setBounds(6, 90, 75, 16);
 		panel.add(lblValue);
 
-		textField = new JTextField();
+		textField = new JTextField("");
 		textField.setBounds(90, 84, 55, 28);
 		panel.add(textField);
 		textField.setColumns(2);
@@ -72,9 +79,18 @@ public class JSlide extends JFrame implements ActionListener {
 		panel.add(lblAll);
 	}
 
+	protected void change() {
+		try {
+			textField.setText(String.valueOf(slider.getValue()));
+			lblAll.setFont(new Font("Tahoma", 1, (int) slider.getValue()));
+		} catch (NullPointerException e) {
+			//
+		}
+	}
+
 	private void set() {
-		textField.setText(String.valueOf(slider.getValue()));
-		lblAll.setFont(new Font("Tahoma", 1, (int) slider.getValue()));
+		slider.setValue(Integer.parseInt(textField.getText()));
+		lblAll.setFont(new Font("Tahoma", 1, Integer.parseInt(textField.getText())));
 	}
 
 	public static void main(String[] args) {
