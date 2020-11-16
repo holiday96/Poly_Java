@@ -71,7 +71,6 @@ public class Table extends JFrame {
 	 * Create the application.
 	 */
 	public Table() {
-		setTitle("Table Demo");
 		initialize();
 	}
 
@@ -79,6 +78,7 @@ public class Table extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		setTitle("Table Demo");
 		setBounds(100, 100, 600, 320);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
