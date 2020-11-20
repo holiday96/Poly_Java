@@ -171,7 +171,7 @@ public class UserManagement extends JFrame implements ActionListener {
 		btnAdd.setIcon(new ImageIcon(this.getClass().getResource("/images/add.png")));
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				add();
+				reset();
 			}
 		});
 		btnAdd.setBounds(258, 12, 109, 28);
@@ -227,7 +227,7 @@ public class UserManagement extends JFrame implements ActionListener {
 		btnSave.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				add();
 			}
 		});
 		btnSave.setBounds(258, 114, 109, 28);
@@ -272,6 +272,14 @@ public class UserManagement extends JFrame implements ActionListener {
 		JLabel lblAdress = new JLabel("Địa chỉ:");
 		lblAdress.setBounds(40, 193, 41, 16);
 		panel.add(lblAdress);
+	}
+
+	private void reset() {
+		txtAdress.setText(null);
+		txtEmail.setText(null);
+		txtID.setText(null);
+		txtName.setText(null);
+		txtPhone.setText(null);
 	}
 
 	private void begin() {
