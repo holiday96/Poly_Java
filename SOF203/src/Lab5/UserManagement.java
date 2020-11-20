@@ -195,6 +195,8 @@ public class UserManagement extends JFrame implements ActionListener {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				delete();
+				reset();
+				list = new DAO().getListStudent();
 			}
 		});
 		btnDelete.setBounds(258, 46, 109, 28);
@@ -228,6 +230,7 @@ public class UserManagement extends JFrame implements ActionListener {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				add();
+				list = new DAO().getListStudent();
 			}
 		});
 		btnSave.setBounds(258, 114, 109, 28);
@@ -309,20 +312,25 @@ public class UserManagement extends JFrame implements ActionListener {
 	protected void update() {
 		Student snew = new Student();
 		Student salt = list.get(index);
-		snew.setMaSV(txtID.getText());
-		snew.setHoTen(txtName.getText());
-		snew.setEmail(txtEmail.getText());
-		if (rdbtnMale.isSelected()) {
-			snew.setGioiTinh(true);
-		} else if (rdbtnFemale.isSelected()) {
-			snew.setGioiTinh(false);
-		}
-		snew.setSdt(txtPhone.getText());
-		snew.setDiaChi(txtAdress.getText());
-		if (new DAO().updateStudent(snew, salt)) {
-			JOptionPane.showMessageDialog(this, "Success");
+		if (txtID.getText().isBlank()) {
+			JOptionPane.showMessageDialog(this, "Mã Sinh viên trống");
 		} else {
-			JOptionPane.showMessageDialog(this, "Failed");
+			snew.setMaSV(txtID.getText());
+			snew.setHoTen(txtName.getText());
+			snew.setEmail(txtEmail.getText());
+			if (rdbtnMale.isSelected()) {
+				snew.setGioiTinh(true);
+			} else if (rdbtnFemale.isSelected()) {
+				snew.setGioiTinh(false);
+			}
+			snew.setSdt(txtPhone.getText());
+			snew.setDiaChi(txtAdress.getText());
+			if (new DAO().updateStudent(snew, salt)) {
+				JOptionPane.showMessageDialog(this, "Success");
+				reset();
+			} else {
+				JOptionPane.showMessageDialog(this, "Failed");
+			}
 		}
 	}
 
@@ -337,21 +345,25 @@ public class UserManagement extends JFrame implements ActionListener {
 
 	private void add() {
 		Student s = new Student();
-		s.setMaSV(txtID.getText());
-		s.setHoTen(txtName.getText());
-		s.setEmail(txtEmail.getText());
-		if (rdbtnMale.isSelected()) {
-			s.setGioiTinh(true);
-		} else if (rdbtnFemale.isSelected()) {
-			s.setGioiTinh(false);
-		}
-		s.setSdt(txtPhone.getText());
-		s.setDiaChi(txtAdress.getText());
-		list.add(s);
-		if (new DAO().addStudent(s)) {
-			JOptionPane.showMessageDialog(this, "Success");
+		if (txtID.getText().isBlank()) {
+			JOptionPane.showMessageDialog(this, "Mã Sinh viên trống");
 		} else {
-			JOptionPane.showMessageDialog(this, "Failed");
+			s.setMaSV(txtID.getText());
+			s.setHoTen(txtName.getText());
+			s.setEmail(txtEmail.getText());
+			if (rdbtnMale.isSelected()) {
+				s.setGioiTinh(true);
+			} else if (rdbtnFemale.isSelected()) {
+				s.setGioiTinh(false);
+			}
+			s.setSdt(txtPhone.getText());
+			s.setDiaChi(txtAdress.getText());
+			list.add(s);
+			if (new DAO().addStudent(s)) {
+				JOptionPane.showMessageDialog(this, "Success");
+			} else {
+				JOptionPane.showMessageDialog(this, "Failed");
+			}
 		}
 	}
 
@@ -370,6 +382,6 @@ public class UserManagement extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 	}
 }
