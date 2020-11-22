@@ -76,13 +76,12 @@ public class DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return false;
 	}
 
 	public boolean updateStudent(Student snew, Student salt) {
 		String sql = "UPDATE tblSTUDENT SET MASV = ?, HOTEN = ?, EMAIL = ?, SDT = ?, GIOITINH = ?, DIACHI = ? WHERE MASV = ? AND HOTEN = ? AND EMAIL = ? AND SDT = ? AND GIOITINH = ? AND DIACHI = ?";
-		
+
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, snew.getMaSV());
@@ -91,7 +90,7 @@ public class DAO {
 			ps.setString(4, snew.getSdt());
 			ps.setBoolean(5, snew.isGioiTinh());
 			ps.setString(6, snew.getDiaChi());
-			
+
 			ps.setString(7, salt.getMaSV());
 			ps.setString(8, salt.getHoTen());
 			ps.setString(9, salt.getEmail());
@@ -102,7 +101,6 @@ public class DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return false;
 	}
 }
