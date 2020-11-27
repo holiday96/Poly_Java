@@ -73,7 +73,7 @@ public class UserManagement extends JFrame implements ActionListener {
 			list = new DAO().getListStudent();
 			showInfo(index);
 		} catch (IndexOutOfBoundsException e) {
-
+			e.printStackTrace();
 		}
 	}
 
