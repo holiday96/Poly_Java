@@ -7,9 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,15 +27,8 @@ public class Server2 extends JFrame {
 	private static final long serialVersionUID = 4057052925023622738L;
 	private JTextField txtPort;
 	private JTextField txtSend;
-	private JTextArea textArea;
-
-	public JTextArea getTextArea() {
-		return textArea;
-	}
-
-	public void setTextArea(JTextArea textArea) {
-		this.textArea = textArea;
-	}
+	private static JTextArea textArea;
+	private JButton btnStart;
 
 	private ServerSocket ss;
 	private Socket socket;
@@ -85,7 +78,7 @@ public class Server2 extends JFrame {
 		getContentPane().add(txtPort);
 		txtPort.setColumns(10);
 
-		JButton btnStart = new JButton("Start");
+		btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				start();
@@ -124,12 +117,9 @@ public class Server2 extends JFrame {
 
 	protected void send() {
 		try {
-			is = new DataInputStream(socket.getInputStream());
-			os = new DataOutputStream(socket.getOutputStream());
-			os.writeChars(txtSend.getText());
-			
-			String mess = String.valueOf(is.readLine());
-			textArea.setText(textArea.getText() + "\n" + mess);
+			convertStringToOut(os, txtSend.getText());
+
+			txtSend.setText(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -141,8 +131,52 @@ public class Server2 extends JFrame {
 			System.out.println("Port: " + ss.getLocalPort() + "\nServer is connecting....");
 			socket = ss.accept();
 			System.out.println("Server is connect to Port " + ss.getLocalPort());
+			btnStart.setEnabled(false);
+			is = new DataInputStream(socket.getInputStream());
+			os = new DataOutputStream(socket.getOutputStream());
+
+			while (true) {
+				System.out.println(convertInToString(is));
+				if (!convertInToString(is).isBlank()) {
+//					Client2.setTextArea(textArea.getText() + "\n" + convertInToString(is));
+					textArea.append("\n" + convertInToString(is));
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private String convertInToString(DataInputStream in) {
+		int length;
+		String str = "";
+		try {
+			length = in.readInt();
+			byte[] data = new byte[length];
+			in.readFully(data);
+			str = new String(data, "UTF-8");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return str;
+	}
+
+	private void convertStringToOut(DataOutputStream out, String str) {
+		byte[] data;
+		try {
+			data = str.getBytes("UTF-8");
+			out.writeInt(data.length);
+			out.write(data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String getTextArea() {
+		return textArea.getText();
+	}
+
+	public static void setTextArea(String str) {
+		textArea.setText(str);
 	}
 }

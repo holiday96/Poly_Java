@@ -7,8 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,7 +26,8 @@ public class Client2 extends JFrame {
 	private static final long serialVersionUID = 5734856716696550436L;
 	private JTextField txtPort;
 	private JTextField txtSend;
-	private JTextArea textArea;
+	private static JTextArea textArea;
+	private JButton btnConnect;
 
 	private Socket socket;
 	private DataInputStream is;
@@ -46,14 +47,6 @@ public class Client2 extends JFrame {
 				}
 			}
 		});
-	}
-
-	public JTextArea getTextArea() {
-		return textArea;
-	}
-
-	public void setTextArea(JTextArea textArea) {
-		this.textArea = textArea;
 	}
 
 	/**
@@ -83,7 +76,7 @@ public class Client2 extends JFrame {
 		txtPort.setBounds(74, 6, 122, 28);
 		getContentPane().add(txtPort);
 
-		JButton btnConnect = new JButton("Connect");
+		btnConnect = new JButton("Connect");
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				connect();
@@ -122,12 +115,9 @@ public class Client2 extends JFrame {
 
 	protected void send() {
 		try {
-			os = new DataOutputStream(socket.getOutputStream());
-			is = new DataInputStream(socket.getInputStream());
-			os.writeChars(txtSend.getText());
+			convertStringToOut(os, txtSend.getText());
 
-			String mess = String.valueOf(is.readLine());
-			textArea.setText(textArea.getText() + "\n" + mess);
+			txtSend.setText(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -138,9 +128,53 @@ public class Client2 extends JFrame {
 			socket = new Socket("localhost", Integer.parseInt(txtPort.getText()));
 			System.out.println("Port: " + socket.getLocalPort() + "\nClient is connecting...");
 			System.out.println("Client is connect to Port " + socket.getLocalPort());
+			btnConnect.setEnabled(false);
+			os = new DataOutputStream(socket.getOutputStream());
+			is = new DataInputStream(socket.getInputStream());
+
+			while (true) {
+				System.out.println(convertInToString(is));
+				if (!convertInToString(is).isBlank()) {
+//			Server2.setTextArea(textArea.getText() + "\n" + convertInToString(is));
+					textArea.append("\n" + convertInToString(is));
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private String convertInToString(DataInputStream in) {
+		int length;
+		String str = "";
+		try {
+			length = in.readInt();
+			byte[] data = new byte[length];
+			in.readFully(data);
+			str = new String(data, "UTF-8");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return str;
+	}
+
+	private void convertStringToOut(DataOutputStream out, String str) {
+		byte[] data;
+		try {
+			data = str.getBytes("UTF-8");
+			out.writeInt(data.length);
+			out.write(data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String getTextArea() {
+		return textArea.getText();
+	}
+
+	public static void setTextArea(String str) {
+		textArea.setText(str);
 	}
 
 }
