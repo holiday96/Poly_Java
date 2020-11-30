@@ -46,7 +46,7 @@ public class StudentDAO {
 	}
 
 	public void loadComboBoxStandard(JComboBox<String> cboStandard, JComboBox<Integer> cboFees) {
-		String sql = "SELECT STAN FROM STANDARDS";
+		String sql = "SELECT*FROM STANDARDS";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
@@ -73,6 +73,39 @@ public class StudentDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return false;
+	}
+
+	public boolean updateStudent(int id, Student s) {
+		String sql = "UPDATE STUDENT SET SNAME = ?, SADDRESS = ?, PARENTNAME = ?, PHONE = ?, STAN = ? WHERE ID = ?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, s.getName());
+			ps.setString(2, s.getAddress());
+			ps.setString(3, s.getParentName());
+			ps.setString(4, s.getPhone());
+			ps.setString(5, s.getStan());
+			ps.setInt(6, id);
+
+			return ps.executeUpdate() > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	public boolean deleteStudent(int id) {
+		String sql = "DELETE STUDENT WHERE ID = ?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			
+			return ps.executeUpdate() > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return false;
 	}
 }

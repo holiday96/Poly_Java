@@ -1,26 +1,25 @@
 package Lab6;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 public class StudentInformation extends JFrame {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1059403393966735639L;
 	private JTable table;
 	private JTextField txtName;
@@ -31,6 +30,13 @@ public class StudentInformation extends JFrame {
 	private JComboBox<String> cboStandard;
 	private JComboBox<Integer> cboFees;
 	private String column[] = { "Name", "Standard" };
+	private JButton btnNew;
+	private JButton btnInsert;
+	private JButton btnNext;
+	private JButton btnPrevious;
+	private JButton btnEdit;
+	private JButton btnUpdate;
+	private JButton btnDelete;
 
 	private ArrayList<Student> list;
 	private int index;
@@ -58,6 +64,7 @@ public class StudentInformation extends JFrame {
 		initialize();
 
 		index = 0;
+		btnPrevious.setEnabled(false);
 		try {
 			list = new StudentDAO().getListStudent();
 		} catch (Exception e) {
@@ -65,6 +72,10 @@ public class StudentInformation extends JFrame {
 		}
 		new StudentDAO().loadComboBoxStandard(cboStandard, cboFees);
 		fillToTable();
+		
+		table.setRowSelectionInterval(index, index);
+		disableInput();
+		showDetail();
 	}
 
 	/**
@@ -83,6 +94,15 @@ public class StudentInformation extends JFrame {
 		getContentPane().add(scrollPane);
 
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				disableInput();
+				index = table.getSelectedRow();
+				showDetail();
+				setEnabledPrevNext();
+			}
+		});
 		scrollPane.setViewportView(table);
 		model = new DefaultTableModel(column, 0);
 		table.setModel(model);
@@ -111,14 +131,24 @@ public class StudentInformation extends JFrame {
 
 		txtContact = new JTextField();
 		txtContact.setColumns(10);
-		txtContact.setBounds(350, 131, 77, 28);
+		txtContact.setBounds(350, 131, 112, 28);
 		getContentPane().add(txtContact);
 
 		cboStandard = new JComboBox<String>();
+		cboStandard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				standardSelected();
+			}
+		});
 		cboStandard.setBounds(350, 164, 157, 26);
 		getContentPane().add(cboStandard);
 
 		cboFees = new JComboBox<Integer>();
+		cboFees.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				feesSelected();
+			}
+		});
 		cboFees.setBounds(350, 195, 157, 26);
 		getContentPane().add(cboFees);
 
@@ -138,7 +168,7 @@ public class StudentInformation extends JFrame {
 		lblFees.setBounds(311, 200, 34, 16);
 		getContentPane().add(lblFees);
 
-		JButton btnNew = new JButton("New");
+		btnNew = new JButton("New");
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newClicked();
@@ -147,7 +177,7 @@ public class StudentInformation extends JFrame {
 		btnNew.setBounds(274, 224, 76, 28);
 		getContentPane().add(btnNew);
 
-		JButton btnInsert = new JButton("Insert");
+		btnInsert = new JButton("Insert");
 		btnInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				insertClicked();
@@ -156,25 +186,25 @@ public class StudentInformation extends JFrame {
 		btnInsert.setBounds(351, 224, 76, 28);
 		getContentPane().add(btnInsert);
 
-		JButton btnNext = new JButton("Next");
+		btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nextClicked();
 			}
 		});
-		btnNext.setBounds(274, 258, 76, 28);
+		btnNext.setBounds(351, 258, 76, 28);
 		getContentPane().add(btnNext);
 
-		JButton btnPrevious = new JButton("Previous");
+		btnPrevious = new JButton("Previous");
 		btnPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				previousClicked();
 			}
 		});
-		btnPrevious.setBounds(351, 258, 76, 28);
+		btnPrevious.setBounds(274, 258, 76, 28);
 		getContentPane().add(btnPrevious);
 
-		JButton btnEdit = new JButton("Edit");
+		btnEdit = new JButton("Edit");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				editClicked();
@@ -183,7 +213,7 @@ public class StudentInformation extends JFrame {
 		btnEdit.setBounds(428, 224, 76, 28);
 		getContentPane().add(btnEdit);
 
-		JButton btnUpdate = new JButton("Update");
+		btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateClicked();
@@ -192,7 +222,7 @@ public class StudentInformation extends JFrame {
 		btnUpdate.setBounds(505, 224, 76, 28);
 		getContentPane().add(btnUpdate);
 
-		JButton btnDelete = new JButton("Delete");
+		btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				deleteClicked();
@@ -211,35 +241,108 @@ public class StudentInformation extends JFrame {
 		getContentPane().add(btnExit);
 	}
 
-	protected void exitClicked() {
+	private void feesSelected() {
+		if (cboFees.getSelectedIndex() != 0) {
+			cboStandard.setSelectedIndex(cboFees.getSelectedIndex());
+		}
+	}
+
+	private void standardSelected() {
+		if (cboStandard.getSelectedIndex() != 0) {
+			cboFees.setSelectedIndex(cboStandard.getSelectedIndex());
+		}
+	}
+
+	private void exitClicked() {
 		System.exit(0);
 	}
 
-	protected void deleteClicked() {
-
+	private void deleteClicked() {
+		if (new StudentDAO().deleteStudent(list.get(index).getId())) {
+			JOptionPane.showMessageDialog(this, "Xoá thành công");
+		} else {
+			JOptionPane.showMessageDialog(this, "Xoá thất bại", "Failed", JOptionPane.ERROR_MESSAGE);
+		}
+		fillToTable();
 	}
 
-	protected void updateClicked() {
-		// TODO Auto-generated method stub
+	private void updateClicked() {
+		if (validated()) {
+			Student s = new Student();
+			s.setName(txtName.getText());
+			s.setAddress(txtAddress.getText());
+			s.setParentName(txtParentName.getText());
+			s.setPhone(txtContact.getText());
+			s.setStan((String) cboStandard.getSelectedItem());
 
+			if (new StudentDAO().updateStudent(list.get(index).getId(), s)) {
+				JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+			} else {
+				JOptionPane.showMessageDialog(this, "Cập nhật thất bại", "Failed!", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		fillToTable();
+		disableInput();
 	}
 
-	protected void editClicked() {
-		// TODO Auto-generated method stub
-
+	private void editClicked() {
+		enableInput();
+		btnInsert.setEnabled(false);
 	}
 
-	protected void previousClicked() {
-		// TODO Auto-generated method stub
-
+	private void setEnabledPrevNext() {
+		if (index == 0) {
+			btnPrevious.setEnabled(false);
+			btnNext.setEnabled(true);
+		} else if (index == list.size() - 1) {
+			btnPrevious.setEnabled(true);
+			btnNext.setEnabled(false);
+		} else {
+			btnPrevious.setEnabled(true);
+			btnNext.setEnabled(true);
+		}
 	}
 
-	protected void nextClicked() {
-		// TODO Auto-generated method stub
-
+	private void previousClicked() {
+		disableInput();
+		if (index != 0) {
+			index--;
+			table.setRowSelectionInterval(index, index);
+			showDetail();
+		}
+		setEnabledPrevNext();
 	}
 
-	protected void insertClicked() {
+	private void nextClicked() {
+		disableInput();
+		if (index != list.size() - 1) {
+			index++;
+			table.setRowSelectionInterval(index, index);
+			showDetail();
+		}
+		setEnabledPrevNext();
+	}
+
+	private void insertClicked() {
+		if (validated()) {
+			Student s = new Student();
+			s.setName(txtName.getText());
+			s.setAddress(txtAddress.getText());
+			s.setParentName(txtParentName.getText());
+			s.setPhone(txtContact.getText());
+			s.setStan((String) cboStandard.getSelectedItem());
+
+			if (new StudentDAO().addStudent(s)) {
+				JOptionPane.showMessageDialog(this, "Thêm thành công");
+			} else {
+				JOptionPane.showMessageDialog(this, "Thêm thất bại", "Failed!", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		fillToTable();
+		disableInput();
+	}
+
+	private boolean validated() {
 		StringBuilder sb = new StringBuilder();
 		if (txtName.getText().isBlank()) {
 			sb.append("\nTên trống");
@@ -254,35 +357,62 @@ public class StudentInformation extends JFrame {
 		if (txtContact.getText().isBlank()) {
 			sb.append("\nSố liên lạc trống");
 		}
-		Student s = new Student();
-		s.setName(txtName.getText());
-		s.setAddress(txtAddress.getText());
-		s.setParentName(txtParentName.getText());
-		s.setPhone(txtContact.getText());
-		s.setStan((String) cboStandard.getSelectedItem());
-
-		if (sb.length() == 0) {
-			if (new StudentDAO().addStudent(s)) {
-				JOptionPane.showMessageDialog(this, "Thêm thành công");
-			}
-		} else {
+		if (sb.length() != 0) {
 			JOptionPane.showMessageDialog(this, sb);
+			return false;
 		}
+		return true;
 	}
 
-	protected void newClicked() {
+	private void newClicked() {
+		enableInput();
 		txtName.setText(null);
 		txtContact.setText(null);
 		txtParentName.setText(null);
 		txtAddress.setText(null);
 		cboFees.setSelectedIndex(0);
 		cboStandard.setSelectedIndex(0);
+		btnNext.setEnabled(true);
+		btnPrevious.setEnabled(true);
+		btnUpdate.setEnabled(false);
+		table.clearSelection();
 	}
 
 	private void fillToTable() {
 		model.setRowCount(0);
+		list = new StudentDAO().getListStudent();
 		for (Student s : list) {
 			model.addRow(new Object[] { s.getName(), s.getStan() });
 		}
+	}
+
+	private void showDetail() {
+		txtName.setText(list.get(index).getName());
+		txtAddress.setText(list.get(index).getAddress());
+		txtContact.setText(list.get(index).getPhone());
+		txtParentName.setText(list.get(index).getParentName());
+		cboStandard.setSelectedItem(list.get(index).getStan());
+	}
+
+	private void disableInput() {
+		txtName.setEnabled(false);
+		txtContact.setEnabled(false);
+		txtParentName.setEnabled(false);
+		txtAddress.setEnabled(false);
+		cboFees.setEnabled(false);
+		cboStandard.setEnabled(false);
+		btnInsert.setEnabled(false);
+		btnUpdate.setEnabled(false);
+	}
+
+	private void enableInput() {
+		txtName.setEnabled(true);
+		txtContact.setEnabled(true);
+		txtParentName.setEnabled(true);
+		txtAddress.setEnabled(true);
+		cboFees.setEnabled(true);
+		cboStandard.setEnabled(true);
+		btnInsert.setEnabled(true);
+		btnUpdate.setEnabled(true);
 	}
 }
