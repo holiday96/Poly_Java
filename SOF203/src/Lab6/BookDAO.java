@@ -19,10 +19,6 @@ public class BookDAO {
 		}
 	}
 
-	public static void main(String[] args) {
-		new BookDAO();
-	}
-
 	public ArrayList<Book> getListBook() {
 		ArrayList<Book> list = new ArrayList<>();
 		String sql = "SELECT*FROM BOOK";

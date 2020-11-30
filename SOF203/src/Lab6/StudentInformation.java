@@ -4,17 +4,20 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
-public class BookInformationV2 extends JFrame{
+public class StudentInformation extends JFrame {
 	/**
 	 * 
 	 */
@@ -23,6 +26,14 @@ public class BookInformationV2 extends JFrame{
 	private JTextField txtName;
 	private JTextField txtParentName;
 	private JTextField txtContact;
+	private JTextArea txtAddress;
+	private DefaultTableModel model;
+	private JComboBox<String> cboStandard;
+	private JComboBox<Integer> cboFees;
+	private String column[] = { "Name", "Standard" };
+
+	private ArrayList<Student> list;
+	private int index;
 
 	/**
 	 * Launch the application.
@@ -32,7 +43,7 @@ public class BookInformationV2 extends JFrame{
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-					new BookInformationV2();
+					new StudentInformation();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,9 +54,19 @@ public class BookInformationV2 extends JFrame{
 	/**
 	 * Create the application.
 	 */
-	public BookInformationV2() {
+	public StudentInformation() {
 		initialize();
+
+		index = 0;
+		try {
+			list = new StudentDAO().getListStudent();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		new StudentDAO().loadComboBoxStandard(cboStandard, cboFees);
+		fillToTable();
 	}
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -54,67 +75,69 @@ public class BookInformationV2 extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(true);
-		setTitle("Book Information Ver 2.0");
+		setTitle("Student Information Ver 2.0");
 		getContentPane().setLayout(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(6, 6, 256, 299);
 		getContentPane().add(scrollPane);
-		
+
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		
+		model = new DefaultTableModel(column, 0);
+		table.setModel(model);
+
 		JLabel lblName = new JLabel("Name");
 		lblName.setBounds(305, 12, 40, 16);
 		getContentPane().add(lblName);
-		
+
 		txtName = new JTextField();
 		txtName.setBounds(350, 6, 231, 28);
 		getContentPane().add(txtName);
 		txtName.setColumns(10);
-		
+
 		JLabel lblAddress = new JLabel("Address");
 		lblAddress.setBounds(293, 41, 52, 16);
 		getContentPane().add(lblAddress);
-		
-		JTextArea txtAddress = new JTextArea();
+
+		txtAddress = new JTextArea();
 		txtAddress.setBounds(350, 35, 231, 67);
 		getContentPane().add(txtAddress);
-		
+
 		txtParentName = new JTextField();
 		txtParentName.setBounds(350, 102, 231, 28);
 		getContentPane().add(txtParentName);
 		txtParentName.setColumns(10);
-		
+
 		txtContact = new JTextField();
 		txtContact.setColumns(10);
 		txtContact.setBounds(350, 131, 77, 28);
 		getContentPane().add(txtContact);
-		
-		JComboBox cboStandard = new JComboBox();
+
+		cboStandard = new JComboBox<String>();
 		cboStandard.setBounds(350, 164, 157, 26);
 		getContentPane().add(cboStandard);
-		
-		JComboBox cboFees = new JComboBox();
+
+		cboFees = new JComboBox<Integer>();
 		cboFees.setBounds(350, 195, 157, 26);
 		getContentPane().add(cboFees);
-		
+
 		JLabel lblParentName = new JLabel("Parent Name");
 		lblParentName.setBounds(266, 108, 79, 16);
 		getContentPane().add(lblParentName);
-		
+
 		JLabel lblContact = new JLabel("Contact No.");
 		lblContact.setBounds(274, 137, 71, 16);
 		getContentPane().add(lblContact);
-		
+
 		JLabel lblStandard = new JLabel("Standard");
 		lblStandard.setBounds(288, 169, 57, 16);
 		getContentPane().add(lblStandard);
-		
+
 		JLabel lblFees = new JLabel("Fees");
 		lblFees.setBounds(311, 200, 34, 16);
 		getContentPane().add(lblFees);
-		
+
 		JButton btnNew = new JButton("New");
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -123,7 +146,7 @@ public class BookInformationV2 extends JFrame{
 		});
 		btnNew.setBounds(274, 224, 76, 28);
 		getContentPane().add(btnNew);
-		
+
 		JButton btnInsert = new JButton("Insert");
 		btnInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -132,7 +155,7 @@ public class BookInformationV2 extends JFrame{
 		});
 		btnInsert.setBounds(351, 224, 76, 28);
 		getContentPane().add(btnInsert);
-		
+
 		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -141,7 +164,7 @@ public class BookInformationV2 extends JFrame{
 		});
 		btnNext.setBounds(274, 258, 76, 28);
 		getContentPane().add(btnNext);
-		
+
 		JButton btnPrevious = new JButton("Previous");
 		btnPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -150,7 +173,7 @@ public class BookInformationV2 extends JFrame{
 		});
 		btnPrevious.setBounds(351, 258, 76, 28);
 		getContentPane().add(btnPrevious);
-		
+
 		JButton btnEdit = new JButton("Edit");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -159,7 +182,7 @@ public class BookInformationV2 extends JFrame{
 		});
 		btnEdit.setBounds(428, 224, 76, 28);
 		getContentPane().add(btnEdit);
-		
+
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -168,7 +191,7 @@ public class BookInformationV2 extends JFrame{
 		});
 		btnUpdate.setBounds(505, 224, 76, 28);
 		getContentPane().add(btnUpdate);
-		
+
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -177,7 +200,7 @@ public class BookInformationV2 extends JFrame{
 		});
 		btnDelete.setBounds(428, 258, 76, 28);
 		getContentPane().add(btnDelete);
-		
+
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -187,44 +210,79 @@ public class BookInformationV2 extends JFrame{
 		btnExit.setBounds(505, 258, 76, 28);
 		getContentPane().add(btnExit);
 	}
-	
+
 	protected void exitClicked() {
-		// TODO Auto-generated method stub
-		
+		System.exit(0);
 	}
 
 	protected void deleteClicked() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	protected void updateClicked() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	protected void editClicked() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	protected void previousClicked() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	protected void nextClicked() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	protected void insertClicked() {
-		// TODO Auto-generated method stub
-		
+		StringBuilder sb = new StringBuilder();
+		if (txtName.getText().isBlank()) {
+			sb.append("\nTên trống");
+			txtName.requestFocus();
+		}
+		if (txtAddress.getText().isBlank()) {
+			sb.append("\nĐịa chỉ trống");
+		}
+		if (txtParentName.getText().isBlank()) {
+			sb.append("\nHọ tên cha/mẹ trống");
+		}
+		if (txtContact.getText().isBlank()) {
+			sb.append("\nSố liên lạc trống");
+		}
+		Student s = new Student();
+		s.setName(txtName.getText());
+		s.setAddress(txtAddress.getText());
+		s.setParentName(txtParentName.getText());
+		s.setPhone(txtContact.getText());
+		s.setStan((String) cboStandard.getSelectedItem());
+
+		if (sb.length() == 0) {
+			if (new StudentDAO().addStudent(s)) {
+				JOptionPane.showMessageDialog(this, "Thêm thành công");
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, sb);
+		}
 	}
 
 	protected void newClicked() {
-		// TODO Auto-generated method stub
-		
+		txtName.setText(null);
+		txtContact.setText(null);
+		txtParentName.setText(null);
+		txtAddress.setText(null);
+		cboFees.setSelectedIndex(0);
+		cboStandard.setSelectedIndex(0);
+	}
+
+	private void fillToTable() {
+		model.setRowCount(0);
+		for (Student s : list) {
+			model.addRow(new Object[] { s.getName(), s.getStan() });
+		}
 	}
 }
