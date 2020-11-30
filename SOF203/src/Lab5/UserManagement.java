@@ -275,7 +275,7 @@ public class UserManagement extends JFrame implements ActionListener {
 		JLabel lblAdress = new JLabel("Địa chỉ:");
 		lblAdress.setBounds(40, 193, 41, 16);
 		panel.add(lblAdress);
-		
+
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -289,7 +289,15 @@ public class UserManagement extends JFrame implements ActionListener {
 	}
 
 	private void find() {
-		JOptionPane.showMessageDialog(this, new DAO().findById(JOptionPane.showInputDialog("Mã Sinh viên cần tìm: ")).toString());
+		String str = JOptionPane.showInputDialog("Mã Sinh viên cần tìm: ");
+		Student s = new DAO().findById(str);
+		if (!str.isBlank()) {
+			if (s.getMaSV() == null) {
+				JOptionPane.showMessageDialog(this, "Not found");
+			} else {
+				JOptionPane.showMessageDialog(this, s.toString());
+			}
+		}
 	}
 
 	private void reset() {
