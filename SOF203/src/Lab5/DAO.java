@@ -104,7 +104,6 @@ public class DAO {
 		return false;
 	}
 
-<<<<<<< HEAD
 	public Student findById(String id) {
 		Student s = new Student();
 		String sql = "SELECT*FROM tblSTUDENT WHERE MASV = ?";
@@ -126,10 +125,4 @@ public class DAO {
 		}
 		return s;
 	}
-=======
-//	public ArrayList<Student> findStudent(){
-//		ArrayList<Student> list = new ArrayList<Student>();
-//		return list
-//	}
->>>>>>> branch 'master' of https://github.com/holiday96/Poly_SOF203_Fall2020_Java3.git
 }
