@@ -65,7 +65,7 @@ public class BookInformationV2 extends JFrame{
 		scrollPane.setViewportView(table);
 		
 		JLabel lblName = new JLabel("Name");
-		lblName.setBounds(305, 12, 33, 16);
+		lblName.setBounds(305, 12, 40, 16);
 		getContentPane().add(lblName);
 		
 		txtName = new JTextField();
@@ -74,7 +74,7 @@ public class BookInformationV2 extends JFrame{
 		txtName.setColumns(10);
 		
 		JLabel lblAddress = new JLabel("Address");
-		lblAddress.setBounds(293, 41, 45, 16);
+		lblAddress.setBounds(293, 41, 52, 16);
 		getContentPane().add(lblAddress);
 		
 		JTextArea txtAddress = new JTextArea();
@@ -100,19 +100,19 @@ public class BookInformationV2 extends JFrame{
 		getContentPane().add(cboFees);
 		
 		JLabel lblParentName = new JLabel("Parent Name");
-		lblParentName.setBounds(266, 108, 72, 16);
+		lblParentName.setBounds(266, 108, 79, 16);
 		getContentPane().add(lblParentName);
 		
 		JLabel lblContact = new JLabel("Contact No.");
-		lblContact.setBounds(274, 137, 64, 16);
+		lblContact.setBounds(274, 137, 71, 16);
 		getContentPane().add(lblContact);
 		
 		JLabel lblStandard = new JLabel("Standard");
-		lblStandard.setBounds(288, 169, 50, 16);
+		lblStandard.setBounds(288, 169, 57, 16);
 		getContentPane().add(lblStandard);
 		
 		JLabel lblFees = new JLabel("Fees");
-		lblFees.setBounds(311, 200, 27, 16);
+		lblFees.setBounds(311, 200, 34, 16);
 		getContentPane().add(lblFees);
 		
 		JButton btnNew = new JButton("New");
