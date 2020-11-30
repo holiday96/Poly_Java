@@ -275,6 +275,21 @@ public class UserManagement extends JFrame implements ActionListener {
 		JLabel lblAdress = new JLabel("Địa chỉ:");
 		lblAdress.setBounds(40, 193, 41, 16);
 		panel.add(lblAdress);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				find();
+			}
+		});
+		btnNewButton.setToolTipText("Find by id student");
+		btnNewButton.setIcon(new ImageIcon(UserManagement.class.getResource("/images/2.png")));
+		btnNewButton.setBounds(40, 216, 43, 43);
+		panel.add(btnNewButton);
+	}
+
+	private void find() {
+		JOptionPane.showMessageDialog(this, new DAO().findById(JOptionPane.showInputDialog("Mã Sinh viên cần tìm: ")).toString());
 	}
 
 	private void reset() {

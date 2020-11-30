@@ -7,7 +7,7 @@ public class Student {
 	private String sdt;
 	private boolean gioiTinh;
 	private String diaChi;
-	
+
 	public Student() {
 		super();
 	}
@@ -58,5 +58,11 @@ public class Student {
 
 	public void setDiaChi(String diaChi) {
 		this.diaChi = diaChi;
+	}
+
+	@Override
+	public String toString() {
+		return "Student\n\nMã sv: " + maSV + "\nHọ tên: " + hoTen + "\nEmail: " + email + "\nSĐT: " + sdt
+				+ "\nGiới tính: " + ((gioiTinh) ? "Nam" : "Nữ") + "\nĐịa chỉ: " + diaChi;
 	}
 }

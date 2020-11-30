@@ -103,4 +103,26 @@ public class DAO {
 		}
 		return false;
 	}
+
+	public Student findById(String id) {
+		Student s = new Student();
+		String sql = "SELECT*FROM tblSTUDENT WHERE MASV = ?";
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				s.setMaSV(rs.getString("MASV"));
+				s.setHoTen(rs.getString("HOTEN"));
+				s.setEmail(rs.getString("EMAIL"));
+				s.setSdt(rs.getString("SDT"));
+				s.setGioiTinh(rs.getBoolean("GIOITINH"));
+				s.setDiaChi(rs.getString("DIACHI"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
 }
