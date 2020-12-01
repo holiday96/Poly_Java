@@ -61,20 +61,25 @@ public class StudentInformation extends JFrame {
 	 * Create the application.
 	 */
 	public StudentInformation() {
+		cboStandard = new StudentDAO().loadComboBoxStandard();
+		cboFees = new StudentDAO().loadComboBoxFees();
+
 		initialize();
 
 		index = 0;
-		btnPrevious.setEnabled(false);
 		try {
 			list = new StudentDAO().getListStudent();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		new StudentDAO().loadComboBoxStandard(cboStandard, cboFees);
 		fillToTable();
-		
-		table.setRowSelectionInterval(index, index);
+
+		btnUpdate.setEnabled(false);
+		setEnabledPrevNext();
 		disableInput();
+		if (table.getRowCount() != 0) {
+			table.setRowSelectionInterval(index, index);
+		}
 		showDetail();
 	}
 
@@ -99,8 +104,8 @@ public class StudentInformation extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				disableInput();
 				index = table.getSelectedRow();
-				showDetail();
 				setEnabledPrevNext();
+				showDetail();
 			}
 		});
 		scrollPane.setViewportView(table);
@@ -134,7 +139,6 @@ public class StudentInformation extends JFrame {
 		txtContact.setBounds(350, 131, 112, 28);
 		getContentPane().add(txtContact);
 
-		cboStandard = new JComboBox<String>();
 		cboStandard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				standardSelected();
@@ -143,7 +147,6 @@ public class StudentInformation extends JFrame {
 		cboStandard.setBounds(350, 164, 157, 26);
 		getContentPane().add(cboStandard);
 
-		cboFees = new JComboBox<Integer>();
 		cboFees.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				feesSelected();
@@ -242,13 +245,13 @@ public class StudentInformation extends JFrame {
 	}
 
 	private void feesSelected() {
-		if (cboFees.getSelectedIndex() != 0) {
+		if (cboFees.getItemCount() > 0) {
 			cboStandard.setSelectedIndex(cboFees.getSelectedIndex());
 		}
 	}
 
 	private void standardSelected() {
-		if (cboStandard.getSelectedIndex() != 0) {
+		if (cboStandard.getItemCount() > 0) {
 			cboFees.setSelectedIndex(cboStandard.getSelectedIndex());
 		}
 	}
@@ -291,15 +294,22 @@ public class StudentInformation extends JFrame {
 	}
 
 	private void setEnabledPrevNext() {
-		if (index == 0) {
-			btnPrevious.setEnabled(false);
-			btnNext.setEnabled(true);
-		} else if (index == list.size() - 1) {
-			btnPrevious.setEnabled(true);
-			btnNext.setEnabled(false);
+		if (list.size() != 0) {
+			if (index == 0) {
+				btnPrevious.setEnabled(false);
+			}
+			if (index == list.size() - 1) {
+				btnNext.setEnabled(false);
+			}
+			if (index != 0) {
+				btnPrevious.setEnabled(true);
+			}
+			if (index != list.size() - 1) {
+				btnNext.setEnabled(true);
+			}
 		} else {
-			btnPrevious.setEnabled(true);
-			btnNext.setEnabled(true);
+			btnPrevious.setEnabled(false);
+			btnNext.setEnabled(false);
 		}
 	}
 
@@ -334,12 +344,13 @@ public class StudentInformation extends JFrame {
 
 			if (new StudentDAO().addStudent(s)) {
 				JOptionPane.showMessageDialog(this, "Thêm thành công");
+				fillToTable();
+				disableInput();
+				setEnabledPrevNext();
 			} else {
 				JOptionPane.showMessageDialog(this, "Thêm thất bại", "Failed!", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-		fillToTable();
-		disableInput();
 	}
 
 	private boolean validated() {
@@ -387,11 +398,13 @@ public class StudentInformation extends JFrame {
 	}
 
 	private void showDetail() {
-		txtName.setText(list.get(index).getName());
-		txtAddress.setText(list.get(index).getAddress());
-		txtContact.setText(list.get(index).getPhone());
-		txtParentName.setText(list.get(index).getParentName());
-		cboStandard.setSelectedItem(list.get(index).getStan());
+		if (list.size() != 0) {
+			txtName.setText(list.get(index).getName());
+			txtAddress.setText(list.get(index).getAddress());
+			txtContact.setText(list.get(index).getPhone());
+			txtParentName.setText(list.get(index).getParentName());
+			cboStandard.setSelectedItem(list.get(index).getStan());
+		}
 	}
 
 	private void disableInput() {

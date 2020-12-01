@@ -45,18 +45,34 @@ public class StudentDAO {
 		return list;
 	}
 
-	public void loadComboBoxStandard(JComboBox<String> cboStandard, JComboBox<Integer> cboFees) {
+	public JComboBox<String> loadComboBoxStandard() {
+		JComboBox<String> cboStandard = new JComboBox<String>();
 		String sql = "SELECT*FROM STANDARDS";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				cboStandard.addItem(rs.getString("STAN"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cboStandard;
+	}
+	
+	public JComboBox<Integer> loadComboBoxFees() {
+		JComboBox<Integer> cboFees = new JComboBox<Integer>();
+		String sql = "SELECT*FROM STANDARDS";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
 				cboFees.addItem(rs.getInt("FEES"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return cboFees;
 	}
 
 	public boolean addStudent(Student s) {
