@@ -70,26 +70,26 @@ public class BookDAO {
 
 		return false;
 	}
-	
+
 	public ArrayList<Book> searchBook(String title) {
 		ArrayList<Book> list = new ArrayList<Book>();
-		String sql = "SELECT*FROM BOOK WHERE TITLE = ?";
+		String sql = "SELECT*FROM BOOK WHERE TITLE LIKE ?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, title);
+			ps.setString(1, "%" + title + "%");
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				Book b = new Book();
 				b.setId(rs.getInt("ID"));
 				b.setTitle(rs.getString("TITLE"));
 				b.setPrice(rs.getString("PRICE"));
-				
+
 				list.add(b);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return list;
 	}
 }
