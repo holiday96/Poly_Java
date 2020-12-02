@@ -289,8 +289,12 @@ public class StudentInformation extends JFrame {
 	}
 
 	private void editClicked() {
-		enableInput();
-		btnInsert.setEnabled(false);
+		if (index >= 0) {
+			enableInput();
+			btnInsert.setEnabled(false);
+		} else {
+			JOptionPane.showMessageDialog(this, "Please select in table first");
+		}
 	}
 
 	private void setEnabledPrevNext() {
@@ -376,6 +380,7 @@ public class StudentInformation extends JFrame {
 	}
 
 	private void newClicked() {
+		index = -1;
 		enableInput();
 		txtName.setText(null);
 		txtContact.setText(null);
