@@ -1,10 +1,11 @@
 package Lab7;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -17,10 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class ChatServerForm extends JFrame {
 	private ChatMessageSocket mSocket;
@@ -39,18 +37,18 @@ public class ChatServerForm extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-					new ChatServerForm();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	// public static void main(String[] args) {
+	// 	EventQueue.invokeLater(new Runnable() {
+	// 		public void run() {
+	// 			try {
+	// 				UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+	// 				new ChatServerForm();
+	// 			} catch (Exception e) {
+	// 				e.printStackTrace();
+	// 			}
+	// 		}
+	// 	});
+	// }
 
 	/**
 	 * Create the frame.
