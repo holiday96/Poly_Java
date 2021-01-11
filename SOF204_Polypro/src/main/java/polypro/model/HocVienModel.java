@@ -1,6 +1,6 @@
 package polypro.model;
 
-public class HocVien {
+public class HocVienModel {
 	private int maHV;
 	private double diem;
 	
