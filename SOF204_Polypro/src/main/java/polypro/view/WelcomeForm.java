@@ -1,27 +1,26 @@
 package polypro.view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
-import javax.swing.JWindow;
 import javax.swing.UIManager;
 
 public class WelcomeForm extends JFrame {
 
 	private static final long serialVersionUID = -7253530192216100758L;
 	private JProgressBar progressBar;
+	private LoginForm loginForm;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-					JWindow window = new JWindow();
-					window.getContentPane().add(new WelcomeForm());
+					new WelcomeForm();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -33,7 +32,8 @@ public class WelcomeForm extends JFrame {
 	 * Create the application.
 	 */
 	public WelcomeForm() {
-		setTitle("Welcome");
+		loginForm = new LoginForm();
+		loginForm.setVisible(false);
 		initialize();
 	}
 
@@ -41,20 +41,24 @@ public class WelcomeForm extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/fpt.png")));
+		setTitle("Welcome");
 		setVisible(true);
-		setBounds(100, 100, 526, 376);
+		setBounds(100, 100, 577, 263);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
+		getContentPane().setLayout(null);
 
 		JLabel lblIcon = new JLabel("");
-		lblIcon.setIcon(
-				new ImageIcon(this.getClass().getResource("../../icon/logo.png")));
-		getContentPane().add(lblIcon, BorderLayout.CENTER);
+		lblIcon.setBounds(0, 0, 561, 193);
+		lblIcon.setIcon(new ImageIcon(this.getClass().getResource("../../icon/logo.png")));
+		getContentPane().add(lblIcon);
 
 		progressBar = new JProgressBar();
+		progressBar.setBounds(0, 196, 561, 28);
 		progressBar.setStringPainted(true);
-		getContentPane().add(progressBar, BorderLayout.SOUTH);
+		getContentPane().add(progressBar);
 		fill();
 	}
 
@@ -66,8 +70,12 @@ public class WelcomeForm extends JFrame {
 						progressBar.setValue(i);
 						sleep(10);
 					}
+					if (progressBar.getValue() == 100) {
+						setVisible(false);
+						loginForm.setVisible(true);
+					}
 				} catch (Exception e) {
-
+					e.printStackTrace();
 				}
 			}
 		};
