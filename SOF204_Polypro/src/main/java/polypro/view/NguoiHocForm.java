@@ -3,6 +3,7 @@ package polypro.view;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -56,6 +57,7 @@ public class NguoiHocForm extends JFrame{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Conference.png")));
 		setVisible(true);
 		setBounds(100, 100, 615, 540);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -81,19 +83,20 @@ public class NguoiHocForm extends JFrame{
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 6, 587, 58);
-		pnlDanhSach.add(panel);
-		panel.setBorder(new TitledBorder(null, "T\u00CCM KI\u1EBEM", TitledBorder.LEADING, TitledBorder.TOP, new Font("SansSerif", Font.BOLD, 15), new Color(51, 0, 153)));
-		panel.setLayout(null);
+		JPanel pnlFind = new JPanel();
+		pnlFind.setBounds(0, 6, 587, 63);
+		pnlDanhSach.add(pnlFind);
+		pnlFind.setBorder(new TitledBorder(null, "T\u00CCM KI\u1EBEM", TitledBorder.LEADING, TitledBorder.TOP, new Font("SansSerif", Font.BOLD, 15), new Color(51, 0, 153)));
+		pnlFind.setLayout(null);
 		
-		JTextField comboBox = new JTextField();
-		comboBox.setBounds(14, 18, 467, 26);
-		panel.add(comboBox);
+		JTextField cboFind = new JTextField();
+		cboFind.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		cboFind.setBounds(14, 18, 467, 30);
+		pnlFind.add(cboFind);
 		
-		JButton btnNewButton = new JButton("Tìm kiếm");
-		btnNewButton.setBounds(489, 17, 79, 28);
-		panel.add(btnNewButton);
+		JButton btnFind = new JButton("Tìm kiếm");
+		btnFind.setBounds(489, 17, 79, 28);
+		pnlFind.add(btnFind);
 		
 		JPanel pnlCapNhat = new JPanel();
 		tabbedPane.addTab("CẬP NHẬT", null, pnlCapNhat, null);
@@ -205,10 +208,10 @@ public class NguoiHocForm extends JFrame{
 		rdoNu.setBounds(72, 152, 49, 18);
 		pnlCapNhat.add(rdoNu);
 		
-		JLabel lblNewLabel = new JLabel("QUẢN LÝ NGƯỜI HỌC");
-		lblNewLabel.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblNewLabel.setForeground(new Color(51, 0, 153));
-		lblNewLabel.setBounds(6, 6, 160, 20);
-		getContentPane().add(lblNewLabel);
+		JLabel lblTitle = new JLabel("QUẢN LÝ NGƯỜI HỌC");
+		lblTitle.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblTitle.setForeground(new Color(51, 0, 153));
+		lblTitle.setBounds(6, 6, 160, 20);
+		getContentPane().add(lblTitle);
 	}
 }

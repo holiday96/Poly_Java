@@ -3,9 +3,11 @@ package polypro.view;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -30,6 +32,7 @@ public class ChuyenDeForm extends JFrame {
 	private JTextField txtTenCD;
 	private JTextField txtThoiLuong;
 	private JTextField txtHocPhi;
+	private JLabel lblLogo;
 	private String hinh;
 
 	public static void main(String[] args) {
@@ -56,6 +59,7 @@ public class ChuyenDeForm extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Lists.png")));
 		setVisible(true);
 		setBounds(100, 100, 620, 492);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -85,6 +89,7 @@ public class ChuyenDeForm extends JFrame {
 		lypDanhSach.add(scrollPane);
 		tblDanhSach = new JTable(model);
 		scrollPane.setViewportView(tblDanhSach);
+		tblDanhSach.getColumnModel().getColumn(0).setMaxWidth(70);
 
 		JLayeredPane lypCapNhat = new JLayeredPane();
 		tabbedPane.addTab("CẬP NHẬT", null, lypCapNhat, null);
@@ -93,7 +98,7 @@ public class ChuyenDeForm extends JFrame {
 		lblTitleLogo.setBounds(6, 6, 57, 16);
 		lypCapNhat.add(lblTitleLogo);
 
-		JLabel lblLogo = new JLabel("");
+		lblLogo = new JLabel("");
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -187,7 +192,9 @@ public class ChuyenDeForm extends JFrame {
 		fileChooser = new JFileChooser();
 		int result = fileChooser.showOpenDialog(this);
 		if (result == JFileChooser.APPROVE_OPTION) {
+			lblLogo.setIcon(new ImageIcon(this.getClass().getResource(fileChooser.getSelectedFile().getAbsolutePath())));
 			hinh = fileChooser.getSelectedFile().getAbsolutePath();
+			System.out.println(hinh);
 		}
 	}
 }

@@ -49,7 +49,7 @@ public class LoginForm extends JFrame{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/fpt.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Shield.png")));
 		setVisible(true);
 		setBounds(100, 100, 400, 250);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -143,6 +143,4 @@ public class LoginForm extends JFrame{
 			login();
 		}
 	}
-	
-	
 }

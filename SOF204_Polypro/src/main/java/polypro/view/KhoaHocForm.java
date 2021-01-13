@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
@@ -56,6 +58,7 @@ public class KhoaHocForm extends JFrame{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Certificate.png")));
 		setVisible(true);
 		setBounds(100, 100, 615, 440);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -71,7 +74,7 @@ public class KhoaHocForm extends JFrame{
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<Object> comboBox = new JComboBox<Object>();
 		comboBox.setBounds(14, 18, 554, 26);
 		panel.add(comboBox);
 		

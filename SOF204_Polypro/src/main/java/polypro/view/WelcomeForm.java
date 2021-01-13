@@ -1,5 +1,6 @@
 package polypro.view;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 
@@ -48,17 +49,15 @@ public class WelcomeForm extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		getContentPane().setLayout(null);
+		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JLabel lblIcon = new JLabel("");
-		lblIcon.setBounds(0, 0, 561, 193);
 		lblIcon.setIcon(new ImageIcon(this.getClass().getResource("../../icon/logo.png")));
-		getContentPane().add(lblIcon);
+		getContentPane().add(lblIcon, BorderLayout.CENTER);
 
 		progressBar = new JProgressBar();
-		progressBar.setBounds(0, 196, 561, 28);
 		progressBar.setStringPainted(true);
-		getContentPane().add(progressBar);
+		getContentPane().add(progressBar, BorderLayout.SOUTH);
 		fill();
 	}
 

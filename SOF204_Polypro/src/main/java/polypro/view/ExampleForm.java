@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
-public class LoginForm5 extends JFrame{
+public class ExampleForm extends JFrame{
 
 	private static final long serialVersionUID = -4913935832695327558L;
 
@@ -14,7 +14,7 @@ public class LoginForm5 extends JFrame{
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-					new LoginForm5();
+					new ExampleForm();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -25,7 +25,7 @@ public class LoginForm5 extends JFrame{
 	/**
 	 * Create the application.
 	 */
-	public LoginForm5() {
+	public ExampleForm() {
 		initialize();
 	}
 

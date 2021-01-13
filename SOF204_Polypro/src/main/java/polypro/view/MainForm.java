@@ -89,6 +89,11 @@ public class MainForm extends JFrame {
 		mnSystem.add(new JSeparator());
 
 		JMenuItem mntmChangePassword = new JMenuItem("Đổi mật khẩu");
+		mntmChangePassword.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changePassword();
+			}
+		});
 		mnSystem.add(mntmChangePassword);
 		mntmChangePassword.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Refresh.png")));
 
@@ -138,6 +143,11 @@ public class MainForm extends JFrame {
 		mntmNguoiHoc.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Conference.png")));
 
 		JMenuItem mntmHocVien = new JMenuItem("Học viên");
+		mntmHocVien.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				hocVien();
+			}
+		});
 		mntmHocVien.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.CTRL_MASK));
 		mnManagement.add(mntmHocVien);
 		mntmHocVien.setIcon(new ImageIcon(this.getClass().getResource("../../icon/User.png")));
@@ -145,6 +155,11 @@ public class MainForm extends JFrame {
 		mnManagement.add(new JSeparator());
 
 		JMenuItem mntmNhanVien = new JMenuItem("Nhân viên");
+		mntmNhanVien.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nhanVien();
+			}
+		});
 		mntmNhanVien.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, InputEvent.CTRL_MASK));
 		mnManagement.add(mntmNhanVien);
 		mntmNhanVien.setIcon(new ImageIcon(this.getClass().getResource("../../icon/User group.png")));
@@ -153,6 +168,11 @@ public class MainForm extends JFrame {
 		menuBar.add(mnStatistics);
 
 		JMenuItem mntmBangDiem = new JMenuItem("Bảng điểm");
+		mntmBangDiem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				bangDiem();
+			}
+		});
 		mntmBangDiem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, InputEvent.SHIFT_MASK));
 		mnStatistics.add(mntmBangDiem);
 		mntmBangDiem.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Card file.png")));
@@ -161,16 +181,31 @@ public class MainForm extends JFrame {
 		mnStatistics.add(separator);
 
 		JMenuItem mntmLuongNguoiHoc = new JMenuItem("Lượng người học");
+		mntmLuongNguoiHoc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				luongNguoiHoc();
+			}
+		});
 		mntmLuongNguoiHoc.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, InputEvent.SHIFT_MASK));
 		mnStatistics.add(mntmLuongNguoiHoc);
 		mntmLuongNguoiHoc.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Clien list.png")));
 
 		JMenuItem mntmDiemChuyenDe = new JMenuItem("Điểm chuyên đề");
+		mntmDiemChuyenDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				diemChuyenDe();
+			}
+		});
 		mntmDiemChuyenDe.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, InputEvent.SHIFT_MASK));
 		mnStatistics.add(mntmDiemChuyenDe);
 		mntmDiemChuyenDe.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Bar chart.png")));
 
 		JMenuItem mntmDoanhThu = new JMenuItem("Doanh thu");
+		mntmDoanhThu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				doanhThu();
+			}
+		});
 		mntmDoanhThu.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.SHIFT_MASK));
 		mnStatistics.add(mntmDoanhThu);
 		mntmDoanhThu.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Dollar.png")));
@@ -210,6 +245,9 @@ public class MainForm extends JFrame {
 				exit();
 			}
 		});
+		
+		Component horizontalStrut_3 = Box.createHorizontalStrut(5);
+		toolBar.add(horizontalStrut_3);
 		toolBar.add(btnExit);
 		btnExit.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Stop.png")));
 		btnExit.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -235,6 +273,9 @@ public class MainForm extends JFrame {
 				nguoiHoc();
 			}
 		});
+		
+		Component horizontalStrut_3_1 = Box.createHorizontalStrut(5);
+		toolBar.add(horizontalStrut_3_1);
 		toolBar.add(btnNguoiHoc);
 		btnNguoiHoc.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Conference.png")));
 		btnNguoiHoc.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -246,12 +287,23 @@ public class MainForm extends JFrame {
 				khoaHoc();
 			}
 		});
+		
+		Component horizontalStrut_3_2 = Box.createHorizontalStrut(5);
+		toolBar.add(horizontalStrut_3_2);
 		toolBar.add(btnKhoaHoc);
 		btnKhoaHoc.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Certificate.png")));
 		btnKhoaHoc.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnKhoaHoc.setHorizontalTextPosition(SwingConstants.CENTER);
+		
+		Component horizontalStrut_3_3 = Box.createHorizontalStrut(5);
+		toolBar.add(horizontalStrut_3_3);
 
 		JButton btnHocVien = new JButton("Học viên");
+		btnHocVien.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				hocVien();
+			}
+		});
 		toolBar.add(btnHocVien);
 		btnHocVien.setIcon(new ImageIcon(this.getClass().getResource("../../icon/User.png")));
 		btnHocVien.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -269,6 +321,9 @@ public class MainForm extends JFrame {
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
+		Component horizontalStrut_2 = Box.createHorizontalStrut(5);
+		panel.add(horizontalStrut_2);
 
 		JLabel lblFooter = new JLabel("Hệ quản lý đào tạo");
 		panel.add(lblFooter);
@@ -280,6 +335,9 @@ public class MainForm extends JFrame {
 		JLabel lblTime = new JLabel("Time");
 		panel.add(lblTime);
 		lblTime.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Alarm.png")));
+		
+		Component horizontalStrut_2_1 = Box.createHorizontalStrut(5);
+		panel.add(horizontalStrut_2_1);
 		
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setBackground(new Color(255, 255, 255));
@@ -296,6 +354,34 @@ public class MainForm extends JFrame {
 			}
 		};
 		th.start();
+	}
+
+	protected void changePassword() {
+		new ChangePasswordForm();
+	}
+
+	protected void doanhThu() {
+		new ThongKeForm().changeTab(4);
+	}
+
+	protected void diemChuyenDe() {
+		new ThongKeForm().changeTab(3);
+	}
+
+	protected void luongNguoiHoc() {
+		new ThongKeForm().changeTab(2);
+	}
+
+	protected void bangDiem() {
+		new ThongKeForm();
+	}
+
+	protected void nhanVien() {
+		new NhanVienForm();
+	}
+
+	protected void hocVien() {
+		new HocVienForm();
 	}
 
 	protected void nguoiHoc() {
