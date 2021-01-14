@@ -1,11 +1,8 @@
-package polypro.dao;
-
-import java.util.List;
+package polypro.service;
 
 import polypro.model.ChuyenDeModel;
 
-public interface IChuyenDeDAO extends GenericDAO<ChuyenDeModel>{
-	List<ChuyenDeModel> findAll();
+public interface IChuyenDeService {
 	String save(ChuyenDeModel chuyenDeModel);
 	void update(ChuyenDeModel chuyenDeModel, String id);
 	void delete(ChuyenDeModel chuyenDeModel);

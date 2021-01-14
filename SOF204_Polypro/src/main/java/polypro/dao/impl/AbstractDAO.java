@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import polypro.dao.GenericDAO;
 import polypro.mapper.RowMapper;
 
@@ -73,6 +75,116 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void update(String sql, Object... parameters) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = getConnection();
+			conn.setAutoCommit(false);
+			ps = conn.prepareStatement(sql);
+			setParameter(ps, parameters);
+			if (ps.executeUpdate() > 0) {
+				JOptionPane.showMessageDialog(null, "Thành công");
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public String insert(String sql, Object... parameters) {
+		String id = null;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = getConnection();
+			conn.setAutoCommit(false);
+			ps = conn.prepareStatement(sql);
+			setParameter(ps, parameters);
+			if (ps.executeUpdate() > 0) {
+				JOptionPane.showMessageDialog(null, "Thành công");
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return id;
+	}
+
+	@Override
+	public void delete(String sql, Object... parameters) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = getConnection();
+			conn.setAutoCommit(false);
+			ps = conn.prepareStatement(sql);
+			setParameter(ps, parameters);
+			if (ps.executeUpdate() > 0) {
+				JOptionPane.showMessageDialog(null, "Thành công");
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

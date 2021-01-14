@@ -2,11 +2,11 @@ package polypro.dao.impl;
 
 import java.util.List;
 
-import polypro.dao.IChuyenDeDAO;
+import polypro.dao.IKhoaHocDAO;
 import polypro.mapper.ChuyenDeMapper;
 import polypro.model.ChuyenDeModel;
 
-public class KhoaHocDAO extends AbstractDAO<ChuyenDeModel> implements IChuyenDeDAO{
+public class KhoaHocDAO extends AbstractDAO<ChuyenDeModel> implements IKhoaHocDAO{
 
 	@Override
 	public List<ChuyenDeModel> findAll() {

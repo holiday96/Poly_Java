@@ -10,8 +10,9 @@
 
 	<properties>
 		<sqlserver.version>8.4.1.jre14</sqlserver.version>
+		<weld.servlet.version>2.4.8.Final</weld.servlet.version>
 		<maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+		<maven.compiler.target>15</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -20,8 +21,13 @@
 			<artifactId>mssql-jdbc</artifactId>
 			<version>${sqlserver.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.weld.servlet</groupId>
+			<artifactId>weld-servlet</artifactId>
+			<version>${weld.servlet.version}</version>
+		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
