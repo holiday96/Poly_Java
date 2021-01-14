@@ -16,7 +16,7 @@ public class ChuyenDeDAO extends AbstractDAO<ChuyenDeModel> implements IChuyenDe
 
 	@Override
 	public String save(ChuyenDeModel chuyenDeModel) {
-		String sql = "INSERT INTO CHUYENDE VALUE (?,?,?,?,?,?)";
+		String sql = "INSERT INTO CHUYENDE VALUES (?,?,?,?,?,?)";
 		return insert(sql, chuyenDeModel.getMaCD(), chuyenDeModel.getTenCD(), chuyenDeModel.getHocPhi(),
 				chuyenDeModel.getThoiLuong(), chuyenDeModel.getHinh(), chuyenDeModel.getMoTa());
 	}

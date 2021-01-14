@@ -5,9 +5,13 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
+import javax.inject.Inject;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -21,8 +25,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import polypro.model.ChuyenDeModel;
+import polypro.service.IChuyenDeService;
+import polypro.service.impl.ChuyenDeService;
 
 public class ChuyenDeForm extends JFrame {
 
@@ -36,7 +42,6 @@ public class ChuyenDeForm extends JFrame {
 	private JTextField txtThoiLuong;
 	private JTextField txtHocPhi;
 	private JLabel lblLogo;
-	private String hinh;
 	private JButton btnAdd;
 	private JButton btnUpdate;
 	private JButton btnDelete;
@@ -47,6 +52,11 @@ public class ChuyenDeForm extends JFrame {
 	private JButton btnEnd;
 	private JTextArea txtMoTa;
 	private boolean unlockLogo;
+	private List<ChuyenDeModel> list;
+	private int index;
+
+	@Inject
+	private IChuyenDeService chuyenDeService = new ChuyenDeService();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -66,6 +76,13 @@ public class ChuyenDeForm extends JFrame {
 	 */
 	public ChuyenDeForm() {
 		initialize();
+		try {
+			index = 0;
+			list = chuyenDeService.findAll();
+			loadToTable();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -101,6 +118,12 @@ public class ChuyenDeForm extends JFrame {
 		scrollPane.setBounds(0, 0, 590, 394);
 		lypDanhSach.add(scrollPane);
 		tblDanhSach = new JTable(model);
+		tblDanhSach.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tableClicked();
+			}
+		});
 		scrollPane.setViewportView(tblDanhSach);
 		tblDanhSach.getColumnModel().getColumn(0).setMaxWidth(70);
 
@@ -171,6 +194,11 @@ public class ChuyenDeForm extends JFrame {
 		scrollPane_1.setViewportView(txtMoTa);
 
 		btnAdd = new JButton("Thêm");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnAdd();
+			}
+		});
 		btnAdd.setBounds(6, 355, 60, 28);
 		lypCapNhat.add(btnAdd);
 
@@ -202,14 +230,50 @@ public class ChuyenDeForm extends JFrame {
 		btnNext = new JButton(">>");
 		btnNext.setBounds(485, 355, 45, 28);
 		lypCapNhat.add(btnNext);
-		
+
 		btnEnd = new JButton(">|");
 		btnEnd.setBounds(535, 355, 45, 28);
 		lypCapNhat.add(btnEnd);
 
 		disableFunction();
 	}
-	
+
+	protected void tableClicked() {
+		index = tblDanhSach.getSelectedRow();
+		showDetail();
+	}
+
+	private void showDetail() {
+		txtMaCD.setText(list.get(index).getMaCD());
+		txtTenCD.setText(list.get(index).getTenCD());
+		txtThoiLuong.setText(String.valueOf(list.get(index).getThoiLuong()));
+		txtHocPhi.setText(String.valueOf(list.get(index).getHocPhi()));
+		txtMoTa.setText(list.get(index).getMoTa());
+
+		ImageIcon imageIcon = new ImageIcon(list.get(index).getHinh());
+		Image image = imageIcon.getImage().getScaledInstance(164, 177, Image.SCALE_SMOOTH);
+		lblLogo.setIcon(new ImageIcon(image));
+	}
+
+	protected void btnAdd() {
+		ChuyenDeModel chuyenDeModel = new ChuyenDeModel();
+		chuyenDeModel.setMaCD(txtMaCD.getText());
+		chuyenDeModel.setTenCD(txtTenCD.getText());
+		chuyenDeModel.setThoiLuong(Integer.valueOf(txtThoiLuong.getText()));
+		chuyenDeModel.setHocPhi(Double.valueOf(txtHocPhi.getText()));
+		chuyenDeModel.setMoTa(txtMoTa.getText());
+		chuyenDeModel.setHinh(fileChooser.getSelectedFile().getAbsolutePath());
+		chuyenDeService.save(chuyenDeModel);
+	}
+
+	private void loadToTable() {
+		model.setRowCount(0);
+		for (ChuyenDeModel i : list) {
+			model.addRow(new Object[] { i.getMaCD(), i.getTenCD(), i.getHocPhi(), i.getThoiLuong(), i.getHinh(),
+					i.getMoTa() });
+		}
+	}
+
 	private void clear() {
 		txtHocPhi.setText("");
 		txtMaCD.setText("");
@@ -219,6 +283,7 @@ public class ChuyenDeForm extends JFrame {
 	}
 
 	protected void btnNew() {
+		lblLogo.setIcon(null);
 		btnAdd.setEnabled(true);
 		txtHocPhi.setEnabled(true);
 		txtMaCD.setEnabled(true);
@@ -236,8 +301,6 @@ public class ChuyenDeForm extends JFrame {
 			ImageIcon imageIcon = new ImageIcon(fileChooser.getSelectedFile().getAbsolutePath());
 			Image image = imageIcon.getImage().getScaledInstance(164, 177, Image.SCALE_SMOOTH);
 			lblLogo.setIcon(new ImageIcon(image));
-			hinh = fileChooser.getSelectedFile().getAbsolutePath();
-			System.out.println(hinh);
 		}
 	}
 

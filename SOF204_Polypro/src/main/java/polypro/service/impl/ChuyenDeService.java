@@ -1,8 +1,11 @@
 package polypro.service.impl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import polypro.dao.IChuyenDeDAO;
+import polypro.dao.impl.ChuyenDeDAO;
 import polypro.model.ChuyenDeModel;
 import polypro.service.IChuyenDeService;
 
@@ -15,7 +18,7 @@ public class ChuyenDeService implements IChuyenDeService{
 	}*/
 	
 	@Inject
-	private IChuyenDeDAO chuyenDeDAO;
+	private static IChuyenDeDAO chuyenDeDAO = new ChuyenDeDAO();
 
 	//return ID of ChuyenDeModel
 	@Override
@@ -32,5 +35,12 @@ public class ChuyenDeService implements IChuyenDeService{
 	public void delete(ChuyenDeModel chuyenDeModel) {
 		chuyenDeDAO.delete(chuyenDeModel);
 	}
-	
+
+	@Override
+	public List<ChuyenDeModel> findAll() {
+		return chuyenDeDAO.findAll();
+	}
+	public static void main(String[] args) {
+		System.out.println(chuyenDeDAO);
+	}
 }
