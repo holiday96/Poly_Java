@@ -4,7 +4,6 @@ import java.util.List;
 
 import polypro.model.ChuyenDeModel;
 
-public interface IChuyenDeDAO extends GenericDAO<ChuyenDeModel>{
+public interface INguoiHocDAO extends GenericDAO<ChuyenDeModel>{
 	List<ChuyenDeModel> findAll();
-//	List<ChuyenDeModel> 
 }

@@ -72,6 +72,11 @@ public class MainForm extends JFrame {
 		menuBar.add(mnSystem);
 
 		JMenuItem mntmLogin = new JMenuItem("Đăng nhập");
+		mntmLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				login();
+			}
+		});
 		mntmLogin.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK));
 		mnSystem.add(mntmLogin);
 		mntmLogin.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Key.png")));
@@ -221,6 +226,11 @@ public class MainForm extends JFrame {
 		mnHelp.add(new JSeparator());
 
 		JMenuItem mntmAbout = new JMenuItem("Giới thiệu sản phẩm");
+		mntmAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gioiThieu();
+			}
+		});
 		mnHelp.add(mntmAbout);
 		mntmAbout.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Home.png")));
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -354,6 +364,14 @@ public class MainForm extends JFrame {
 			}
 		};
 		th.start();
+	}
+
+	protected void login() {
+		new LoginForm();
+	}
+
+	protected void gioiThieu() {
+		new AboutForm();
 	}
 
 	protected void changePassword() {

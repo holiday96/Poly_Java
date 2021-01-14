@@ -22,7 +22,7 @@ public class ThongKeForm extends JFrame {
 	private String columnBangDiem[] = { "MÃ NH", "HỌ VÀ TÊN", "ĐIỂM", "XẾP LOẠI" };
 	private DefaultTableModel modelBangDiem;
 	private JTable tblNguoiHoc;
-	private String columnNguoiHoc[] = { "NĂM", "SỐ NH", "ĐK SỚM NHẤT", "ĐK MUỘN NHẤT" };
+	private String columnNguoiHoc[] = { "NĂM", "SỐ NGƯỜI HỌC", "ĐẦU TIÊN", "SAU CÙNG" };
 	private DefaultTableModel modelNguoiHoc;
 	private JTable tblDiemChuyenDe;
 	private String columnDiemChuyenDe[] = { "CHUYÊN ĐỀ", "SL HV", "ĐIỂM THẤP NHẤT", "ĐIỂM CAO NHẤT", "ĐIỂM TB" };
@@ -110,8 +110,7 @@ public class ThongKeForm extends JFrame {
 		modelNguoiHoc = new DefaultTableModel(columnNguoiHoc, 0);
 		tblNguoiHoc = new JTable(modelNguoiHoc);
 		scrollPane_1.setViewportView(tblNguoiHoc);
-		tblNguoiHoc.getColumnModel().getColumn(0).setMaxWidth(150);
-		tblNguoiHoc.getColumnModel().getColumn(1).setMaxWidth(150);
+		tblNguoiHoc.getColumnModel().getColumn(0).setMaxWidth(100);
 
 		JLayeredPane lypDiemChuyenDe = new JLayeredPane();
 		tabbedPane.addTab("ĐIỂM CHUYÊN ĐỀ", null, lypDiemChuyenDe, null);

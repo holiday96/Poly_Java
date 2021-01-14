@@ -5,11 +5,12 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -27,7 +28,7 @@ public class NhanVienForm extends JFrame {
 	private JTextField txtMaNV;
 	private JTextField txtMatKhau;
 	private JTextField txtHoTen;
-	private JComboBox<Object> txtVaiTro;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -114,10 +115,6 @@ public class NhanVienForm extends JFrame {
 		lblHoTen.setBounds(307, 6, 90, 16);
 		lypCapNhat.add(lblHoTen);
 
-		txtVaiTro = new JComboBox<Object>();
-		txtVaiTro.setBounds(304, 71, 149, 28);
-		lypCapNhat.add(txtVaiTro);
-
 		JLabel lblVaiTro = new JLabel("Vai trò");
 		lblVaiTro.setBounds(307, 54, 75, 16);
 		lypCapNhat.add(lblVaiTro);
@@ -164,5 +161,17 @@ public class NhanVienForm extends JFrame {
 		JButton btnEnd = new JButton(">|");
 		btnEnd.setBounds(535, 266, 45, 28);
 		lypCapNhat.add(btnEnd);
+		
+		JRadioButton rdoNhanVien = new JRadioButton("Nhân viên");
+		buttonGroup.add(rdoNhanVien);
+		rdoNhanVien.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		rdoNhanVien.setBounds(304, 76, 81, 25);
+		lypCapNhat.add(rdoNhanVien);
+		
+		JRadioButton rdoTruongPhong = new JRadioButton("Trưởng phòng");
+		buttonGroup.add(rdoTruongPhong);
+		rdoTruongPhong.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		rdoTruongPhong.setBounds(387, 75, 109, 23);
+		lypCapNhat.add(rdoTruongPhong);
 	}
 }

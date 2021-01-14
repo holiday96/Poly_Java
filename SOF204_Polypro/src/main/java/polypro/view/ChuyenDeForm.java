@@ -3,6 +3,7 @@ package polypro.view;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -20,6 +21,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ChuyenDeForm extends JFrame {
 
@@ -34,6 +37,16 @@ public class ChuyenDeForm extends JFrame {
 	private JTextField txtHocPhi;
 	private JLabel lblLogo;
 	private String hinh;
+	private JButton btnAdd;
+	private JButton btnUpdate;
+	private JButton btnDelete;
+	private JButton btnClear;
+	private JButton btnBegin;
+	private JButton btnBack;
+	private JButton btnNext;
+	private JButton btnEnd;
+	private JTextArea txtMoTa;
+	private boolean unlockLogo;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -102,7 +115,9 @@ public class ChuyenDeForm extends JFrame {
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				logoClicked();
+				if (unlockLogo) {
+					logoClicked();
+				}
 			}
 		});
 		lblLogo.setBounds(6, 23, 164, 177);
@@ -152,49 +167,93 @@ public class ChuyenDeForm extends JFrame {
 		scrollPane_1.setBounds(6, 230, 578, 120);
 		lypCapNhat.add(scrollPane_1);
 
-		JTextArea txtMoTa = new JTextArea();
+		txtMoTa = new JTextArea();
 		scrollPane_1.setViewportView(txtMoTa);
 
-		JButton btnAdd = new JButton("Thêm");
+		btnAdd = new JButton("Thêm");
 		btnAdd.setBounds(6, 355, 60, 28);
 		lypCapNhat.add(btnAdd);
 
-		JButton btnUpdate = new JButton("Sửa");
+		btnUpdate = new JButton("Sửa");
 		btnUpdate.setBounds(72, 355, 60, 28);
 		lypCapNhat.add(btnUpdate);
 
-		JButton btnDelete = new JButton("Xoá");
+		btnDelete = new JButton("Xoá");
 		btnDelete.setBounds(138, 355, 60, 28);
 		lypCapNhat.add(btnDelete);
 
-		JButton btnClear = new JButton("Mới");
+		btnClear = new JButton("Mới");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnNew();
+			}
+		});
 		btnClear.setBounds(204, 355, 60, 28);
 		lypCapNhat.add(btnClear);
 
-		JButton btnBegin = new JButton("|<");
+		btnBegin = new JButton("|<");
 		btnBegin.setBounds(387, 355, 45, 28);
 		lypCapNhat.add(btnBegin);
 
-		JButton btnBack = new JButton("<<");
+		btnBack = new JButton("<<");
 		btnBack.setBounds(435, 355, 45, 28);
 		lypCapNhat.add(btnBack);
 
-		JButton btnNext = new JButton(">>");
+		btnNext = new JButton(">>");
 		btnNext.setBounds(485, 355, 45, 28);
 		lypCapNhat.add(btnNext);
-
-		JButton btnEnd = new JButton(">|");
+		
+		btnEnd = new JButton(">|");
 		btnEnd.setBounds(535, 355, 45, 28);
 		lypCapNhat.add(btnEnd);
+
+		disableFunction();
+	}
+	
+	private void clear() {
+		txtHocPhi.setText("");
+		txtMaCD.setText("");
+		txtTenCD.setText("");
+		txtThoiLuong.setText("");
+		txtMoTa.setText("");
+	}
+
+	protected void btnNew() {
+		btnAdd.setEnabled(true);
+		txtHocPhi.setEnabled(true);
+		txtMaCD.setEnabled(true);
+		txtTenCD.setEnabled(true);
+		txtThoiLuong.setEnabled(true);
+		txtMoTa.setEnabled(true);
+		unlockLogo = true;
+		clear();
 	}
 
 	protected void logoClicked() {
 		fileChooser = new JFileChooser();
 		int result = fileChooser.showOpenDialog(this);
 		if (result == JFileChooser.APPROVE_OPTION) {
-			lblLogo.setIcon(new ImageIcon(this.getClass().getResource(fileChooser.getSelectedFile().getAbsolutePath())));
+			ImageIcon imageIcon = new ImageIcon(fileChooser.getSelectedFile().getAbsolutePath());
+			Image image = imageIcon.getImage().getScaledInstance(164, 177, Image.SCALE_SMOOTH);
+			lblLogo.setIcon(new ImageIcon(image));
 			hinh = fileChooser.getSelectedFile().getAbsolutePath();
 			System.out.println(hinh);
 		}
+	}
+
+	private void disableFunction() {
+		btnAdd.setEnabled(false);
+		btnDelete.setEnabled(false);
+		btnUpdate.setEnabled(false);
+		btnBegin.setEnabled(false);
+		btnBack.setEnabled(false);
+		btnNext.setEnabled(false);
+		btnEnd.setEnabled(false);
+		txtHocPhi.setEnabled(false);
+		txtMaCD.setEnabled(false);
+		txtTenCD.setEnabled(false);
+		txtThoiLuong.setEnabled(false);
+		txtMoTa.setEnabled(false);
+		unlockLogo = false;
 	}
 }

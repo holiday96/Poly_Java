@@ -80,10 +80,12 @@ public class HocVienForm extends JFrame {
 		scrollPane.setViewportView(tblHocVien);
 
 		JButton btnDelete = new JButton("Xoá khỏi khoá học");
+		btnDelete.setEnabled(false);
 		btnDelete.setBounds(475, 376, 128, 28);
 		pnlHocVien.add(btnDelete);
 
 		JButton btnUpdate = new JButton("Cập nhật điểm");
+		btnUpdate.setEnabled(false);
 		btnUpdate.setBounds(609, 376, 109, 28);
 		pnlHocVien.add(btnUpdate);
 
@@ -117,6 +119,7 @@ public class HocVienForm extends JFrame {
 		pnlFind.add(btnFind);
 
 		JButton btnAdd = new JButton("Thêm vào khoá học");
+		btnAdd.setEnabled(false);
 		btnAdd.setBounds(583, 376, 135, 28);
 		pnlNguoiHoc.add(btnAdd);
 
