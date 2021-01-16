@@ -32,7 +32,8 @@ public class LoginForm extends JFrame {
 	private JButton btnLogin;
 	private JButton btnExit;
 	private List<NhanVienModel> list;
-	private NhanVienModel nhanVien;
+	static NhanVienModel nhanVien;
+	static int index;
 
 	private INhanVienService nhanVienSevice = new NhanVienService();
 
@@ -157,7 +158,7 @@ public class LoginForm extends JFrame {
 			for (NhanVienModel nhanVienModel : list) {
 				if (nhanVienModel.getMaNV().equalsIgnoreCase(txtUsername.getText())
 						&& nhanVienModel.getMatKhau().equals(String.valueOf(txtPassword.getPassword()))) {
-					nhanVien = nhanVienModel;
+					LoginForm.nhanVien = nhanVienModel;
 					return true;
 				}
 			}
@@ -174,15 +175,7 @@ public class LoginForm extends JFrame {
 	protected void login() {
 		if (validated()) {
 			setVisible(false);
-			MainForm mainForm = new MainForm();
-			if (nhanVien.isVaiTro()) {
-				mainForm.setTitle("HỆ THỐNG QUẢN LÝ ĐÀO TẠO - Trưởng phòng");
-				mainForm.mntmNhanVien.setEnabled(true);
-			} else {
-				mainForm.setTitle("HỆ THỐNG QUẢN LÝ ĐÀO TẠO - Nhân viên");
-				mainForm.mntmNhanVien.setEnabled(false);
-			}
-			mainForm.lblFooter.setText("Hệ quản lý đào tạo - " + nhanVien.getMaNV() + " - " + nhanVien.getHoTen());
+			new MainForm();
 		}
 	}
 

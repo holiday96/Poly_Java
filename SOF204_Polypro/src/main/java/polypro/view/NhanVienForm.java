@@ -469,7 +469,7 @@ public class NhanVienForm extends JFrame {
 		if (message.isEmpty()) {
 			return true;
 		} else {
-			JOptionPane.showMessageDialog(btnAdd, message);
+			JOptionPane.showMessageDialog(this, message);
 			return false;
 		}
 	}

@@ -28,7 +28,10 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
+import polypro.model.NhanVienModel;
+
 public class MainForm extends JFrame {
+	NhanVienModel nhanVien = LoginForm.nhanVien;
 	JMenuItem mntmNhanVien;
 	JLabel lblFooter;
 
@@ -365,6 +368,15 @@ public class MainForm extends JFrame {
 			}
 		};
 		th.start();
+
+		if (nhanVien.isVaiTro()) {
+			setTitle("HỆ THỐNG QUẢN LÝ ĐÀO TẠO - TRƯỞNG PHÒNG");
+			mntmNhanVien.setEnabled(true);
+		} else {
+			setTitle("HỆ THỐNG QUẢN LÝ ĐÀO TẠO - NHÂN VIÊN");
+			mntmNhanVien.setEnabled(false);
+		}
+		lblFooter.setText("Hệ quản lý đào tạo - " + nhanVien.getMaNV() + " - " + nhanVien.getHoTen());
 	}
 
 	protected void login() {
