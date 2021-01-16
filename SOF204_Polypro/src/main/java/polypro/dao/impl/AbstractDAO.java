@@ -70,7 +70,9 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 					ps.setInt(index, (Integer) parameter);
 				} else if (parameter instanceof Double) {
 					ps.setDouble(index, (Double) parameter);
-				}
+				}  else if (parameter instanceof Boolean) {
+					ps.setBoolean(index, (Boolean) parameter);
+				} 
 
 			}
 		} catch (SQLException e) {

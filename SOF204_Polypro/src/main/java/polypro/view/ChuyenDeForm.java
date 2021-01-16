@@ -135,6 +135,9 @@ public class ChuyenDeForm extends JFrame {
 		lypCapNhat.add(lblTitleLogo);
 
 		lblLogo = new JLabel("");
+		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("../../icon/none.png"));
+		Image image = imageIcon.getImage().getScaledInstance(164, 177, Image.SCALE_SMOOTH);
+		lblLogo.setIcon(new ImageIcon(image));
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -241,6 +244,17 @@ public class ChuyenDeForm extends JFrame {
 	protected void tableClicked() {
 		index = tblDanhSach.getSelectedRow();
 		showDetail();
+		checkPositionInTable();
+		
+		btnAdd.setEnabled(false);
+		btnUpdate.setEnabled(true);
+		btnDelete.setEnabled(true);
+		txtMaCD.setEnabled(false);
+		txtTenCD.setEnabled(false);
+		txtHocPhi.setEnabled(false);
+		txtThoiLuong.setEnabled(false);
+		txtMoTa.setEnabled(false);
+		unlockLogo = false;
 	}
 
 	private void showDetail() {
@@ -253,6 +267,23 @@ public class ChuyenDeForm extends JFrame {
 		ImageIcon imageIcon = new ImageIcon(list.get(index).getHinh());
 		Image image = imageIcon.getImage().getScaledInstance(164, 177, Image.SCALE_SMOOTH);
 		lblLogo.setIcon(new ImageIcon(image));
+	}
+
+	private void checkPositionInTable() {
+		if (index == 0) {
+			btnBegin.setEnabled(false);
+			btnBack.setEnabled(false);
+		}
+		if (index > 0 && index < list.size()) {
+			btnBegin.setEnabled(true);
+			btnBack.setEnabled(true);
+			btnNext.setEnabled(true);
+			btnEnd.setEnabled(true);
+		}
+		if (index == list.size()) {
+			btnNext.setEnabled(false);
+			btnEnd.setEnabled(false);
+		}
 	}
 
 	protected void btnAdd() {
@@ -291,6 +322,16 @@ public class ChuyenDeForm extends JFrame {
 		txtThoiLuong.setEnabled(true);
 		txtMoTa.setEnabled(true);
 		unlockLogo = true;
+		
+		btnBegin.setEnabled(false);
+		btnBack.setEnabled(false);
+		btnNext.setEnabled(false);
+		btnEnd.setEnabled(false);
+
+		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("../../icon/question.png"));
+		Image image = imageIcon.getImage().getScaledInstance(164, 177, Image.SCALE_SMOOTH);
+		lblLogo.setIcon(new ImageIcon(image));
+		
 		clear();
 	}
 
