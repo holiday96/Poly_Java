@@ -92,7 +92,7 @@ public class ChuyenDeForm extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Lists.png")));
 		setVisible(true);
 		setBounds(100, 100, 620, 492);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import polypro.dao.GenericDAO;
@@ -90,11 +91,11 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			ps = conn.prepareStatement(sql);
 			setParameter(ps, parameters);
 			if (ps.executeUpdate() > 0) {
-				JOptionPane.showMessageDialog(null, "Thành công");
+				JOptionPane.showMessageDialog(null, "Thành công", "Thông báo", 0, new ImageIcon(this.getClass().getResource("../../../icon/Tick.png")));
 				conn.commit();
 			}
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			if (conn != null) {
 				try {
 					conn.rollback();
@@ -127,11 +128,11 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			ps = conn.prepareStatement(sql);
 			setParameter(ps, parameters);
 			if (ps.executeUpdate() > 0) {
-				JOptionPane.showMessageDialog(null, "Thành công");
+				JOptionPane.showMessageDialog(null, "Thành công", "Thông báo", 0, new ImageIcon(this.getClass().getResource("../../../icon/Tick.png")));
 				conn.commit();
 			}
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			if (conn != null) {
 				try {
 					conn.rollback();
@@ -165,11 +166,11 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			ps = conn.prepareStatement(sql);
 			setParameter(ps, parameters);
 			if (ps.executeUpdate() > 0) {
-				JOptionPane.showMessageDialog(null, "Thành công");
+				JOptionPane.showMessageDialog(null, "Thành công", "Thông báo", 0, new ImageIcon(this.getClass().getResource("../../../icon/Tick.png")));
 				conn.commit();
 			}
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Thất bại", "Thông báo", JOptionPane.ERROR_MESSAGE);
 			if (conn != null) {
 				try {
 					conn.rollback();

@@ -20,11 +20,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -39,7 +41,7 @@ public class NhanVienForm extends JFrame {
 	private String column[] = { "MÃ NV", "MẬT KHẨU", "HỌ VÀ TÊN", "VAI TRÒ" };
 	private DefaultTableModel model;
 	private JTextField txtMaNV;
-	private JTextField txtMatKhau;
+	private JPasswordField txtMatKhau;
 	private JTextField txtHoTen;
 	private JButton btnAdd;
 	private JButton btnUpdate;
@@ -77,7 +79,6 @@ public class NhanVienForm extends JFrame {
 		initialize();
 		index = 0;
 		loadToTable();
-
 	}
 
 	/**
@@ -87,7 +88,7 @@ public class NhanVienForm extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/User group.png")));
 		setVisible(true);
 		setBounds(100, 100, 620, 398);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 
@@ -113,6 +114,7 @@ public class NhanVienForm extends JFrame {
 		scrollPane.setBounds(0, 0, 590, 302);
 		lypDanhSach.add(scrollPane);
 		tblDanhSach = new JTable(model);
+		tblDanhSach.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblDanhSach.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -140,18 +142,12 @@ public class NhanVienForm extends JFrame {
 		txtMaNV.setColumns(10);
 
 		JLabel lblMatKhau = new JLabel("Mật khẩu");
-		lblMatKhau.setBounds(9, 56, 80, 16);
+		lblMatKhau.setBounds(303, 6, 80, 16);
 		lypCapNhat.add(lblMatKhau);
 
-		txtMatKhau = new JTextField();
-		txtMatKhau.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				txtMatKhau.setBackground(null);
-			}
-		});
+		txtMatKhau = new JPasswordField();
 		txtMatKhau.setColumns(10);
-		txtMatKhau.setBounds(6, 73, 280, 28);
+		txtMatKhau.setBounds(300, 23, 280, 28);
 		lypCapNhat.add(txtMatKhau);
 
 		txtHoTen = new JTextField();
@@ -162,15 +158,15 @@ public class NhanVienForm extends JFrame {
 			}
 		});
 		txtHoTen.setColumns(10);
-		txtHoTen.setBounds(304, 23, 280, 28);
+		txtHoTen.setBounds(6, 73, 280, 28);
 		lypCapNhat.add(txtHoTen);
 
 		JLabel lblHoTen = new JLabel("Họ và tên");
-		lblHoTen.setBounds(307, 6, 90, 16);
+		lblHoTen.setBounds(9, 54, 90, 16);
 		lypCapNhat.add(lblHoTen);
 
 		JLabel lblVaiTro = new JLabel("Vai trò");
-		lblVaiTro.setBounds(307, 54, 75, 16);
+		lblVaiTro.setBounds(303, 54, 75, 16);
 		lypCapNhat.add(lblVaiTro);
 
 		btnAdd = new JButton("Thêm");
@@ -183,10 +179,20 @@ public class NhanVienForm extends JFrame {
 		lypCapNhat.add(btnAdd);
 
 		btnUpdate = new JButton("Sửa");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnUpdate();
+			}
+		});
 		btnUpdate.setBounds(72, 266, 60, 28);
 		lypCapNhat.add(btnUpdate);
 
 		btnDelete = new JButton("Xoá");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnDelete();
+			}
+		});
 		btnDelete.setBounds(138, 266, 60, 28);
 		lypCapNhat.add(btnDelete);
 
@@ -238,7 +244,7 @@ public class NhanVienForm extends JFrame {
 		rdoNhanVien = new JRadioButton("Nhân viên");
 		buttonGroup.add(rdoNhanVien);
 		rdoNhanVien.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		rdoNhanVien.setBounds(304, 76, 81, 25);
+		rdoNhanVien.setBounds(300, 76, 81, 25);
 		lypCapNhat.add(rdoNhanVien);
 
 		rdoTruongPhong = new JRadioButton("Trưởng phòng");
@@ -250,26 +256,55 @@ public class NhanVienForm extends JFrame {
 		disableFunction();
 	}
 
+	protected void btnUpdate() {
+		if (validatedIgnoreMaNVKey()) {
+			NhanVienModel nhanVienModel = new NhanVienModel();
+			nhanVienModel.setMaNV(txtMaNV.getText());
+			nhanVienModel.setMatKhau(String.valueOf(txtMatKhau.getPassword()));
+			nhanVienModel.setHoTen(txtHoTen.getText());
+			nhanVienModel.setVaiTro((rdoTruongPhong.isSelected()) ? true : false);
+			nhanVienSevice.update(nhanVienModel, list.get(index).getMaNV());
+
+			clear();
+			loadToTable();
+		}
+	}
+
+	protected void btnDelete() {
+		if (JOptionPane.showConfirmDialog(this, "Xác nhận xoá nhân viên có Mã NV:  " + list.get(index).getMaNV(), "Xoá",
+				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+			nhanVienSevice.delete(list.get(index));
+			loadToTable();
+
+			disableFunction();
+			clear();
+		}
+	}
+
 	protected void btnEnd() {
 		index = list.size() - 1;
+		tblDanhSach.setRowSelectionInterval(index, index);
 		showDetail();
 		checkPositionInTable();
 	}
 
 	protected void btnNext() {
 		index++;
+		tblDanhSach.setRowSelectionInterval(index, index);
 		showDetail();
 		checkPositionInTable();
 	}
 
 	protected void btnBack() {
 		index--;
+		tblDanhSach.setRowSelectionInterval(index, index);
 		showDetail();
 		checkPositionInTable();
 	}
 
 	protected void btnBegin() {
 		index = 0;
+		tblDanhSach.setRowSelectionInterval(index, index);
 		showDetail();
 		checkPositionInTable();
 	}
@@ -282,9 +317,11 @@ public class NhanVienForm extends JFrame {
 		btnAdd.setEnabled(false);
 		btnUpdate.setEnabled(true);
 		btnDelete.setEnabled(true);
-		txtMaNV.setEnabled(false);
-		txtMatKhau.setEnabled(false);
-		txtHoTen.setEnabled(false);
+		txtMaNV.setEnabled(true);
+		txtMatKhau.setEnabled(true);
+		txtHoTen.setEnabled(true);
+		rdoTruongPhong.setEnabled(true);
+		rdoNhanVien.setEnabled(true);
 	}
 
 	private void showDetail() {
@@ -306,9 +343,17 @@ public class NhanVienForm extends JFrame {
 		}
 		model.setRowCount(0);
 		for (NhanVienModel i : list) {
-			model.addRow(new Object[] { i.getMaNV(), i.getMatKhau(), i.getHoTen(),
+			model.addRow(new Object[] { i.getMaNV(), convertToTextPass(i.getMatKhau()), i.getHoTen(),
 					(i.isVaiTro()) ? "Trưởng phòng" : "Nhân viên" });
 		}
+	}
+
+	private StringBuilder convertToTextPass(String text) {
+		StringBuilder pass = new StringBuilder();
+		for (int i = 0; i < text.length(); i++) {
+			pass.append("*");
+		}
+		return pass;
 	}
 
 	private void checkPositionInTable() {
@@ -343,10 +388,13 @@ public class NhanVienForm extends JFrame {
 		rdoNhanVien.setEnabled(true);
 		rdoTruongPhong.setEnabled(true);
 
+		btnUpdate.setEnabled(false);
+		btnDelete.setEnabled(false);
 		btnBegin.setEnabled(false);
 		btnBack.setEnabled(false);
 		btnNext.setEnabled(false);
 		btnEnd.setEnabled(false);
+		tblDanhSach.clearSelection();
 
 		clear();
 	}
@@ -382,7 +430,7 @@ public class NhanVienForm extends JFrame {
 	}
 
 	public static boolean validateLetters(String txt) {
-		String regx = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$";
+		String regx = "^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$";
 		Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(txt);
 		return matcher.find();
@@ -392,30 +440,59 @@ public class NhanVienForm extends JFrame {
 		StringBuilder message = new StringBuilder();
 		if (txtMaNV.getText().isBlank()) {
 			message.append("\nMã nhân viên trống");
-			txtMaNV.setBackground(Color.decode("#F359F3"));
+			txtMaNV.setBackground(Color.decode("#f38aff"));
 			txtMaNV.requestFocus();
 		} else {
 			for (NhanVienModel i : list) {
 				if (txtMaNV.getText().equalsIgnoreCase(i.getMaNV())) {
 					message.append("\nMã nhân viên đã tồn tại");
-					txtMaNV.setBackground(Color.decode("#FF3333"));
+					txtMaNV.setBackground(Color.decode("#ff96a6"));
 					txtMaNV.requestFocus();
 					break;
 				}
 			}
 		}
-		if (txtMatKhau.getText().isBlank()) {
+		if (String.valueOf(txtMatKhau.getPassword()).isBlank()) {
 			message.append("\nMật khẩu trống");
-			txtMatKhau.setBackground(Color.decode("#F359F3"));
+			txtMatKhau.setBackground(Color.decode("#f38aff"));
 			txtMatKhau.requestFocus();
 		}
 		if (txtHoTen.getText().isBlank()) {
 			message.append("\nHọ và tên trống");
-			txtHoTen.setBackground(Color.decode("#F359F3"));
+			txtHoTen.setBackground(Color.decode("#f38aff"));
 			txtHoTen.requestFocus();
 		} else if (!validateLetters(txtHoTen.getText())) {
 			message.append("\nHọ tên không hợp lệ");
-			txtHoTen.setBackground(Color.decode("#FF3333"));
+			txtHoTen.setBackground(Color.decode("#ff96a6"));
+			txtHoTen.requestFocus();
+		}
+		if (message.isEmpty()) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(btnAdd, message);
+			return false;
+		}
+	}
+	
+	private boolean validatedIgnoreMaNVKey() {
+		StringBuilder message = new StringBuilder();
+		if (txtMaNV.getText().isBlank()) {
+			message.append("\nMã nhân viên trống");
+			txtMaNV.setBackground(Color.decode("#f38aff"));
+			txtMaNV.requestFocus();
+		}
+		if (String.valueOf(txtMatKhau.getPassword()).isBlank()) {
+			message.append("\nMật khẩu trống");
+			txtMatKhau.setBackground(Color.decode("#f38aff"));
+			txtMatKhau.requestFocus();
+		}
+		if (txtHoTen.getText().isBlank()) {
+			message.append("\nHọ và tên trống");
+			txtHoTen.setBackground(Color.decode("#f38aff"));
+			txtHoTen.requestFocus();
+		} else if (!validateLetters(txtHoTen.getText())) {
+			message.append("\nHọ tên không hợp lệ");
+			txtHoTen.setBackground(Color.decode("#ff96a6"));
 			txtHoTen.requestFocus();
 		}
 		if (message.isEmpty()) {
@@ -430,12 +507,11 @@ public class NhanVienForm extends JFrame {
 		if (validated()) {
 			NhanVienModel nhanVienModel = new NhanVienModel();
 			nhanVienModel.setMaNV(txtMaNV.getText());
-			nhanVienModel.setMatKhau(txtMatKhau.getText());
+			nhanVienModel.setMatKhau(String.valueOf(txtMatKhau.getPassword()));
 			nhanVienModel.setHoTen(txtHoTen.getText());
 			nhanVienModel.setVaiTro((rdoTruongPhong.isSelected()) ? true : false);
 			nhanVienSevice.save(nhanVienModel);
 
-			disableFunction();
 			clear();
 			loadToTable();
 		}

@@ -29,6 +29,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 public class MainForm extends JFrame {
+	JMenuItem mntmNhanVien;
+	JLabel lblFooter;
 
 	private static final long serialVersionUID = -4913935832695327558L;
 
@@ -58,7 +60,6 @@ public class MainForm extends JFrame {
 	@SuppressWarnings("deprecation")
 	private void initialize() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/fpt.png")));
-		setTitle("HỆ THỐNG QUẢN LÝ ĐÀO TẠO");
 		setVisible(true);
 		setBounds(100, 100, 1030, 550);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -159,7 +160,7 @@ public class MainForm extends JFrame {
 
 		mnManagement.add(new JSeparator());
 
-		JMenuItem mntmNhanVien = new JMenuItem("Nhân viên");
+		mntmNhanVien = new JMenuItem("Nhân viên");
 		mntmNhanVien.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nhanVien();
@@ -181,7 +182,7 @@ public class MainForm extends JFrame {
 		mntmBangDiem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, InputEvent.SHIFT_MASK));
 		mnStatistics.add(mntmBangDiem);
 		mntmBangDiem.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Card file.png")));
-		
+
 		JSeparator separator = new JSeparator();
 		mnStatistics.add(separator);
 
@@ -255,7 +256,7 @@ public class MainForm extends JFrame {
 				exit();
 			}
 		});
-		
+
 		Component horizontalStrut_3 = Box.createHorizontalStrut(5);
 		toolBar.add(horizontalStrut_3);
 		toolBar.add(btnExit);
@@ -269,7 +270,7 @@ public class MainForm extends JFrame {
 				chuyenDe();
 			}
 		});
-		
+
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		toolBar.add(horizontalStrut);
 		toolBar.add(btnChuyenDe);
@@ -283,7 +284,7 @@ public class MainForm extends JFrame {
 				nguoiHoc();
 			}
 		});
-		
+
 		Component horizontalStrut_3_1 = Box.createHorizontalStrut(5);
 		toolBar.add(horizontalStrut_3_1);
 		toolBar.add(btnNguoiHoc);
@@ -297,14 +298,14 @@ public class MainForm extends JFrame {
 				khoaHoc();
 			}
 		});
-		
+
 		Component horizontalStrut_3_2 = Box.createHorizontalStrut(5);
 		toolBar.add(horizontalStrut_3_2);
 		toolBar.add(btnKhoaHoc);
 		btnKhoaHoc.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Certificate.png")));
 		btnKhoaHoc.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnKhoaHoc.setHorizontalTextPosition(SwingConstants.CENTER);
-		
+
 		Component horizontalStrut_3_3 = Box.createHorizontalStrut(5);
 		toolBar.add(horizontalStrut_3_3);
 
@@ -318,7 +319,7 @@ public class MainForm extends JFrame {
 		btnHocVien.setIcon(new ImageIcon(this.getClass().getResource("../../icon/User.png")));
 		btnHocVien.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnHocVien.setHorizontalTextPosition(SwingConstants.CENTER);
-		
+
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		toolBar.add(horizontalStrut_1);
 
@@ -331,35 +332,35 @@ public class MainForm extends JFrame {
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		
+
 		Component horizontalStrut_2 = Box.createHorizontalStrut(5);
 		panel.add(horizontalStrut_2);
 
-		JLabel lblFooter = new JLabel("Hệ quản lý đào tạo");
+		lblFooter = new JLabel("Hệ quản lý đào tạo");
 		panel.add(lblFooter);
 		lblFooter.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Info.png")));
-		
+
 		Component horizontalGlue = Box.createHorizontalGlue();
 		panel.add(horizontalGlue);
 
 		JLabel lblTime = new JLabel("Time");
 		panel.add(lblTime);
 		lblTime.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Alarm.png")));
-		
+
 		Component horizontalStrut_2_1 = Box.createHorizontalStrut(5);
 		panel.add(horizontalStrut_2_1);
-		
+
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setBackground(new Color(255, 255, 255));
 		getContentPane().add(lblBackground, BorderLayout.CENTER);
 		lblBackground.setIcon(new ImageIcon(this.getClass().getResource("../../icon/bee.png")));
-		
+
 		Thread th = new Thread() {
 			public void run() {
 				while (true) {
 					Date d = new Date();
-				    SimpleDateFormat s = new SimpleDateFormat("H:mm:ss a");
-				    lblTime.setText(s.format(d));   
+					SimpleDateFormat s = new SimpleDateFormat("H:mm:ss a");
+					lblTime.setText(s.format(d));
 				}
 			}
 		};
