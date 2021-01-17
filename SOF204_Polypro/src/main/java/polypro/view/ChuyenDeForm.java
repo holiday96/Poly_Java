@@ -18,6 +18,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -27,8 +28,12 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import polypro.model.ChuyenDeModel;
+import polypro.model.NhanVienModel;
 import polypro.service.IChuyenDeService;
 import polypro.service.impl.ChuyenDeService;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.ListSelectionModel;
 
 public class ChuyenDeForm extends JFrame {
 
@@ -54,6 +59,7 @@ public class ChuyenDeForm extends JFrame {
 	private boolean unlockLogo;
 	private List<ChuyenDeModel> list;
 	private int index;
+	private NhanVienModel nhanVien;
 
 	@Inject
 	private IChuyenDeService chuyenDeService = new ChuyenDeService();
@@ -75,6 +81,8 @@ public class ChuyenDeForm extends JFrame {
 	 * Create the application.
 	 */
 	public ChuyenDeForm() {
+		nhanVien = LoginForm.nhanVien;
+		fileChooser = new JFileChooser();
 		initialize();
 		try {
 			index = 0;
@@ -118,6 +126,7 @@ public class ChuyenDeForm extends JFrame {
 		scrollPane.setBounds(0, 0, 590, 394);
 		lypDanhSach.add(scrollPane);
 		tblDanhSach = new JTable(model);
+		tblDanhSach.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblDanhSach.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -154,6 +163,13 @@ public class ChuyenDeForm extends JFrame {
 		lypCapNhat.add(lblMaCD);
 
 		txtMaCD = new JTextField();
+		txtMaCD.setToolTipText("Bắt buộc gồm 5 ký tự");
+		txtMaCD.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				txtMaCD.setBackground(null);
+			}
+		});
 		txtMaCD.setBounds(182, 23, 402, 28);
 		lypCapNhat.add(txtMaCD);
 		txtMaCD.setColumns(10);
@@ -163,11 +179,24 @@ public class ChuyenDeForm extends JFrame {
 		lypCapNhat.add(lblTenCD);
 
 		txtTenCD = new JTextField();
+		txtTenCD.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				txtTenCD.setBackground(null);
+			}
+		});
 		txtTenCD.setColumns(10);
 		txtTenCD.setBounds(182, 73, 402, 28);
 		lypCapNhat.add(txtTenCD);
 
 		txtThoiLuong = new JTextField();
+		txtThoiLuong.setToolTipText("Điền thời lượng giờ chẵn");
+		txtThoiLuong.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				txtThoiLuong.setBackground(null);
+			}
+		});
 		txtThoiLuong.setColumns(10);
 		txtThoiLuong.setBounds(182, 124, 402, 28);
 		lypCapNhat.add(txtThoiLuong);
@@ -177,6 +206,13 @@ public class ChuyenDeForm extends JFrame {
 		lypCapNhat.add(lblThoiLuong);
 
 		txtHocPhi = new JTextField();
+		txtHocPhi.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				txtHocPhi.setBackground(null);
+			}
+		});
+		txtHocPhi.setToolTipText("Theo đơn vị VNĐ");
 		txtHocPhi.setColumns(10);
 		txtHocPhi.setBounds(182, 172, 402, 28);
 		lypCapNhat.add(txtHocPhi);
@@ -194,6 +230,12 @@ public class ChuyenDeForm extends JFrame {
 		lypCapNhat.add(scrollPane_1);
 
 		txtMoTa = new JTextArea();
+		txtMoTa.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				txtMoTa.setBackground(null);
+			}
+		});
 		scrollPane_1.setViewportView(txtMoTa);
 
 		btnAdd = new JButton("Thêm");
@@ -206,10 +248,20 @@ public class ChuyenDeForm extends JFrame {
 		lypCapNhat.add(btnAdd);
 
 		btnUpdate = new JButton("Sửa");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnUpdate();
+			}
+		});
 		btnUpdate.setBounds(72, 355, 60, 28);
 		lypCapNhat.add(btnUpdate);
 
 		btnDelete = new JButton("Xoá");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnDelete();
+			}
+		});
 		btnDelete.setBounds(138, 355, 60, 28);
 		lypCapNhat.add(btnDelete);
 
@@ -223,38 +275,169 @@ public class ChuyenDeForm extends JFrame {
 		lypCapNhat.add(btnClear);
 
 		btnBegin = new JButton("|<");
+		btnBegin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnBegin();
+			}
+		});
 		btnBegin.setBounds(387, 355, 45, 28);
 		lypCapNhat.add(btnBegin);
 
 		btnBack = new JButton("<<");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnBack();
+			}
+		});
 		btnBack.setBounds(435, 355, 45, 28);
 		lypCapNhat.add(btnBack);
 
 		btnNext = new JButton(">>");
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnNext();
+			}
+		});
 		btnNext.setBounds(485, 355, 45, 28);
 		lypCapNhat.add(btnNext);
 
 		btnEnd = new JButton(">|");
+		btnEnd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnEnd();
+			}
+		});
 		btnEnd.setBounds(535, 355, 45, 28);
 		lypCapNhat.add(btnEnd);
 
 		disableFunction();
 	}
 
+	protected void btnEnd() {
+		index = list.size() - 1;
+		tblDanhSach.setRowSelectionInterval(index, index);
+		showDetail();
+		checkPositionInTable();
+	}
+
+	protected void btnNext() {
+		index++;
+		tblDanhSach.setRowSelectionInterval(index, index);
+		showDetail();
+		checkPositionInTable();
+	}
+
+	protected void btnBack() {
+		index--;
+		tblDanhSach.setRowSelectionInterval(index, index);
+		showDetail();
+		checkPositionInTable();
+	}
+
+	protected void btnBegin() {
+		index = 0;
+		tblDanhSach.setRowSelectionInterval(index, index);
+		showDetail();
+		checkPositionInTable();
+	}
+
+	protected void btnUpdate() {
+		if (validatedIgnoreMaCDKey()) {
+			ChuyenDeModel chuyenDeModel = new ChuyenDeModel();
+			chuyenDeModel.setMaCD(txtMaCD.getText());
+			chuyenDeModel.setTenCD(txtTenCD.getText());
+			chuyenDeModel.setThoiLuong(Integer.valueOf(txtThoiLuong.getText()));
+			chuyenDeModel.setHocPhi(Math.floor(Double.valueOf(txtHocPhi.getText())));
+			chuyenDeModel.setMoTa(txtMoTa.getText());
+
+			if (fileChooser.getSelectedFile() != null) {
+				chuyenDeModel.setHinh(fileChooser.getSelectedFile().getAbsolutePath());
+			} else {
+				chuyenDeModel.setHinh(list.get(index).getHinh());
+			}
+			chuyenDeService.update(chuyenDeModel, list.get(index).getMaCD());
+
+			clear();
+			disableFunction();
+			loadToTable();
+		}
+	}
+
+	private boolean validatedIgnoreMaCDKey() {
+		String regexInteger = "\\d+";
+		String regexDouble = "\\d+(\\.\\d+)?";
+		StringBuilder message = new StringBuilder();
+		if (txtMaCD.getText().isBlank()) {
+			message.append("\nMã chuyên đề trống");
+			txtMaCD.setBackground(Color.decode("#f38aff"));
+			txtMaCD.requestFocus();
+		}
+		if (txtTenCD.getText().isBlank()) {
+			message.append("\nTên chuyên đề trống");
+			txtTenCD.setBackground(Color.decode("#f38aff"));
+			txtTenCD.requestFocus();
+		}
+		if (txtThoiLuong.getText().isBlank()) {
+			message.append("\nThời lượng trống");
+			txtThoiLuong.setBackground(Color.decode("#f38aff"));
+			txtThoiLuong.requestFocus();
+		} else if (!txtThoiLuong.getText().matches(regexInteger) || Integer.valueOf(txtThoiLuong.getText()) == 0) {
+			message.append("\nThời lượng không hợp lệ");
+			txtThoiLuong.setBackground(Color.decode("#ff96a6"));
+			txtThoiLuong.requestFocus();
+		}
+		if (txtHocPhi.getText().isBlank()) {
+			message.append("\nHọc phí trống");
+			txtHocPhi.setBackground(Color.decode("#f38aff"));
+			txtHocPhi.requestFocus();
+		} else if (!txtHocPhi.getText().matches(regexDouble) || Double.valueOf(txtHocPhi.getText()) == 0) {
+			message.append("\nHọc phí không hợp lệ");
+			txtHocPhi.setBackground(Color.decode("#ff96a6"));
+			txtHocPhi.requestFocus();
+		}
+		if (txtMoTa.getText().isBlank()) {
+			message.append("\nMô tả trống");
+			txtMoTa.setBackground(Color.decode("#f38aff"));
+			txtMoTa.requestFocus();
+		}
+		if (message.isEmpty()) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(this, message);
+			return false;
+		}
+	}
+
+	protected void btnDelete() {
+		if (!nhanVien.isVaiTro()) {
+			JOptionPane.showMessageDialog(this, "Bạn không có quyền thực hiện chức năng này!", "Chức năng giới hạn", JOptionPane.ERROR_MESSAGE);
+		} else {
+			if (JOptionPane.showConfirmDialog(this, "Xác nhận xoá chuyên đề có Mã CD:  " + list.get(index).getMaCD(),
+					"Xoá", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+				chuyenDeService.delete(list.get(index));
+				loadToTable();
+
+				disableFunction();
+				clear();
+			}
+		}
+	}
+
 	protected void tableClicked() {
 		index = tblDanhSach.getSelectedRow();
 		showDetail();
 		checkPositionInTable();
-		
+
 		btnAdd.setEnabled(false);
 		btnUpdate.setEnabled(true);
 		btnDelete.setEnabled(true);
-		txtMaCD.setEnabled(false);
-		txtTenCD.setEnabled(false);
-		txtHocPhi.setEnabled(false);
-		txtThoiLuong.setEnabled(false);
-		txtMoTa.setEnabled(false);
-		unlockLogo = false;
+
+		txtMaCD.setEnabled(true);
+		txtTenCD.setEnabled(true);
+		txtHocPhi.setEnabled(true);
+		txtThoiLuong.setEnabled(true);
+		txtMoTa.setEnabled(true);
+		unlockLogo = true;
 	}
 
 	private void showDetail() {
@@ -270,38 +453,117 @@ public class ChuyenDeForm extends JFrame {
 	}
 
 	private void checkPositionInTable() {
-		if (index == 0) {
-			btnBegin.setEnabled(false);
-			btnBack.setEnabled(false);
+		if (list.size() > 1) {
+			if (index == 0) {
+				btnBegin.setEnabled(false);
+				btnBack.setEnabled(false);
+				btnNext.setEnabled(true);
+				btnEnd.setEnabled(true);
+			}
+			if (index > 0 && index < list.size() - 1) {
+				btnBegin.setEnabled(true);
+				btnBack.setEnabled(true);
+				btnNext.setEnabled(true);
+				btnEnd.setEnabled(true);
+			}
+			if (index == list.size() - 1) {
+				btnBegin.setEnabled(true);
+				btnBack.setEnabled(true);
+				btnNext.setEnabled(false);
+				btnEnd.setEnabled(false);
+			}
 		}
-		if (index > 0 && index < list.size()) {
-			btnBegin.setEnabled(true);
-			btnBack.setEnabled(true);
-			btnNext.setEnabled(true);
-			btnEnd.setEnabled(true);
+	}
+
+	private boolean validated() {
+		String regexInteger = "\\d+";
+		String regexDouble = "\\d+(\\.\\d+)?";
+		StringBuilder message = new StringBuilder();
+		if (txtMaCD.getText().isBlank()) {
+			message.append("\nMã chuyên đề trống");
+			txtMaCD.setBackground(Color.decode("#f38aff"));
+			txtMaCD.requestFocus();
+		} else {
+			for (ChuyenDeModel i : list) {
+				if (txtMaCD.getText().equalsIgnoreCase(i.getMaCD().trim())) {
+					message.append("\nMã chuyên đề đã tồn tại");
+					txtMaCD.setBackground(Color.decode("#ff96a6"));
+					txtMaCD.requestFocus();
+					break;
+				}
+			}
 		}
-		if (index == list.size()) {
-			btnNext.setEnabled(false);
-			btnEnd.setEnabled(false);
+		if (txtTenCD.getText().isBlank()) {
+			message.append("\nTên chuyên đề trống");
+			txtTenCD.setBackground(Color.decode("#f38aff"));
+			txtTenCD.requestFocus();
+		}
+		if (txtThoiLuong.getText().isBlank()) {
+			message.append("\nThời lượng trống");
+			txtThoiLuong.setBackground(Color.decode("#f38aff"));
+			txtThoiLuong.requestFocus();
+		} else if (!txtThoiLuong.getText().matches(regexInteger) || Integer.valueOf(txtThoiLuong.getText()) == 0) {
+			message.append("\nThời lượng không hợp lệ");
+			txtThoiLuong.setBackground(Color.decode("#ff96a6"));
+			txtThoiLuong.requestFocus();
+		}
+		if (txtHocPhi.getText().isBlank()) {
+			message.append("\nHọc phí trống");
+			txtHocPhi.setBackground(Color.decode("#f38aff"));
+			txtHocPhi.requestFocus();
+		} else if (!txtHocPhi.getText().matches(regexDouble) || Double.valueOf(txtHocPhi.getText()) == 0) {
+			message.append("\nHọc phí không hợp lệ");
+			txtHocPhi.setBackground(Color.decode("#ff96a6"));
+			txtHocPhi.requestFocus();
+		}
+		if (txtMoTa.getText().isBlank()) {
+			message.append("\nMô tả trống");
+			txtMoTa.setBackground(Color.decode("#f38aff"));
+			txtMoTa.requestFocus();
+		}
+		if (message.isEmpty()) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(this, message);
+			return false;
 		}
 	}
 
 	protected void btnAdd() {
-		ChuyenDeModel chuyenDeModel = new ChuyenDeModel();
-		chuyenDeModel.setMaCD(txtMaCD.getText());
-		chuyenDeModel.setTenCD(txtTenCD.getText());
-		chuyenDeModel.setThoiLuong(Integer.valueOf(txtThoiLuong.getText()));
-		chuyenDeModel.setHocPhi(Double.valueOf(txtHocPhi.getText()));
-		chuyenDeModel.setMoTa(txtMoTa.getText());
-		chuyenDeModel.setHinh(fileChooser.getSelectedFile().getAbsolutePath());
-		chuyenDeService.save(chuyenDeModel);
+		if (validated()) {
+			ChuyenDeModel chuyenDeModel = new ChuyenDeModel();
+			chuyenDeModel.setMaCD(txtMaCD.getText());
+			chuyenDeModel.setTenCD(txtTenCD.getText());
+			chuyenDeModel.setThoiLuong(Integer.valueOf(txtThoiLuong.getText()));
+			chuyenDeModel.setHocPhi(Math.floor(Double.valueOf(txtHocPhi.getText())));
+			chuyenDeModel.setMoTa(txtMoTa.getText());
+
+			if (fileChooser.getSelectedFile() != null) {
+				chuyenDeModel.setHinh(fileChooser.getSelectedFile().getAbsolutePath());
+			} else {
+				chuyenDeModel.setHinh(this.getClass().getResource("../../icon/question.png").getPath());
+			}
+			chuyenDeService.save(chuyenDeModel);
+			
+			ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("../../icon/question.png"));
+			Image image = imageIcon.getImage().getScaledInstance(164, 177, Image.SCALE_SMOOTH);
+			lblLogo.setIcon(new ImageIcon(image));
+
+			clear();
+			loadToTable();
+		}
 	}
 
 	private void loadToTable() {
+		try {
+			list = chuyenDeService.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.setRowCount(0);
 		for (ChuyenDeModel i : list) {
-			model.addRow(new Object[] { i.getMaCD(), i.getTenCD(), i.getHocPhi(), i.getThoiLuong(), i.getHinh(),
-					i.getMoTa() });
+			model.addRow(new Object[] { i.getMaCD(), i.getTenCD(), (int) i.getHocPhi() + " VNĐ",
+					i.getThoiLuong() + " Giờ", i.getHinh(), i.getMoTa() });
 		}
 	}
 
@@ -311,18 +573,26 @@ public class ChuyenDeForm extends JFrame {
 		txtTenCD.setText("");
 		txtThoiLuong.setText("");
 		txtMoTa.setText("");
+		txtHocPhi.setBackground(null);
+		txtMaCD.setBackground(null);
+		txtTenCD.setBackground(null);
+		txtThoiLuong.setBackground(null);
+		txtMoTa.setBackground(null);
+
+		tblDanhSach.clearSelection();
 	}
 
 	protected void btnNew() {
+		unlockLogo = true;
+
 		lblLogo.setIcon(null);
-		btnAdd.setEnabled(true);
 		txtHocPhi.setEnabled(true);
 		txtMaCD.setEnabled(true);
 		txtTenCD.setEnabled(true);
 		txtThoiLuong.setEnabled(true);
 		txtMoTa.setEnabled(true);
-		unlockLogo = true;
-		
+
+		btnAdd.setEnabled(true);
 		btnBegin.setEnabled(false);
 		btnBack.setEnabled(false);
 		btnNext.setEnabled(false);
@@ -331,12 +601,11 @@ public class ChuyenDeForm extends JFrame {
 		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("../../icon/question.png"));
 		Image image = imageIcon.getImage().getScaledInstance(164, 177, Image.SCALE_SMOOTH);
 		lblLogo.setIcon(new ImageIcon(image));
-		
+
 		clear();
 	}
 
 	protected void logoClicked() {
-		fileChooser = new JFileChooser();
 		int result = fileChooser.showOpenDialog(this);
 		if (result == JFileChooser.APPROVE_OPTION) {
 			ImageIcon imageIcon = new ImageIcon(fileChooser.getSelectedFile().getAbsolutePath());
@@ -359,5 +628,8 @@ public class ChuyenDeForm extends JFrame {
 		txtThoiLuong.setEnabled(false);
 		txtMoTa.setEnabled(false);
 		unlockLogo = false;
+		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("../../icon/none.png"));
+		Image image = imageIcon.getImage().getScaledInstance(164, 177, Image.SCALE_SMOOTH);
+		lblLogo.setIcon(new ImageIcon(image));
 	}
 }

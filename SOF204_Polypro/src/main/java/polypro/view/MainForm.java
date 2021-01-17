@@ -31,9 +31,11 @@ import javax.swing.UIManager;
 import polypro.model.NhanVienModel;
 
 public class MainForm extends JFrame {
-	NhanVienModel nhanVien = LoginForm.nhanVien;
-	JMenuItem mntmNhanVien;
-	JLabel lblFooter;
+	private NhanVienModel nhanVien;
+	private JMenuItem mntmNhanVien;
+	private JMenuItem mntmDoanhThu;
+	private JLabel lblUser;
+	private JLabel lblName;
 
 	private static final long serialVersionUID = -4913935832695327558L;
 
@@ -54,6 +56,7 @@ public class MainForm extends JFrame {
 	 * Create the application.
 	 */
 	public MainForm() {
+		nhanVien = LoginForm.nhanVien;
 		initialize();
 	}
 
@@ -209,7 +212,7 @@ public class MainForm extends JFrame {
 		mnStatistics.add(mntmDiemChuyenDe);
 		mntmDiemChuyenDe.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Bar chart.png")));
 
-		JMenuItem mntmDoanhThu = new JMenuItem("Doanh thu");
+		mntmDoanhThu = new JMenuItem("Doanh thu");
 		mntmDoanhThu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				doanhThu();
@@ -339,9 +342,23 @@ public class MainForm extends JFrame {
 		Component horizontalStrut_2 = Box.createHorizontalStrut(5);
 		panel.add(horizontalStrut_2);
 
-		lblFooter = new JLabel("Hệ quản lý đào tạo");
+		JLabel lblFooter = new JLabel("Hệ quản lý đào tạo");
 		panel.add(lblFooter);
 		lblFooter.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Info.png")));
+
+		Component horizontalStrut_4 = Box.createHorizontalStrut(60);
+		panel.add(horizontalStrut_4);
+
+		lblUser = new JLabel("");
+		lblUser.setToolTipText("Mã nhân viên");
+		panel.add(lblUser);
+
+		Component horizontalStrut_5 = Box.createHorizontalStrut(20);
+		panel.add(horizontalStrut_5);
+
+		lblName = new JLabel("");
+		lblName.setToolTipText("Tên nhân viên");
+		panel.add(lblName);
 
 		Component horizontalGlue = Box.createHorizontalGlue();
 		panel.add(horizontalGlue);
@@ -358,6 +375,7 @@ public class MainForm extends JFrame {
 		getContentPane().add(lblBackground, BorderLayout.CENTER);
 		lblBackground.setIcon(new ImageIcon(this.getClass().getResource("../../icon/bee.png")));
 
+		//Multithread for Clock
 		Thread th = new Thread() {
 			public void run() {
 				while (true) {
@@ -369,14 +387,24 @@ public class MainForm extends JFrame {
 		};
 		th.start();
 
-		if (nhanVien.isVaiTro()) {
-			setTitle("HỆ THỐNG QUẢN LÝ ĐÀO TẠO - TRƯỞNG PHÒNG");
-			mntmNhanVien.setEnabled(true);
-		} else {
-			setTitle("HỆ THỐNG QUẢN LÝ ĐÀO TẠO - NHÂN VIÊN");
-			mntmNhanVien.setEnabled(false);
+		//Custom for every single Role (as Trưởng phòng || as Nhân viên)
+		try {
+			if (nhanVien.isVaiTro()) {
+				setTitle("HỆ THỐNG QUẢN LÝ ĐÀO TẠO - TRƯỞNG PHÒNG");
+				mntmNhanVien.setEnabled(true);
+				mntmDoanhThu.setEnabled(true);
+			} else {
+				setTitle("HỆ THỐNG QUẢN LÝ ĐÀO TẠO - NHÂN VIÊN");
+				mntmNhanVien.setEnabled(false);
+				mntmDoanhThu.setEnabled(false);
+			}
+			lblUser.setText(nhanVien.getMaNV());
+			lblUser.setForeground(Color.decode("#4220e8"));
+			lblName.setText(nhanVien.getHoTen());
+			lblName.setForeground(Color.decode("#4220e8"));
+		} catch (NullPointerException e) {
+			e.printStackTrace();
 		}
-		lblFooter.setText("Hệ quản lý đào tạo - " + nhanVien.getMaNV() + " - " + nhanVien.getHoTen());
 	}
 
 	protected void login() {

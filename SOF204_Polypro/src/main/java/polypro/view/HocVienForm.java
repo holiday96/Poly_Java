@@ -27,6 +27,8 @@ public class HocVienForm extends JFrame {
 	private JTable tblNguoiHoc;
 	private String columnNguoiHoc[] = { "MÃ HV", "HỌ VÀ TÊN", "GIỚI TÍNH", "NGÀY SINH", "ĐIỆN THOẠI", "EMAIL" };
 	private DefaultTableModel modelNguoiHoc;
+	private JComboBox<Object> cboChuyenDe;
+	private JComboBox<Object> cboKhoaHoc;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -130,7 +132,7 @@ public class HocVienForm extends JFrame {
 				new Font("SansSerif", Font.BOLD, 15), new Color(51, 0, 153)));
 		pnlChuyenDe.setLayout(null);
 
-		JComboBox<Object> cboChuyenDe = new JComboBox<Object>();
+		cboChuyenDe = new JComboBox<Object>();
 		cboChuyenDe.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cboChuyenDe.setBounds(14, 18, 328, 30);
 		pnlChuyenDe.add(cboChuyenDe);
@@ -142,7 +144,7 @@ public class HocVienForm extends JFrame {
 		pnlKhoaHoc.setBounds(377, 6, 347, 63);
 		getContentPane().add(pnlKhoaHoc);
 
-		JComboBox<Object> cboKhoaHoc = new JComboBox<Object>();
+		cboKhoaHoc = new JComboBox<Object>();
 		cboKhoaHoc.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		cboKhoaHoc.setBounds(14, 18, 316, 30);
 		pnlKhoaHoc.add(cboKhoaHoc);

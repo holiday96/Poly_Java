@@ -118,6 +118,13 @@ public class LoginForm extends JFrame {
 		getContentPane().add(txtPassword);
 
 		btnLogin = new JButton("Đăng nhập");
+		btnLogin.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				loginKeyPressed(e);
+				exitKeyPressed(e);
+			}
+		});
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				login();
@@ -130,6 +137,14 @@ public class LoginForm extends JFrame {
 		getContentPane().add(btnLogin);
 
 		btnExit = new JButton("Kết thúc");
+		btnExit.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					exit();
+				}
+			}
+		});
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				exit();

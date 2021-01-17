@@ -5,7 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -71,9 +74,11 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 					ps.setInt(index, (Integer) parameter);
 				} else if (parameter instanceof Double) {
 					ps.setDouble(index, (Double) parameter);
-				}  else if (parameter instanceof Boolean) {
+				} else if (parameter instanceof Boolean) {
 					ps.setBoolean(index, (Boolean) parameter);
-				} 
+				} else if (parameter instanceof Date) {
+					ps.setDate(index, new java.sql.Date(((Date) parameter).getTime()));
+				}
 
 			}
 		} catch (SQLException e) {
@@ -91,7 +96,8 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			ps = conn.prepareStatement(sql);
 			setParameter(ps, parameters);
 			if (ps.executeUpdate() > 0) {
-				JOptionPane.showMessageDialog(null, "Thành công", "Thông báo", 0, new ImageIcon(this.getClass().getResource("../../../icon/Tick.png")));
+				JOptionPane.showMessageDialog(null, "Thành công", "Thông báo", 0,
+						new ImageIcon(this.getClass().getResource("../../../icon/Tick.png")));
 				conn.commit();
 			}
 		} catch (SQLException e) {
@@ -128,7 +134,8 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			ps = conn.prepareStatement(sql);
 			setParameter(ps, parameters);
 			if (ps.executeUpdate() > 0) {
-				JOptionPane.showMessageDialog(null, "Thành công", "Thông báo", 0, new ImageIcon(this.getClass().getResource("../../../icon/Tick.png")));
+				JOptionPane.showMessageDialog(null, "Thành công", "Thông báo", 0,
+						new ImageIcon(this.getClass().getResource("../../../icon/Tick.png")));
 				conn.commit();
 			}
 		} catch (SQLException e) {
@@ -166,7 +173,8 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			ps = conn.prepareStatement(sql);
 			setParameter(ps, parameters);
 			if (ps.executeUpdate() > 0) {
-				JOptionPane.showMessageDialog(null, "Thành công", "Thông báo", 0, new ImageIcon(this.getClass().getResource("../../../icon/Tick.png")));
+				JOptionPane.showMessageDialog(null, "Thành công", "Thông báo", 0,
+						new ImageIcon(this.getClass().getResource("../../../icon/Tick.png")));
 				conn.commit();
 			}
 		} catch (SQLException e) {

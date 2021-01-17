@@ -266,6 +266,7 @@ public class NhanVienForm extends JFrame {
 			nhanVienSevice.update(nhanVienModel, list.get(index).getMaNV());
 
 			clear();
+			disableFunction();
 			loadToTable();
 		}
 	}
@@ -317,6 +318,7 @@ public class NhanVienForm extends JFrame {
 		btnAdd.setEnabled(false);
 		btnUpdate.setEnabled(true);
 		btnDelete.setEnabled(true);
+		
 		txtMaNV.setEnabled(true);
 		txtMatKhau.setEnabled(true);
 		txtHoTen.setEnabled(true);
@@ -394,7 +396,6 @@ public class NhanVienForm extends JFrame {
 		btnBack.setEnabled(false);
 		btnNext.setEnabled(false);
 		btnEnd.setEnabled(false);
-		tblDanhSach.clearSelection();
 
 		clear();
 	}
@@ -403,11 +404,14 @@ public class NhanVienForm extends JFrame {
 		txtMaNV.setText("");
 		txtMatKhau.setText("");
 		txtHoTen.setText("");
+		
 		rdoNhanVien.setSelected(true);
 		rdoTruongPhong.setSelected(false);
 		txtMaNV.setBackground(null);
 		txtMatKhau.setBackground(null);
 		txtHoTen.setBackground(null);
+		
+		tblDanhSach.clearSelection();
 	}
 
 	private void disableFunction() {
@@ -426,7 +430,6 @@ public class NhanVienForm extends JFrame {
 		txtMaNV.setBackground(null);
 		txtMatKhau.setBackground(null);
 		txtHoTen.setBackground(null);
-
 	}
 
 	public static boolean validateLetters(String txt) {

@@ -20,7 +20,7 @@ public class NhanVienService implements INhanVienService{
 	@Inject
 	private static INhanVienDAO nhanVienDAO = new NhanVienDAO();
 
-	//return ID of ChuyenDeModel
+	//return ID of NhanVienModel
 	@Override
 	public String save(NhanVienModel nhanVienModel) {
 		return nhanVienDAO.save(nhanVienModel);

@@ -13,11 +13,15 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+
+import polypro.model.NhanVienModel;
+
 import javax.swing.JComboBox;
 
 public class ThongKeForm extends JFrame {
 
 	private static final long serialVersionUID = -4913935832695327558L;
+
 	private JTable tblBangDiem;
 	private String columnBangDiem[] = { "MÃ NH", "HỌ VÀ TÊN", "ĐIỂM", "XẾP LOẠI" };
 	private DefaultTableModel modelBangDiem;
@@ -31,6 +35,7 @@ public class ThongKeForm extends JFrame {
 	private String columnDoanhThu[] = { "CHUYÊN ĐỀ", "SỐ KH", "SỐ HV", "D.THU", "HP.TN", "HP.CN", "HP.TB" };
 	private DefaultTableModel modelDoanhThu;
 	private JTabbedPane tabbedPane;
+	private NhanVienModel nhanVien;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -49,6 +54,7 @@ public class ThongKeForm extends JFrame {
 	 * Create the application.
 	 */
 	public ThongKeForm() {
+		nhanVien = LoginForm.nhanVien;
 		initialize();
 	}
 
@@ -126,6 +132,7 @@ public class ThongKeForm extends JFrame {
 
 		JLayeredPane lypDoanhThu = new JLayeredPane();
 		tabbedPane.addTab("DOANH THU", null, lypDoanhThu, null);
+		tabbedPane.setEnabledAt(3, true);
 
 		JScrollPane scrollPane_1_1_1 = new JScrollPane();
 		scrollPane_1_1_1.setBounds(0, 31, 590, 268);
@@ -145,6 +152,11 @@ public class ThongKeForm extends JFrame {
 		cboNam.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		cboNam.setBounds(44, 2, 540, 26);
 		lypDoanhThu.add(cboNam);
+		if (nhanVien.isVaiTro()) {
+			tabbedPane.setEnabledAt(3, true);
+		} else {
+			tabbedPane.setEnabledAt(3, false);
+		}
 	}
 
 	public void changeTab(int numTab) {
