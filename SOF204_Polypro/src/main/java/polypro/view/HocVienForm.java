@@ -22,7 +22,7 @@ public class HocVienForm extends JFrame {
 
 	private static final long serialVersionUID = -4913935832695327558L;
 	private JTable tblHocVien;
-	private String columnHocVien[] = { "TT", "MÃ HV", "MÃ NH", "HỌ VÀ TÊN", "ĐIỂM" };
+	private String columnHocVien[] = { "TT", "MÃ HV", "HỌ VÀ TÊN", "ĐIỂM" };
 	private DefaultTableModel modelHocVien;
 	private JTable tblNguoiHoc;
 	private String columnNguoiHoc[] = { "MÃ HV", "HỌ VÀ TÊN", "GIỚI TÍNH", "NGÀY SINH", "ĐIỆN THOẠI", "EMAIL" };
