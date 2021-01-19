@@ -11,6 +11,7 @@ public class NguoiHocModel {
 	private String email;
 	private String ghiChu;
 	private Date ngayDK;
+	private String maNV;
 	
 	public String getMaNH() {
 		return maNH;
@@ -59,5 +60,11 @@ public class NguoiHocModel {
 	}
 	public void setNgayDK(Date ngayDK) {
 		this.ngayDK = ngayDK;
+	}
+	public String getMaNV() {
+		return maNV;
+	}
+	public void setMaNV(String maNV) {
+		this.maNV = maNV;
 	}
 }
