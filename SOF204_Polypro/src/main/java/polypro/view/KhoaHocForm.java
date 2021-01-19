@@ -35,7 +35,6 @@ import javax.swing.table.DefaultTableModel;
 
 import polypro.model.ChuyenDeModel;
 import polypro.model.KhoaHocModel;
-import polypro.model.NhanVienModel;
 import polypro.service.IChuyenDeService;
 import polypro.service.IKhoaHocService;
 import polypro.service.impl.ChuyenDeService;
@@ -45,7 +44,6 @@ public class KhoaHocForm extends JFrame {
 
 	private static final long serialVersionUID = -4913935832695327558L;
 
-	private NhanVienModel nhanVien;
 	private JTable table;
 	private String column[] = { "MÃ KH", "THỜI LƯỢNG", "HỌC PHÍ", "KHAI GIẢNG", "NGƯỜI TẠO", "NGÀY TẠO" };
 	private DefaultTableModel model;
@@ -90,8 +88,6 @@ public class KhoaHocForm extends JFrame {
 	 * Create the application.
 	 */
 	public KhoaHocForm() {
-		nhanVien = LoginForm.nhanVien;
-
 		initialize();
 
 		try {
@@ -383,19 +379,19 @@ public class KhoaHocForm extends JFrame {
 
 	protected void btnUpdate() {
 		if (validated()) {
-			KhoaHocModel khoaHocModel = new KhoaHocModel();
-			khoaHocModel.setThoiLuong(Integer.valueOf(txtThoiLuong.getText()));
-			khoaHocModel.setHocPhi(Math.floor(Double.valueOf(txtHocPhi.getText())));
 			try {
+				KhoaHocModel khoaHocModel = new KhoaHocModel();
+				khoaHocModel.setThoiLuong(Integer.valueOf(txtThoiLuong.getText()));
+				khoaHocModel.setHocPhi(Math.floor(Double.valueOf(txtHocPhi.getText())));
 				khoaHocModel.setNgayKG(new SimpleDateFormat("dd/MM/yyyy").parse(txtKhaiGiang.getText()));
 				khoaHocModel.setNgayTao(new SimpleDateFormat("dd/MM/yyyy").parse(txtNgayTao.getText()));
+				khoaHocModel.setGhiChu(txtGhiChu.getText());
+				khoaHocModel.setMaCD(listChuyenDe.get(indexChuyenDe).getMaCD());
+				khoaHocModel.setMaNV(LoginForm.nhanVien.getMaNV());
+				khoaHocService.update(khoaHocModel, listKhoaHoc.get(indexKhoaHoc).getMaKH());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			khoaHocModel.setGhiChu(txtGhiChu.getText());
-			khoaHocModel.setMaCD(listChuyenDe.get(indexChuyenDe).getMaCD());
-			khoaHocModel.setMaNV(nhanVien.getMaNV());
-			khoaHocService.update(khoaHocModel, listKhoaHoc.get(indexKhoaHoc).getMaKH());
 
 			clear();
 			loadToTable();
@@ -404,19 +400,19 @@ public class KhoaHocForm extends JFrame {
 
 	protected void btnAdd() {
 		if (validated()) {
-			KhoaHocModel khoaHocModel = new KhoaHocModel();
-			khoaHocModel.setThoiLuong(Integer.valueOf(txtThoiLuong.getText()));
-			khoaHocModel.setHocPhi(Math.floor(Double.valueOf(txtHocPhi.getText())));
 			try {
+				KhoaHocModel khoaHocModel = new KhoaHocModel();
+				khoaHocModel.setThoiLuong(Integer.valueOf(txtThoiLuong.getText()));
+				khoaHocModel.setHocPhi(Math.floor(Double.valueOf(txtHocPhi.getText())));
 				khoaHocModel.setNgayKG(new SimpleDateFormat("dd/MM/yyyy").parse(txtKhaiGiang.getText()));
 				khoaHocModel.setNgayTao(new SimpleDateFormat("dd/MM/yyyy").parse(txtNgayTao.getText()));
+				khoaHocModel.setGhiChu(txtGhiChu.getText());
+				khoaHocModel.setMaCD(listChuyenDe.get(indexChuyenDe).getMaCD());
+				khoaHocModel.setMaNV(LoginForm.nhanVien.getMaNV());
+				khoaHocService.save(khoaHocModel);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			khoaHocModel.setGhiChu(txtGhiChu.getText());
-			khoaHocModel.setMaCD(listChuyenDe.get(indexChuyenDe).getMaCD());
-			khoaHocModel.setMaNV(nhanVien.getMaNV());
-			khoaHocService.save(khoaHocModel);
 
 			clear();
 			loadToTable();
@@ -520,7 +516,7 @@ public class KhoaHocForm extends JFrame {
 		txtKhaiGiang.setText("Ngày / Tháng / Năm");
 		txtGhiChu.setText("");
 		try {
-			txtNguoiTao.setText(nhanVien.getHoTen());
+			txtNguoiTao.setText(LoginForm.nhanVien.getHoTen());
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}

@@ -17,7 +17,7 @@ public class NguoiHocDAO extends AbstractDAO<NguoiHocModel> implements INguoiHoc
 	@Override
 	public String save(NguoiHocModel nguoiHocModel) {
 		String sql = "INSERT INTO NGUOIHOC VALUES (?,?,?,?,?,?,?,?,?)";
-		return insert(sql, nguoiHocModel.getMaNV(), nguoiHocModel.getHoTen(), nguoiHocModel.isGioiTinh(),
+		return insert(sql, nguoiHocModel.getMaNH(), nguoiHocModel.getHoTen(), nguoiHocModel.isGioiTinh(),
 				nguoiHocModel.getNgaySinh(), nguoiHocModel.getDienThoai(), nguoiHocModel.getEmail(),
 				nguoiHocModel.getGhiChu(), nguoiHocModel.getMaNV(), nguoiHocModel.getNgayDK());
 	}

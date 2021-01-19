@@ -3,12 +3,15 @@ package polypro.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,10 +31,7 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
-import polypro.model.NhanVienModel;
-
 public class MainForm extends JFrame {
-	private NhanVienModel nhanVien;
 	private JMenuItem mntmNhanVien;
 	private JMenuItem mntmDoanhThu;
 	private JLabel lblUser;
@@ -56,7 +56,6 @@ public class MainForm extends JFrame {
 	 * Create the application.
 	 */
 	public MainForm() {
-		nhanVien = LoginForm.nhanVien;
 		initialize();
 	}
 
@@ -226,6 +225,11 @@ public class MainForm extends JFrame {
 		menuBar.add(mnHelp);
 
 		JMenuItem mntmInstruction = new JMenuItem("Hướng dẫn sử dụng");
+		mntmInstruction.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				huongDan();
+			}
+		});
 		mntmInstruction.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		mnHelp.add(mntmInstruction);
 		mntmInstruction.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Globe.png")));
@@ -330,6 +334,11 @@ public class MainForm extends JFrame {
 		toolBar.add(horizontalStrut_1);
 
 		JButton btnInstruction = new JButton("Hướng dẫn");
+		btnInstruction.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				huongDan();
+			}
+		});
 		toolBar.add(btnInstruction);
 		btnInstruction.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Globe.png")));
 		btnInstruction.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -389,7 +398,7 @@ public class MainForm extends JFrame {
 
 		//Custom for every single Role (as Trưởng phòng || as Nhân viên)
 		try {
-			if (nhanVien.isVaiTro()) {
+			if (LoginForm.nhanVien.isVaiTro()) {
 				setTitle("HỆ THỐNG QUẢN LÝ ĐÀO TẠO - TRƯỞNG PHÒNG");
 				mntmNhanVien.setEnabled(true);
 				mntmDoanhThu.setEnabled(true);
@@ -398,11 +407,19 @@ public class MainForm extends JFrame {
 				mntmNhanVien.setEnabled(false);
 				mntmDoanhThu.setEnabled(false);
 			}
-			lblUser.setText(nhanVien.getMaNV());
+			lblUser.setText(LoginForm.nhanVien.getMaNV());
 			lblUser.setForeground(Color.decode("#4220e8"));
-			lblName.setText(nhanVien.getHoTen());
+			lblName.setText(LoginForm.nhanVien.getHoTen());
 			lblName.setForeground(Color.decode("#4220e8"));
 		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void huongDan() {
+		try {
+			Desktop.getDesktop().browse(this.getClass().getResource("../../instruction.html").toURI());
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 	}

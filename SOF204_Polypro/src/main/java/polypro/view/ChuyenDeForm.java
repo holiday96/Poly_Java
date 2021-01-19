@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -24,16 +26,13 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import polypro.model.ChuyenDeModel;
-import polypro.model.NhanVienModel;
 import polypro.service.IChuyenDeService;
 import polypro.service.impl.ChuyenDeService;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.ListSelectionModel;
 
 public class ChuyenDeForm extends JFrame {
 
@@ -59,7 +58,6 @@ public class ChuyenDeForm extends JFrame {
 	private boolean unlockLogo;
 	private List<ChuyenDeModel> list;
 	private int index;
-	private NhanVienModel nhanVien;
 
 	@Inject
 	private IChuyenDeService chuyenDeService = new ChuyenDeService();
@@ -81,7 +79,6 @@ public class ChuyenDeForm extends JFrame {
 	 * Create the application.
 	 */
 	public ChuyenDeForm() {
-		nhanVien = LoginForm.nhanVien;
 		fileChooser = new JFileChooser();
 		initialize();
 		try {
@@ -409,7 +406,7 @@ public class ChuyenDeForm extends JFrame {
 	}
 
 	protected void btnDelete() {
-		if (!nhanVien.isVaiTro()) {
+		if (!LoginForm.nhanVien.isVaiTro()) {
 			JOptionPane.showMessageDialog(this, "Bạn không có quyền thực hiện chức năng này!", "Chức năng giới hạn", JOptionPane.ERROR_MESSAGE);
 		} else {
 			if (JOptionPane.showConfirmDialog(this, "Xác nhận xoá chuyên đề có Mã CD:  " + list.get(index).getMaCD(),

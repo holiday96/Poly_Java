@@ -10,14 +10,18 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -30,7 +34,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import polypro.model.NguoiHocModel;
-import polypro.model.NhanVienModel;
 import polypro.service.INguoiHocService;
 import polypro.service.impl.NguoiHocService;
 
@@ -41,6 +44,7 @@ public class NguoiHocForm extends JFrame {
 	private String column[] = { "MÃ NH", "HỌ VÀ TÊN", "GIỚI TÍNH", "NGÀY SINH", "ĐIỆN THOẠI", "EMAIL", "MÃ NV",
 			"NGÀY ĐK" };
 	private DefaultTableModel model;
+	private JTextField txtFind;
 	private JTextField txtMaNH;
 	private JTextField txtHoTen;
 	private JRadioButton rdoNam;
@@ -60,7 +64,6 @@ public class NguoiHocForm extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private int index;
 	private List<NguoiHocModel> list;
-	private NhanVienModel nhanVien;
 
 	private INguoiHocService nguoiHocService = new NguoiHocService();
 
@@ -81,8 +84,6 @@ public class NguoiHocForm extends JFrame {
 	 * Create the application.
 	 */
 	public NguoiHocForm() {
-		nhanVien = LoginForm.nhanVien;
-
 		initialize();
 		try {
 			index = 0;
@@ -94,6 +95,15 @@ public class NguoiHocForm extends JFrame {
 	}
 
 	private void loadToTable() {
+		try {
+			list = nguoiHocService.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		reloadTable();
+	}
+	
+	private void reloadTable() {
 		model.setRowCount(0);
 		for (NguoiHocModel i : list) {
 			model.addRow(new Object[] { i.getMaNH(), i.getHoTen(), (i.isGioiTinh()) ? "Nam" : "Nữ",
@@ -145,10 +155,10 @@ public class NguoiHocForm extends JFrame {
 				new Font("SansSerif", Font.BOLD, 15), new Color(51, 0, 153)));
 		pnlFind.setLayout(null);
 
-		JTextField txtFind = new JTextField();
+		txtFind = new JTextField();
 		txtFind.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyReleased(KeyEvent e) {
 				findKeyPressed();
 			}
 		});
@@ -165,6 +175,13 @@ public class NguoiHocForm extends JFrame {
 		pnlCapNhat.add(lblMaNH);
 
 		txtMaNH = new JTextField("");
+		txtMaNH.setToolTipText("Tối đa 7 ký tự");
+		txtMaNH.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				txtMaNH.setBackground(null);
+			}
+		});
 		txtMaNH.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		txtMaNH.setForeground(new Color(0, 0, 0));
 		txtMaNH.setBounds(6, 28, 575, 26);
@@ -179,6 +196,12 @@ public class NguoiHocForm extends JFrame {
 		pnlCapNhat.add(lblDienThoai);
 
 		txtDienThoai = new JTextField();
+		txtDienThoai.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				txtDienThoai.setBackground(null);
+			}
+		});
 		txtDienThoai.setColumns(10);
 		txtDienThoai.setBounds(6, 204, 296, 28);
 		pnlCapNhat.add(txtDienThoai);
@@ -234,18 +257,38 @@ public class NguoiHocForm extends JFrame {
 		pnlCapNhat.add(btnClear);
 
 		btnBegin = new JButton("|<");
+		btnBegin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnBegin();
+			}
+		});
 		btnBegin.setBounds(387, 388, 45, 28);
 		pnlCapNhat.add(btnBegin);
 
 		btnBack = new JButton("<<");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnBack();
+			}
+		});
 		btnBack.setBounds(435, 388, 45, 28);
 		pnlCapNhat.add(btnBack);
 
 		btnNext = new JButton(">>");
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnNext();
+			}
+		});
 		btnNext.setBounds(485, 388, 45, 28);
 		pnlCapNhat.add(btnNext);
 
 		btnEnd = new JButton(">|");
+		btnEnd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnEnd();
+			}
+		});
 		btnEnd.setBounds(535, 388, 45, 28);
 		pnlCapNhat.add(btnEnd);
 
@@ -254,6 +297,12 @@ public class NguoiHocForm extends JFrame {
 		pnlCapNhat.add(lblHoTen);
 
 		txtHoTen = new JTextField();
+		txtHoTen.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				txtHoTen.setBackground(null);
+			}
+		});
 		txtHoTen.setColumns(10);
 		txtHoTen.setBounds(6, 88, 575, 28);
 		pnlCapNhat.add(txtHoTen);
@@ -263,6 +312,13 @@ public class NguoiHocForm extends JFrame {
 		pnlCapNhat.add(lblNgaySinh);
 
 		txtNgaySinh = new JTextField();
+		txtNgaySinh.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				txtNgaySinh.setBackground(null);
+			}
+		});
+		txtNgaySinh.setToolTipText("VD: 01/12/2020");
 		txtNgaySinh.setColumns(10);
 		txtNgaySinh.setBounds(314, 152, 267, 28);
 		pnlCapNhat.add(txtNgaySinh);
@@ -272,6 +328,13 @@ public class NguoiHocForm extends JFrame {
 		pnlCapNhat.add(lblEmail);
 
 		txtEmail = new JTextField();
+		txtEmail.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				txtEmail.setBackground(null);
+			}
+		});
+		txtEmail.setToolTipText("VD: a@a.com");
 		txtEmail.setColumns(10);
 		txtEmail.setBounds(314, 204, 267, 28);
 		pnlCapNhat.add(txtEmail);
@@ -328,13 +391,39 @@ public class NguoiHocForm extends JFrame {
 	}
 
 	protected void btnDelete() {
-		// TODO Auto-generated method stub
+		if (JOptionPane.showConfirmDialog(this, "Xác nhận xoá người học có Mã NH:  " + list.get(index).getMaNH(), "Xoá",
+				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+			nguoiHocService.delete(list.get(index));
+			loadToTable();
 
+			disableFunction();
+			clear();
+		}
 	}
 
 	protected void btnUpdate() {
-		// TODO Auto-generated method stub
+		if (validatedIgnoreMaNHKey()) {
+			try {
+				NguoiHocModel nguoiHocModel = new NguoiHocModel();
+				nguoiHocModel.setMaNH(txtMaNH.getText());
+				nguoiHocModel.setHoTen(txtHoTen.getText());
+				nguoiHocModel.setGioiTinh((rdoNam.isSelected()) ? true : false);
+				nguoiHocModel.setNgaySinh(new SimpleDateFormat("dd/MM/yyyy").parse(txtNgaySinh.getText()));
+				nguoiHocModel.setDienThoai(txtDienThoai.getText());
+				nguoiHocModel.setEmail(txtEmail.getText());
+				nguoiHocModel.setGhiChu(txtGhiChu.getText());
+				nguoiHocModel.setMaNV(LoginForm.nhanVien.getMaNV());
+				nguoiHocModel.setNgayDK(new SimpleDateFormat("dd/MM/yyyy")
+						.parse(new SimpleDateFormat("dd/MM/yyyy").format(new Date())));
+				nguoiHocService.update(nguoiHocModel, list.get(index).getMaNH());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
+			clear();
+			disableFunction();
+			loadToTable();
+		}
 	}
 
 	protected void btnAdd() {
@@ -348,8 +437,9 @@ public class NguoiHocForm extends JFrame {
 				nguoiHocModel.setDienThoai(txtDienThoai.getText());
 				nguoiHocModel.setEmail(txtEmail.getText());
 				nguoiHocModel.setGhiChu(txtGhiChu.getText());
-				nguoiHocModel.setMaNV(nhanVien.getMaNV());
-				nguoiHocModel.setNgayDK(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+				nguoiHocModel.setMaNV(LoginForm.nhanVien.getMaNV());
+				nguoiHocModel.setNgayDK(new SimpleDateFormat("dd/MM/yyyy")
+						.parse(new SimpleDateFormat("dd/MM/yyyy").format(new Date())));
 				nguoiHocService.save(nguoiHocModel);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -360,9 +450,146 @@ public class NguoiHocForm extends JFrame {
 		}
 	}
 
+	public static boolean validateLetters(String txt) {
+		String regx = "^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$";
+		Pattern pattern = Pattern.compile(regx, Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(txt);
+		return matcher.find();
+	}
+
 	private boolean validated() {
-		// TODO Auto-generated method stub
-		return true;
+		String regexEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+		String regexDate = "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$";
+		String regexPhone = "(84|0[3|5|7|8|9])+([0-9]{8})\\b";
+		StringBuilder message = new StringBuilder();
+		if (txtMaNH.getText().isBlank()) {
+			message.append("\nMã người học trống");
+			txtMaNH.setBackground(Color.decode("#f38aff"));
+			txtMaNH.requestFocus();
+		} else {
+			for (NguoiHocModel i : list) {
+				if (txtMaNH.getText().equalsIgnoreCase(i.getMaNH().trim())) {
+					message.append("\nMã người học đã tồn tại");
+					txtMaNH.setBackground(Color.decode("#ff96a6"));
+					txtMaNH.requestFocus();
+					break;
+				}
+			}
+		}
+		if (txtHoTen.getText().isBlank()) {
+			message.append("\nHọ và tên trống");
+			txtHoTen.setBackground(Color.decode("#f38aff"));
+			txtHoTen.requestFocus();
+		} else if (!validateLetters(txtHoTen.getText())) {
+			message.append("\nHọ tên không hợp lệ");
+			txtHoTen.setBackground(Color.decode("#ff96a6"));
+			txtHoTen.requestFocus();
+		}
+		if (txtNgaySinh.getText().isBlank()) {
+			message.append("\nNgày sinh trống");
+			txtNgaySinh.setBackground(Color.decode("#f38aff"));
+			txtNgaySinh.requestFocus();
+		} else if (!txtNgaySinh.getText().matches(regexDate)) {
+			message.append("\nNgày sinh không hợp lệ!");
+			txtNgaySinh.setBackground(Color.decode("#ff96a6"));
+			txtNgaySinh.requestFocus();
+		} else
+			try {
+				if (new SimpleDateFormat("dd/MM/yyyy").parse(txtNgaySinh.getText()).after(new Date())) {
+					message.append("\nNgày sinh phải trước ngày hiện tại!");
+					txtNgaySinh.setBackground(Color.decode("#ff96a6"));
+					txtNgaySinh.requestFocus();
+				}
+			} catch (NumberFormatException | ParseException e) {
+				e.printStackTrace();
+			}
+		if (txtDienThoai.getText().isBlank()) {
+			message.append("\nSố điện thoại trống");
+			txtDienThoai.setBackground(Color.decode("#f38aff"));
+			txtDienThoai.requestFocus();
+		} else if (!txtDienThoai.getText().matches(regexPhone)) {
+			message.append("\nSố điện thoại không hợp lệ!");
+			txtDienThoai.setBackground(Color.decode("#ff96a6"));
+			txtDienThoai.requestFocus();
+		}
+		if (txtEmail.getText().isBlank()) {
+			message.append("\nĐịa chỉ Email trống");
+			txtEmail.setBackground(Color.decode("#f38aff"));
+			txtEmail.requestFocus();
+		} else if (!txtEmail.getText().matches(regexEmail)) {
+			message.append("\nEmail không hợp lệ!");
+			txtEmail.setBackground(Color.decode("#ff96a6"));
+			txtEmail.requestFocus();
+		}
+		if (message.isEmpty()) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(this, message);
+			return false;
+		}
+	}
+
+	private boolean validatedIgnoreMaNHKey() {
+		String regexEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+		String regexDate = "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$";
+		String regexPhone = "(84|0[3|5|7|8|9])+([0-9]{8})\\b";
+		StringBuilder message = new StringBuilder();
+		if (txtMaNH.getText().isBlank()) {
+			message.append("\nMã người học trống");
+			txtMaNH.setBackground(Color.decode("#f38aff"));
+			txtMaNH.requestFocus();
+		}
+		if (txtHoTen.getText().isBlank()) {
+			message.append("\nHọ và tên trống");
+			txtHoTen.setBackground(Color.decode("#f38aff"));
+			txtHoTen.requestFocus();
+		} else if (!validateLetters(txtHoTen.getText())) {
+			message.append("\nHọ tên không hợp lệ");
+			txtHoTen.setBackground(Color.decode("#ff96a6"));
+			txtHoTen.requestFocus();
+		}
+		if (txtNgaySinh.getText().isBlank()) {
+			message.append("\nNgày sinh trống");
+			txtNgaySinh.setBackground(Color.decode("#f38aff"));
+			txtNgaySinh.requestFocus();
+		} else if (!txtNgaySinh.getText().matches(regexDate)) {
+			message.append("\nNgày sinh không hợp lệ!");
+			txtNgaySinh.setBackground(Color.decode("#ff96a6"));
+			txtNgaySinh.requestFocus();
+		} else
+			try {
+				if (new SimpleDateFormat("dd/MM/yyyy").parse(txtNgaySinh.getText()).after(new Date())) {
+					message.append("\nNgày sinh phải trước ngày hiện tại!");
+					txtNgaySinh.setBackground(Color.decode("#ff96a6"));
+					txtNgaySinh.requestFocus();
+				}
+			} catch (NumberFormatException | ParseException e) {
+				e.printStackTrace();
+			}
+		if (txtDienThoai.getText().isBlank()) {
+			message.append("\nSố điện thoại trống");
+			txtDienThoai.setBackground(Color.decode("#f38aff"));
+			txtDienThoai.requestFocus();
+		} else if (!txtDienThoai.getText().matches(regexPhone)) {
+			message.append("\nSố điện thoại không hợp lệ!");
+			txtDienThoai.setBackground(Color.decode("#ff96a6"));
+			txtDienThoai.requestFocus();
+		}
+		if (txtEmail.getText().isBlank()) {
+			message.append("\nĐịa chỉ Email trống");
+			txtEmail.setBackground(Color.decode("#f38aff"));
+			txtEmail.requestFocus();
+		} else if (!txtEmail.getText().matches(regexEmail)) {
+			message.append("\nEmail không hợp lệ!");
+			txtEmail.setBackground(Color.decode("#ff96a6"));
+			txtEmail.requestFocus();
+		}
+		if (message.isEmpty()) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(this, message);
+			return false;
+		}
 	}
 
 	protected void tableClicked() {
@@ -420,7 +647,15 @@ public class NguoiHocForm extends JFrame {
 	}
 
 	protected void findKeyPressed() {
-
+		try {
+			list = nguoiHocService.findByID(txtFind.getText());
+			reloadTable();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		clear();
+		disableFunction();
 	}
 
 	private void disableFunction() {

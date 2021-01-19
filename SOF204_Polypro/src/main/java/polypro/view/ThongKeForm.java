@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -13,10 +14,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-
-import polypro.model.NhanVienModel;
-
-import javax.swing.JComboBox;
 
 public class ThongKeForm extends JFrame {
 
@@ -35,7 +32,6 @@ public class ThongKeForm extends JFrame {
 	private String columnDoanhThu[] = { "CHUYÊN ĐỀ", "SỐ KH", "SỐ HV", "D.THU", "HP.TN", "HP.CN", "HP.TB" };
 	private DefaultTableModel modelDoanhThu;
 	private JTabbedPane tabbedPane;
-	private NhanVienModel nhanVien;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -54,7 +50,6 @@ public class ThongKeForm extends JFrame {
 	 * Create the application.
 	 */
 	public ThongKeForm() {
-		nhanVien = LoginForm.nhanVien;
 		initialize();
 	}
 
@@ -152,7 +147,7 @@ public class ThongKeForm extends JFrame {
 		cboNam.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		cboNam.setBounds(44, 2, 540, 26);
 		lypDoanhThu.add(cboNam);
-		if (nhanVien.isVaiTro()) {
+		if (LoginForm.nhanVien.isVaiTro()) {
 			tabbedPane.setEnabledAt(3, true);
 		} else {
 			tabbedPane.setEnabledAt(3, false);
