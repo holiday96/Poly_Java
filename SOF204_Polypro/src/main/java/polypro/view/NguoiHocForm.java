@@ -94,24 +94,6 @@ public class NguoiHocForm extends JFrame {
 		}
 	}
 
-	private void loadToTable() {
-		try {
-			list = nguoiHocService.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		reloadTable();
-	}
-	
-	private void reloadTable() {
-		model.setRowCount(0);
-		for (NguoiHocModel i : list) {
-			model.addRow(new Object[] { i.getMaNH(), i.getHoTen(), (i.isGioiTinh()) ? "Nam" : "Nữ",
-					new SimpleDateFormat("dd/MM/yyyy").format(i.getNgaySinh()), i.getDienThoai(), i.getEmail(),
-					i.getMaNV(), new SimpleDateFormat("dd/MM/yyyy").format(i.getNgayDK()) });
-		}
-	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -607,6 +589,24 @@ public class NguoiHocForm extends JFrame {
 		txtGhiChu.setEnabled(true);
 		btnUpdate.setEnabled(true);
 		btnDelete.setEnabled(true);
+	}
+
+	private void loadToTable() {
+		try {
+			list = nguoiHocService.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		reloadTable();
+	}
+	
+	private void reloadTable() {
+		model.setRowCount(0);
+		for (NguoiHocModel i : list) {
+			model.addRow(new Object[] { i.getMaNH(), i.getHoTen(), (i.isGioiTinh()) ? "Nam" : "Nữ",
+					new SimpleDateFormat("dd/MM/yyyy").format(i.getNgaySinh()), i.getDienThoai(), i.getEmail(),
+					i.getMaNV(), new SimpleDateFormat("dd/MM/yyyy").format(i.getNgayDK()) });
+		}
 	}
 
 	private void showDetail() {
