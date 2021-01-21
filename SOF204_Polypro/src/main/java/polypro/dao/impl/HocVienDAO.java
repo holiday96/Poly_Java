@@ -21,7 +21,7 @@ public class HocVienDAO extends AbstractDAO<HocVienModel> implements IHocVienDAO
 	}
 
 	@Override
-	public void update(String id, double diem) {
+	public void update(int id, double diem) {
 		String sql = "UPDATE HOCVIEN SET Diem = ? WHERE MaHV = ?";
 		update(sql, diem, id);
 	}

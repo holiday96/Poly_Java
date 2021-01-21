@@ -33,6 +33,7 @@ public class WelcomeForm extends JFrame {
 	 * Create the application.
 	 */
 	public WelcomeForm() {
+		setUndecorated(true);
 		loginForm = new LoginForm();
 		loginForm.setVisible(false);
 		initialize();

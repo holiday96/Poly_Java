@@ -22,7 +22,7 @@ public class HocVienService implements IHocVienService {
 	}
 
 	@Override
-	public void update(String id, double diem) {
+	public void update(int id, double diem) {
 		hocVienDAO.update(id, diem);
 	}
 

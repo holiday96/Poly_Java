@@ -244,8 +244,25 @@ public class HocVienForm extends JFrame {
 	}
 
 	protected void btnUpdate() {
-		// TODO Auto-generated method stub
+		indexHocVien = convertArrayToList(tblHocVien.getSelectedRows());
+		for (int i : indexHocVien) {
+			if (Double.valueOf(modelHocVien.getValueAt(i, 3).toString()) < 0
+					|| Double.valueOf(modelHocVien.getValueAt(i, 3).toString()) >= 10) {
+				JOptionPane.showMessageDialog(this,
+						"Điểm học viên có mã HV: " + listHocVien.get(i).getMaHV() + " không hợp lệ!", "Lỗi",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				hocVienService.update(listHocVien.get(i).getMaHV(),
+						Double.valueOf(modelHocVien.getValueAt(i, 3).toString()));
+			}
+		}
 
+		try {
+			listHocVien = hocVienService.findByMaKH(listKhoaHoc.get(indexKhoaHoc).getMaKH());
+			loadHocVienTable();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void btnDelete() {
