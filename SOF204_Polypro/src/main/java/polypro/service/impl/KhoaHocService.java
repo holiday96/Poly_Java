@@ -40,4 +40,9 @@ public class KhoaHocService implements IKhoaHocService {
 	public void delete(KhoaHocModel khoaHocModel) {
 		khoaHocDAO.delete(khoaHocModel);
 	}
+
+	@Override
+	public List<KhoaHocModel> findAll() {
+		return khoaHocDAO.findAll();
+	}
 }

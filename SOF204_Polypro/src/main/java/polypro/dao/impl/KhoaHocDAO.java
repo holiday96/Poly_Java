@@ -32,4 +32,10 @@ public class KhoaHocDAO extends AbstractDAO<KhoaHocModel> implements IKhoaHocDAO
 		String sql = "DELETE FROM KHOAHOC WHERE MaKH = ?";
 		delete(sql, khoaHocModel.getMaKH());
 	}
+
+	@Override
+	public List<KhoaHocModel> findAll() {
+		String sql = "SELECT * FROM KHOAHOC";
+		return query(sql, new KhoaHocMapper());
+	}
 }

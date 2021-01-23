@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -14,6 +17,16 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+
+import polypro.model.HocVienModel;
+import polypro.model.KhoaHocModel;
+import polypro.model.NguoiHocModel;
+import polypro.service.IHocVienService;
+import polypro.service.IKhoaHocService;
+import polypro.service.INguoiHocService;
+import polypro.service.impl.HocVienService;
+import polypro.service.impl.KhoaHocService;
+import polypro.service.impl.NguoiHocService;
 
 public class ThongKeForm extends JFrame {
 
@@ -32,6 +45,15 @@ public class ThongKeForm extends JFrame {
 	private String columnDoanhThu[] = { "CHUYÊN ĐỀ", "SỐ KH", "SỐ HV", "D.THU", "HP.TN", "HP.CN", "HP.TB" };
 	private DefaultTableModel modelDoanhThu;
 	private JTabbedPane tabbedPane;
+	private JComboBox<Object> cboKhoaHoc;
+	private List<KhoaHocModel> listKhoaHoc;
+	private int indexKhoaHoc;
+	private List<HocVienModel> listHocVien;
+	private List<NguoiHocModel> listNguoiHoc;
+
+	private IKhoaHocService khoaHocService = new KhoaHocService();
+	private IHocVienService hocVienService = new HocVienService();
+	private INguoiHocService nguoiHocService = new NguoiHocService();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -51,6 +73,15 @@ public class ThongKeForm extends JFrame {
 	 */
 	public ThongKeForm() {
 		initialize();
+		try {
+			listKhoaHoc = khoaHocService.findAll();
+			listNguoiHoc = nguoiHocService.findAll();
+			for (KhoaHocModel i : listKhoaHoc) {
+				cboKhoaHoc.addItem(i.getMaKH());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -96,7 +127,12 @@ public class ThongKeForm extends JFrame {
 		lblKhoaHoc.setBounds(0, 6, 72, 19);
 		lypBangDiem.add(lblKhoaHoc);
 
-		JComboBox<Object> cboKhoaHoc = new JComboBox<Object>();
+		cboKhoaHoc = new JComboBox<Object>();
+		cboKhoaHoc.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				cboKhoaHocSelected();
+			}
+		});
 		cboKhoaHoc.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		cboKhoaHoc.setBounds(84, 2, 500, 26);
 		lypBangDiem.add(cboKhoaHoc);
@@ -152,6 +188,43 @@ public class ThongKeForm extends JFrame {
 		} else {
 			tabbedPane.setEnabledAt(3, false);
 		}
+	}
+
+	protected void cboKhoaHocSelected() {
+		indexKhoaHoc = cboKhoaHoc.getSelectedIndex();
+		listHocVien = hocVienService.findByMaKH(listKhoaHoc.get(indexKhoaHoc).getMaKH());
+
+		loadHocVienTable();
+	}
+
+	private void loadHocVienTable() {
+		modelBangDiem.setRowCount(0);
+		for (HocVienModel i : listHocVien) {
+			modelBangDiem.addRow(
+					new Object[] { i.getMaNH(), getHoTenHocVien(i.getMaNH()), i.getDiem(), xepLoai(i.getDiem()) });
+		}
+	}
+
+	private String xepLoai(double diem) {
+		if (diem >= 9) {
+			return "Xuất sắc";
+		} else if (diem >= 8) {
+			return "Giỏi";
+		} else if (diem >= 7) {
+			return "Khá";
+		} else if (diem >= 6) {
+			return "Trung bình";
+		}
+		return "Chưa đạt";
+	}
+
+	private String getHoTenHocVien(String maNH) {
+		for (NguoiHocModel i : listNguoiHoc) {
+			if (String.valueOf(maNH).equals(i.getMaNH())) {
+				return i.getHoTen();
+			}
+		}
+		return null;
 	}
 
 	public void changeTab(int numTab) {
