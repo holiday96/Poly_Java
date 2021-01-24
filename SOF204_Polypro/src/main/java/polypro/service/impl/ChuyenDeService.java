@@ -40,7 +40,4 @@ public class ChuyenDeService implements IChuyenDeService{
 	public List<ChuyenDeModel> findAll() {
 		return chuyenDeDAO.findAll();
 	}
-	public static void main(String[] args) {
-		System.out.println(chuyenDeDAO);
-	}
 }
