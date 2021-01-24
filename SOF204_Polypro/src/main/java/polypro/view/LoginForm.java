@@ -76,7 +76,7 @@ public class LoginForm extends JFrame {
 		setTitle("EduSys - Đăng nhập");
 		getContentPane().setLayout(null);
 
-		JLabel lblLogin = new JLabel("New label");
+		JLabel lblLogin = new JLabel("");
 		lblLogin.setIcon(new ImageIcon(this.getClass().getResource("../../icon/security.png")));
 		lblLogin.setBounds(0, 0, 173, 211);
 		getContentPane().add(lblLogin);
