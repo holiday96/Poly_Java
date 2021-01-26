@@ -184,6 +184,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 					e1.printStackTrace();
 				}
 			}
+			e.printStackTrace();
 		} finally {
 			try {
 				if (conn != null) {

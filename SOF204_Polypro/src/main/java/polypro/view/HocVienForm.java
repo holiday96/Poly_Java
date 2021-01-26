@@ -110,7 +110,7 @@ public class HocVienForm extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/User.png")));
 		setVisible(true);
 		setBounds(100, 100, 750, 550);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 

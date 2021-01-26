@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -50,6 +52,7 @@ public class ThongKeForm extends JFrame {
 	private int indexKhoaHoc;
 	private List<HocVienModel> listHocVien;
 	private List<NguoiHocModel> listNguoiHoc;
+	private List<Integer> listYear;
 
 	private IKhoaHocService khoaHocService = new KhoaHocService();
 	private IHocVienService hocVienService = new HocVienService();
@@ -82,6 +85,7 @@ public class ThongKeForm extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		filterYear();
 	}
 
 	/**
@@ -91,7 +95,7 @@ public class ThongKeForm extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Diagram.png")));
 		setVisible(true);
 		setBounds(100, 100, 620, 398);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 
@@ -229,5 +233,18 @@ public class ThongKeForm extends JFrame {
 
 	public void changeTab(int numTab) {
 		tabbedPane.setSelectedIndex(numTab - 1);
+	}
+	
+	//filter to list of year
+	private void filterYear() {
+		listYear = new ArrayList<Integer>();
+		Calendar cal = Calendar.getInstance();
+		for (NguoiHocModel i : listNguoiHoc) {
+			cal.setTime(i.getNgayDK());
+			if (!listYear.contains(cal.get(Calendar.YEAR))) {
+				listYear.add(cal.get(Calendar.YEAR));
+			}
+		}
+		listYear.forEach(x -> System.out.println(x));
 	}
 }

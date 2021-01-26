@@ -62,7 +62,7 @@ public class ChangePasswordForm extends JFrame {
 	private void initialize() {
 		setVisible(true);
 		setBounds(100, 100, 257, 191);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 

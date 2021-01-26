@@ -51,7 +51,7 @@ public class AboutForm extends JFrame{
 		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Home.png")));
 		setVisible(true);
 		setBounds(100, 100, 581, 429);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 	}
