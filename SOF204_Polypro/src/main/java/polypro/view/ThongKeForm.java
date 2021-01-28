@@ -6,10 +6,10 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -22,7 +22,6 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
-import jdk.javadoc.internal.doclets.toolkit.util.Comparators;
 import polypro.model.HocVienModel;
 import polypro.model.KhoaHocModel;
 import polypro.model.NguoiHocModel;
@@ -32,6 +31,7 @@ import polypro.service.INguoiHocService;
 import polypro.service.impl.HocVienService;
 import polypro.service.impl.KhoaHocService;
 import polypro.service.impl.NguoiHocService;
+import javax.swing.ListSelectionModel;
 
 public class ThongKeForm extends JFrame {
 
@@ -89,6 +89,7 @@ public class ThongKeForm extends JFrame {
 			e.printStackTrace();
 		}
 		filterYear();
+		loadNguoiHocTable();
 	}
 
 	/**
@@ -123,7 +124,14 @@ public class ThongKeForm extends JFrame {
 		lypBangDiem.add(scrollPane);
 
 		modelBangDiem = new DefaultTableModel(columnBangDiem, 0);
-		tblBangDiem = new JTable(modelBangDiem);
+		tblBangDiem = new JTable(modelBangDiem) {
+
+			private static final long serialVersionUID = 5377371199505474349L;
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			};
+		};
 		scrollPane.setViewportView(tblBangDiem);
 		tblBangDiem.getColumnModel().getColumn(0).setMaxWidth(80);
 		tblBangDiem.getColumnModel().getColumn(2).setMaxWidth(80);
@@ -152,7 +160,16 @@ public class ThongKeForm extends JFrame {
 		lypNguoiHoc.add(scrollPane_1);
 
 		modelNguoiHoc = new DefaultTableModel(columnNguoiHoc, 0);
-		tblNguoiHoc = new JTable(modelNguoiHoc);
+		tblNguoiHoc = new JTable(modelNguoiHoc) {
+
+			private static final long serialVersionUID = 8333042417905384815L;
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			};
+
+		};
+		tblNguoiHoc.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_1.setViewportView(tblNguoiHoc);
 		tblNguoiHoc.getColumnModel().getColumn(0).setMaxWidth(100);
 
@@ -164,7 +181,14 @@ public class ThongKeForm extends JFrame {
 		lypDiemChuyenDe.add(scrollPane_1_1);
 
 		modelDiemChuyenDe = new DefaultTableModel(columnDiemChuyenDe, 0);
-		tblDiemChuyenDe = new JTable(modelDiemChuyenDe);
+		tblDiemChuyenDe = new JTable(modelDiemChuyenDe) {
+
+			private static final long serialVersionUID = 4760089132019117100L;
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			};
+		};
 		scrollPane_1_1.setViewportView(tblDiemChuyenDe);
 		tblDiemChuyenDe.getColumnModel().getColumn(0).setMinWidth(300);
 
@@ -177,7 +201,14 @@ public class ThongKeForm extends JFrame {
 		lypDoanhThu.add(scrollPane_1_1_1);
 
 		modelDoanhThu = new DefaultTableModel(columnDoanhThu, 0);
-		tblDoanhThu = new JTable(modelDoanhThu);
+		tblDoanhThu = new JTable(modelDoanhThu) {
+
+			private static final long serialVersionUID = -7279130998834726863L;
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			};
+		};
 		scrollPane_1_1_1.setViewportView(tblDoanhThu);
 		tblDoanhThu.getColumnModel().getColumn(0).setMinWidth(200);
 
@@ -248,15 +279,68 @@ public class ThongKeForm extends JFrame {
 				listYear.add(cal.get(Calendar.YEAR));
 			}
 		}
-		Arrays.sort(listYear, (o1, o2) -> o1 - o2);
-		listYear.forEach(x -> System.out.println(x));
+		listYear.sort((o1, o2) -> o1 - o2);
 	}
 
 	private void loadNguoiHocTable() {
 		modelNguoiHoc.setRowCount(0);
 		for (int i : listYear) {
 			modelNguoiHoc.addRow(
-					new Object[] { i.getMaNH(), getHoTenHocVien(i.getMaNH()), i.getDiem(), xepLoai(i.getDiem()) });
+					new Object[] { i, soLuongNguoiHoc(i), new SimpleDateFormat("dd/MM/yyyy").format(dangKyDauTien(i)),
+							new SimpleDateFormat("dd/MM/yyyy").format(dangKySauCung(i)) });
 		}
+	}
+
+	//Caculate number of NguoiHoc in table NguoiHoc
+	private int soLuongNguoiHoc(int year) {
+		int amount = 0;
+		Calendar cal = Calendar.getInstance();
+		for (NguoiHocModel i : listNguoiHoc) {
+			cal.setTime(i.getNgayDK());
+			if (cal.get(Calendar.YEAR) == year) {
+				amount++;
+			}
+		}
+		return amount;
+	}
+
+	//filter subscribers first 
+	private Date dangKyDauTien(int year) {
+		Date firstDate = null;
+		Calendar cal = Calendar.getInstance();
+		for (NguoiHocModel i : listNguoiHoc) {
+			cal.setTime(i.getNgayDK());
+			if (cal.get(Calendar.YEAR) == year) {
+				firstDate = i.getNgayDK();
+				break;
+			}
+		}
+		for (NguoiHocModel i : listNguoiHoc) {
+			cal.setTime(i.getNgayDK());
+			if (i.getNgayDK().before(firstDate) && cal.get(Calendar.YEAR) == year) {
+				firstDate = i.getNgayDK();
+			}
+		}
+		return firstDate;
+	}
+
+	//filter the last subscriber 
+	private Date dangKySauCung(int year) {
+		Date lastDate = null;
+		Calendar cal = Calendar.getInstance();
+		for (NguoiHocModel i : listNguoiHoc) {
+			cal.setTime(i.getNgayDK());
+			if (cal.get(Calendar.YEAR) == year) {
+				lastDate = i.getNgayDK();
+				break;
+			}
+		}
+		for (NguoiHocModel i : listNguoiHoc) {
+			cal.setTime(i.getNgayDK());
+			if (i.getNgayDK().after(lastDate) && cal.get(Calendar.YEAR) == year) {
+				lastDate = i.getNgayDK();
+			}
+		}
+		return lastDate;
 	}
 }

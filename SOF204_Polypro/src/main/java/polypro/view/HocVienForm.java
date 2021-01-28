@@ -338,6 +338,7 @@ public class HocVienForm extends JFrame {
 			listHocVien = hocVienService.findByMaKH(listKhoaHoc.get(indexKhoaHoc).getMaKH());
 			loadHocVienTable();
 		} catch (Exception e) {
+			modelHocVien.setRowCount(0);
 			e.printStackTrace();
 		}
 	}
