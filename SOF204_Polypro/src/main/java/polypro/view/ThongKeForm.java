@@ -7,7 +7,9 @@ import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -20,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
+import jdk.javadoc.internal.doclets.toolkit.util.Comparators;
 import polypro.model.HocVienModel;
 import polypro.model.KhoaHocModel;
 import polypro.model.NguoiHocModel;
@@ -234,8 +237,8 @@ public class ThongKeForm extends JFrame {
 	public void changeTab(int numTab) {
 		tabbedPane.setSelectedIndex(numTab - 1);
 	}
-	
-	//filter to list of year
+
+	// filter to list of year
 	private void filterYear() {
 		listYear = new ArrayList<Integer>();
 		Calendar cal = Calendar.getInstance();
@@ -245,6 +248,15 @@ public class ThongKeForm extends JFrame {
 				listYear.add(cal.get(Calendar.YEAR));
 			}
 		}
+		Arrays.sort(listYear, (o1, o2) -> o1 - o2);
 		listYear.forEach(x -> System.out.println(x));
+	}
+
+	private void loadNguoiHocTable() {
+		modelNguoiHoc.setRowCount(0);
+		for (int i : listYear) {
+			modelNguoiHoc.addRow(
+					new Object[] { i.getMaNH(), getHoTenHocVien(i.getMaNH()), i.getDiem(), xepLoai(i.getDiem()) });
+		}
 	}
 }
