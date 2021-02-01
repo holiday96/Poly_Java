@@ -145,7 +145,14 @@ public class KhoaHocForm extends JFrame {
 		panel_1.add(scrollPane);
 
 		model = new DefaultTableModel(column, 0);
-		table = new JTable(model);
+		table = new JTable(model){
+
+			private static final long serialVersionUID = 5377371199505474349L;
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			};
+		};
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

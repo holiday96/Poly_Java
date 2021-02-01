@@ -113,7 +113,14 @@ public class NhanVienForm extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 0, 590, 302);
 		lypDanhSach.add(scrollPane);
-		tblDanhSach = new JTable(model);
+		tblDanhSach = new JTable(model){
+
+			private static final long serialVersionUID = 5377371199505474349L;
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			};
+		};
 		tblDanhSach.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblDanhSach.addMouseListener(new MouseAdapter() {
 			@Override

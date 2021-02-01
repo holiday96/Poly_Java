@@ -437,19 +437,23 @@ public class MainForm extends JFrame {
 	}
 
 	protected void doanhThu() {
-		new ThongKeForm().changeTab(4);
+		new ThongKeForm();
+		ThongKeForm.tabbedPane.setSelectedIndex(3);
 	}
 
 	protected void diemChuyenDe() {
-		new ThongKeForm().changeTab(3);
+		new ThongKeForm();
+		ThongKeForm.tabbedPane.setSelectedIndex(2);
 	}
 
 	protected void luongNguoiHoc() {
-		new ThongKeForm().changeTab(2);
+		new ThongKeForm();
+		ThongKeForm.tabbedPane.setSelectedIndex(1);
 	}
 
 	protected void bangDiem() {
 		new ThongKeForm();
+		ThongKeForm.tabbedPane.setSelectedIndex(0);
 	}
 
 	protected void nhanVien() {

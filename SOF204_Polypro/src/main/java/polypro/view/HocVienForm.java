@@ -170,7 +170,14 @@ public class HocVienForm extends JFrame {
 		pnlNguoiHoc.add(scrollPane_1);
 
 		modelNguoiHoc = new DefaultTableModel(columnNguoiHoc, 0);
-		tblNguoiHoc = new JTable(modelNguoiHoc);
+		tblNguoiHoc = new JTable(modelNguoiHoc){
+
+			private static final long serialVersionUID = 5377371199505474349L;
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			};
+		};
 		tblNguoiHoc.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

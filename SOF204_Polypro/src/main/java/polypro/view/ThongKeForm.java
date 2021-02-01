@@ -19,19 +19,22 @@ import javax.swing.JLayeredPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
+import polypro.model.ChuyenDeModel;
 import polypro.model.HocVienModel;
 import polypro.model.KhoaHocModel;
 import polypro.model.NguoiHocModel;
+import polypro.service.IChuyenDeService;
 import polypro.service.IHocVienService;
 import polypro.service.IKhoaHocService;
 import polypro.service.INguoiHocService;
+import polypro.service.impl.ChuyenDeService;
 import polypro.service.impl.HocVienService;
 import polypro.service.impl.KhoaHocService;
 import polypro.service.impl.NguoiHocService;
-import javax.swing.ListSelectionModel;
 
 public class ThongKeForm extends JFrame {
 
@@ -49,14 +52,19 @@ public class ThongKeForm extends JFrame {
 	private JTable tblDoanhThu;
 	private String columnDoanhThu[] = { "CHUYÊN ĐỀ", "SỐ KH", "SỐ HV", "D.THU", "HP.TN", "HP.CN", "HP.TB" };
 	private DefaultTableModel modelDoanhThu;
-	private JTabbedPane tabbedPane;
+	static JTabbedPane tabbedPane;
 	private JComboBox<Object> cboKhoaHoc;
+	private JComboBox<Object> cboNam;
 	private List<KhoaHocModel> listKhoaHoc;
 	private int indexKhoaHoc;
-	private List<HocVienModel> listHocVien;
+	private List<ChuyenDeModel> listChuyenDe;
+	private List<HocVienModel> listHocVien, listHocVienTemp;
 	private List<NguoiHocModel> listNguoiHoc;
-	private List<Integer> listYear;
+	private List<Integer> listYearNguoiHoc, listYearDoanhThu;
+	private int count, countReal;
+	private double min, max, avg, money;
 
+	private IChuyenDeService chuyenDeService = new ChuyenDeService();
 	private IKhoaHocService khoaHocService = new KhoaHocService();
 	private IHocVienService hocVienService = new HocVienService();
 	private INguoiHocService nguoiHocService = new NguoiHocService();
@@ -82,14 +90,17 @@ public class ThongKeForm extends JFrame {
 		try {
 			listKhoaHoc = khoaHocService.findAll();
 			listNguoiHoc = nguoiHocService.findAll();
+			listChuyenDe = chuyenDeService.findAll();
 			for (KhoaHocModel i : listKhoaHoc) {
 				cboKhoaHoc.addItem(i.getMaKH());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		filterYear();
+		filterYearNguoiHoc();
 		loadNguoiHocTable();
+		loadChuyenDeTable();
+		loadComboboxYear();
 	}
 
 	/**
@@ -217,7 +228,12 @@ public class ThongKeForm extends JFrame {
 		lblNam.setBounds(0, 6, 72, 19);
 		lypDoanhThu.add(lblNam);
 
-		JComboBox<Object> cboNam = new JComboBox<Object>();
+		cboNam = new JComboBox<Object>();
+		cboNam.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				cboYearClicked();
+			}
+		});
 		cboNam.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		cboNam.setBounds(44, 2, 540, 26);
 		lypDoanhThu.add(cboNam);
@@ -235,6 +251,9 @@ public class ThongKeForm extends JFrame {
 		loadHocVienTable();
 	}
 
+	/**
+	 * Table Bảng điểm
+	 */
 	private void loadHocVienTable() {
 		modelBangDiem.setRowCount(0);
 		for (HocVienModel i : listHocVien) {
@@ -265,33 +284,32 @@ public class ThongKeForm extends JFrame {
 		return null;
 	}
 
-	public void changeTab(int numTab) {
-		tabbedPane.setSelectedIndex(numTab - 1);
-	}
-
-	// filter to list of year
-	private void filterYear() {
-		listYear = new ArrayList<Integer>();
+	// filter to list of year for NguoiHoc
+	private void filterYearNguoiHoc() {
+		listYearNguoiHoc = new ArrayList<Integer>();
 		Calendar cal = Calendar.getInstance();
 		for (NguoiHocModel i : listNguoiHoc) {
 			cal.setTime(i.getNgayDK());
-			if (!listYear.contains(cal.get(Calendar.YEAR))) {
-				listYear.add(cal.get(Calendar.YEAR));
+			if (!listYearNguoiHoc.contains(cal.get(Calendar.YEAR))) {
+				listYearNguoiHoc.add(cal.get(Calendar.YEAR));
 			}
 		}
-		listYear.sort((o1, o2) -> o1 - o2);
+		listYearNguoiHoc.sort((o1, o2) -> o1 - o2);
 	}
 
+	/**
+	 * Table Lượng người học
+	 */
 	private void loadNguoiHocTable() {
 		modelNguoiHoc.setRowCount(0);
-		for (int i : listYear) {
+		for (int i : listYearNguoiHoc) {
 			modelNguoiHoc.addRow(
 					new Object[] { i, soLuongNguoiHoc(i), new SimpleDateFormat("dd/MM/yyyy").format(dangKyDauTien(i)),
 							new SimpleDateFormat("dd/MM/yyyy").format(dangKySauCung(i)) });
 		}
 	}
 
-	//Caculate number of NguoiHoc in table NguoiHoc
+	// Caculate number of NguoiHoc in table NguoiHoc
 	private int soLuongNguoiHoc(int year) {
 		int amount = 0;
 		Calendar cal = Calendar.getInstance();
@@ -304,7 +322,7 @@ public class ThongKeForm extends JFrame {
 		return amount;
 	}
 
-	//filter subscribers first 
+	// filter subscribers first
 	private Date dangKyDauTien(int year) {
 		Date firstDate = null;
 		Calendar cal = Calendar.getInstance();
@@ -324,7 +342,7 @@ public class ThongKeForm extends JFrame {
 		return firstDate;
 	}
 
-	//filter the last subscriber 
+	// filter the last subscriber
 	private Date dangKySauCung(int year) {
 		Date lastDate = null;
 		Calendar cal = Calendar.getInstance();
@@ -342,5 +360,111 @@ public class ThongKeForm extends JFrame {
 			}
 		}
 		return lastDate;
+	}
+
+	/**
+	 * Table Điểm chuyên đề
+	 */
+	private void loadChuyenDeTable() {
+		modelDiemChuyenDe.setRowCount(0);
+
+		for (ChuyenDeModel chuyenDeModel : listChuyenDe) {
+			count = 0;
+			countReal = 0;
+			avg = 0;
+			min = 11;
+			max = -1;
+			for (KhoaHocModel khoaHocModel : listKhoaHoc) {
+				if (khoaHocModel.getMaCD().equals(chuyenDeModel.getMaCD())) {
+					listHocVienTemp = hocVienService.findByMaKH(khoaHocModel.getMaKH());
+					for (HocVienModel hocVienModel : listHocVienTemp) {
+						count++;
+						if (hocVienModel.getDiem() >= 0 && hocVienModel.getDiem() <= 10) {
+							if (hocVienModel.getDiem() < min) {
+								min = hocVienModel.getDiem();
+							}
+							if (hocVienModel.getDiem() > max) {
+								max = hocVienModel.getDiem();
+							}
+							countReal++;
+							avg += hocVienModel.getDiem();
+						}
+					}
+				}
+			}
+			if (count == 0) {
+				modelDiemChuyenDe.addRow(new Object[] { chuyenDeModel.getTenCD(), count, "", "", "" });
+			} else {
+				avg /= countReal;
+				modelDiemChuyenDe.addRow(new Object[] { chuyenDeModel.getTenCD(), count, (min == 11) ? 0 : min,
+						(max == -1) ? 0 : max, (avg >= 0 && avg <= 10) ? (double) Math.round(avg * 10) / 10 : 0 });
+			}
+		}
+	}
+
+	/**
+	 * Table Doanh thu
+	 */
+
+	protected void cboYearClicked() {
+		loadDoanhThuTable();
+	}
+
+	// filter listYear for DoanhThu
+	private void filterYearDoanhThu() {
+		listYearDoanhThu = new ArrayList<Integer>();
+		Calendar cal = Calendar.getInstance();
+		for (KhoaHocModel i : listKhoaHoc) {
+			cal.setTime(i.getNgayKG());
+			if (!listYearDoanhThu.contains(cal.get(Calendar.YEAR))) {
+				listYearDoanhThu.add(cal.get(Calendar.YEAR));
+			}
+		}
+		listYearDoanhThu.sort((o1, o2) -> o1 - o2);
+	}
+
+	private void loadComboboxYear() {
+		filterYearDoanhThu();
+		if (listYearDoanhThu.size() != 0) {
+			for (int i : listYearDoanhThu) {
+				cboNam.addItem(i);
+			}
+		}
+	}
+
+	private void loadDoanhThuTable() {
+		modelDoanhThu.setRowCount(0);
+
+		int year = (int) cboNam.getSelectedItem();
+		for (ChuyenDeModel chuyenDeModel : listChuyenDe) {
+			count = 0;
+			countReal = 0;
+			min = Double.MAX_VALUE;
+			max = -1;
+			money = 0;
+			for (KhoaHocModel khoaHocModel : listKhoaHoc) {
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(khoaHocModel.getNgayKG());
+				if (khoaHocModel.getMaCD().equals(chuyenDeModel.getMaCD()) && cal.get(Calendar.YEAR) == year) {
+					count++;
+					countReal += hocVienService.findByMaKH(khoaHocModel.getMaKH()).size();
+					if (khoaHocModel.getHocPhi() > 0) {
+						money += khoaHocModel.getHocPhi() * countReal;
+						if (money < min) {
+							min = money;
+						}
+						if (money > max) {
+							max = money;
+						}
+					}
+				}
+			}
+			avg = money / count;
+			if (count == 0) {
+				modelDoanhThu.addRow(new Object[] { chuyenDeModel.getTenCD(), count, 0, 0, 0, 0, 0 });
+			} else {
+				modelDoanhThu.addRow(new Object[] { chuyenDeModel.getTenCD(), count, countReal, money, min, max, avg });
+			}
+		}
 	}
 }
