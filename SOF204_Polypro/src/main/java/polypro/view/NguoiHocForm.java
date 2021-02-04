@@ -596,6 +596,12 @@ public class NguoiHocForm extends JFrame {
 		txtGhiChu.setEnabled(true);
 		btnUpdate.setEnabled(true);
 		btnDelete.setEnabled(true);
+		
+		txtMaNH.setBackground(null);
+		txtHoTen.setBackground(null);
+		txtNgaySinh.setBackground(null);
+		txtDienThoai.setBackground(null);
+		txtEmail.setBackground(null);
 	}
 
 	private void loadToTable() {

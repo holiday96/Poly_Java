@@ -170,7 +170,7 @@ public class HocVienForm extends JFrame {
 		pnlNguoiHoc.add(scrollPane_1);
 
 		modelNguoiHoc = new DefaultTableModel(columnNguoiHoc, 0);
-		tblNguoiHoc = new JTable(modelNguoiHoc){
+		tblNguoiHoc = new JTable(modelNguoiHoc) {
 
 			private static final long serialVersionUID = 5377371199505474349L;
 
@@ -341,8 +341,10 @@ public class HocVienForm extends JFrame {
 
 	protected void cboKhoaHocSelected() {
 		try {
-			indexKhoaHoc = cboKhoaHoc.getSelectedIndex();
-			listHocVien = hocVienService.findByMaKH(listKhoaHoc.get(indexKhoaHoc).getMaKH());
+			if (listKhoaHoc.size() > 0) {
+				indexKhoaHoc = cboKhoaHoc.getSelectedIndex();
+				listHocVien = hocVienService.findByMaKH(listKhoaHoc.get(indexKhoaHoc).getMaKH());
+			}
 			loadHocVienTable();
 		} catch (Exception e) {
 			modelHocVien.setRowCount(0);
@@ -380,8 +382,10 @@ public class HocVienForm extends JFrame {
 		try {
 			listKhoaHoc = khoaHocService.findByMaCD(listChuyenDe.get(indexChuyenDe).getMaCD());
 			cboKhoaHoc.removeAllItems();
-			for (KhoaHocModel i : listKhoaHoc) {
-				cboKhoaHoc.addItem(i.getMaKH());
+			if (listKhoaHoc.size() > 0) {
+				for (KhoaHocModel i : listKhoaHoc) {
+					cboKhoaHoc.addItem(i.getMaKH());
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

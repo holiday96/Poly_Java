@@ -442,6 +442,12 @@ public class ChuyenDeForm extends JFrame {
 		txtThoiLuong.setEnabled(true);
 		txtMoTa.setEnabled(true);
 		unlockLogo = true;
+		
+		txtHocPhi.setBackground(null);
+		txtMaCD.setBackground(null);
+		txtTenCD.setBackground(null);
+		txtThoiLuong.setBackground(null);
+		txtMoTa.setBackground(null);
 	}
 
 	private void showDetail() {

@@ -457,6 +457,9 @@ public class KhoaHocForm extends JFrame {
 		txtGhiChu.setEnabled(true);
 		btnUpdate.setEnabled(true);
 		btnDelete.setEnabled(true);
+		
+		txtKhaiGiang.setBackground(null);
+		txtGhiChu.setBackground(null);
 	}
 
 	private void checkPositionInTable() {

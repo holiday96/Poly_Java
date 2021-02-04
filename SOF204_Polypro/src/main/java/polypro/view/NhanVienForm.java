@@ -331,6 +331,10 @@ public class NhanVienForm extends JFrame {
 		txtHoTen.setEnabled(true);
 		rdoTruongPhong.setEnabled(true);
 		rdoNhanVien.setEnabled(true);
+		
+		txtMaNV.setBackground(null);
+		txtMatKhau.setBackground(null);
+		txtHoTen.setBackground(null);
 	}
 
 	private void showDetail() {
