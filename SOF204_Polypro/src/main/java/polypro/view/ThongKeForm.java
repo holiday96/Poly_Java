@@ -1,9 +1,14 @@
 package polypro.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.SimpleDateFormat;
@@ -12,16 +17,31 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
 
 import polypro.model.ChuyenDeModel;
 import polypro.model.HocVienModel;
@@ -36,7 +56,7 @@ import polypro.service.impl.HocVienService;
 import polypro.service.impl.KhoaHocService;
 import polypro.service.impl.NguoiHocService;
 
-public class ThongKeForm extends JFrame {
+public class ThongKeForm extends JInternalFrame {
 
 	private static final long serialVersionUID = -4913935832695327558L;
 
@@ -53,8 +73,9 @@ public class ThongKeForm extends JFrame {
 	private String columnDoanhThu[] = { "CHUYÊN ĐỀ", "SỐ KH", "SỐ HV", "D.THU", "HP.TN", "HP.CN", "HP.TB" };
 	private DefaultTableModel modelDoanhThu;
 	static JTabbedPane tabbedPane;
-	private JComboBox<Object> cboKhoaHoc;
-	private JComboBox<Object> cboNam;
+	private JScrollPane scrollPane, scrollPane_1;
+	private JLayeredPane lypBangDiem, lypNguoiHoc;
+	private JComboBox<Object> cboNam, cboKhoaHoc;
 	private List<KhoaHocModel> listKhoaHoc;
 	private int indexKhoaHoc;
 	private List<ChuyenDeModel> listChuyenDe;
@@ -63,6 +84,8 @@ public class ThongKeForm extends JFrame {
 	private List<Integer> listYearNguoiHoc, listYearDoanhThu;
 	private int count, countReal;
 	private double min, max, avg, money;
+	private JButton btnChart, btnList;
+	private ChartPanel chartPanel;
 
 	private IChuyenDeService chuyenDeService = new ChuyenDeService();
 	private IKhoaHocService khoaHocService = new KhoaHocService();
@@ -101,38 +124,32 @@ public class ThongKeForm extends JFrame {
 		loadNguoiHocTable();
 		loadChuyenDeTable();
 		loadComboboxYear();
+		chartPanel = new ChartPanel(createPieChart(createPieDataset(), cboKhoaHoc.getSelectedItem().toString()));
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Diagram.png")));
+		setFrameIcon(new ImageIcon(
+				Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Diagram.png"))));
 		setVisible(true);
 		setBounds(100, 100, 620, 398);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setResizable(false);
 
 		setTitle("EduSys - Tổng hợp & Thống kê");
-		getContentPane().setLayout(null);
-
-		JLabel lblTitle = new JLabel("TỔNG HỢP THỐNG KÊ");
-		lblTitle.setForeground(new Color(102, 0, 255));
-		lblTitle.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblTitle.setBounds(6, 6, 168, 20);
-		getContentPane().add(lblTitle);
+		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(6, 27, 590, 330);
 		getContentPane().add(tabbedPane);
 
-		JLayeredPane lypBangDiem = new JLayeredPane();
+		lypBangDiem = new JLayeredPane();
 		tabbedPane.addTab("BẢNG ĐIỂM", null, lypBangDiem, null);
+		lypBangDiem.setLayout(new BorderLayout(0, 0));
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 31, 590, 271);
-		lypBangDiem.add(scrollPane);
+		scrollPane = new JScrollPane();
+		lypBangDiem.add(scrollPane, BorderLayout.CENTER);
 
 		modelBangDiem = new DefaultTableModel(columnBangDiem, 0);
 		tblBangDiem = new JTable(modelBangDiem) {
@@ -148,10 +165,15 @@ public class ThongKeForm extends JFrame {
 		tblBangDiem.getColumnModel().getColumn(2).setMaxWidth(80);
 		tblBangDiem.getColumnModel().getColumn(3).setMaxWidth(100);
 
+		JPanel panel_2 = new JPanel();
+		FlowLayout flowLayout_2 = (FlowLayout) panel_2.getLayout();
+		flowLayout_2.setVgap(2);
+		flowLayout_2.setAlignment(FlowLayout.LEFT);
+		lypBangDiem.add(panel_2, BorderLayout.NORTH);
+
 		JLabel lblKhoaHoc = new JLabel("KHOÁ HỌC");
 		lblKhoaHoc.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		lblKhoaHoc.setBounds(0, 6, 72, 19);
-		lypBangDiem.add(lblKhoaHoc);
+		panel_2.add(lblKhoaHoc);
 
 		cboKhoaHoc = new JComboBox<Object>();
 		cboKhoaHoc.addItemListener(new ItemListener() {
@@ -160,14 +182,13 @@ public class ThongKeForm extends JFrame {
 			}
 		});
 		cboKhoaHoc.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		cboKhoaHoc.setBounds(84, 2, 500, 26);
-		lypBangDiem.add(cboKhoaHoc);
+		panel_2.add(cboKhoaHoc);
 
-		JLayeredPane lypNguoiHoc = new JLayeredPane();
+		lypNguoiHoc = new JLayeredPane();
 		tabbedPane.addTab("LƯỢNG NGƯỜI HỌC", null, lypNguoiHoc, null);
+		lypNguoiHoc.setLayout(new BorderLayout(0, 0));
 
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 0, 590, 302);
+		scrollPane_1 = new JScrollPane();
 		lypNguoiHoc.add(scrollPane_1);
 
 		modelNguoiHoc = new DefaultTableModel(columnNguoiHoc, 0);
@@ -186,9 +207,9 @@ public class ThongKeForm extends JFrame {
 
 		JLayeredPane lypDiemChuyenDe = new JLayeredPane();
 		tabbedPane.addTab("ĐIỂM CHUYÊN ĐỀ", null, lypDiemChuyenDe, null);
+		lypDiemChuyenDe.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane_1_1 = new JScrollPane();
-		scrollPane_1_1.setBounds(0, 0, 590, 302);
 		lypDiemChuyenDe.add(scrollPane_1_1);
 
 		modelDiemChuyenDe = new DefaultTableModel(columnDiemChuyenDe, 0);
@@ -206,9 +227,9 @@ public class ThongKeForm extends JFrame {
 		JLayeredPane lypDoanhThu = new JLayeredPane();
 		tabbedPane.addTab("DOANH THU", null, lypDoanhThu, null);
 		tabbedPane.setEnabledAt(3, true);
+		lypDoanhThu.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane_1_1_1 = new JScrollPane();
-		scrollPane_1_1_1.setBounds(0, 31, 590, 268);
 		lypDoanhThu.add(scrollPane_1_1_1);
 
 		modelDoanhThu = new DefaultTableModel(columnDoanhThu, 0);
@@ -223,20 +244,56 @@ public class ThongKeForm extends JFrame {
 		scrollPane_1_1_1.setViewportView(tblDoanhThu);
 		tblDoanhThu.getColumnModel().getColumn(0).setMinWidth(200);
 
+		JPanel panel_1 = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) panel_1.getLayout();
+		flowLayout_1.setVgap(2);
+		flowLayout_1.setAlignment(FlowLayout.LEFT);
+		lypDoanhThu.add(panel_1, BorderLayout.NORTH);
+
 		JLabel lblNam = new JLabel("NĂM");
 		lblNam.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		lblNam.setBounds(0, 6, 72, 19);
-		lypDoanhThu.add(lblNam);
+		panel_1.add(lblNam);
 
 		cboNam = new JComboBox<Object>();
 		cboNam.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				cboYearClicked();
+				cboYearSelected();
 			}
 		});
 		cboNam.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		cboNam.setBounds(44, 2, 540, 26);
-		lypDoanhThu.add(cboNam);
+		panel_1.add(cboNam);
+
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.NORTH);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+		JLabel lblTitle = new JLabel("TỔNG HỢP THỐNG KÊ");
+		lblTitle.setForeground(new Color(102, 0, 255));
+		lblTitle.setFont(new Font("SansSerif", Font.BOLD, 15));
+		panel.add(lblTitle);
+
+		Component horizontalGlue = Box.createHorizontalGlue();
+		panel.add(horizontalGlue);
+
+		btnChart = new JButton("");
+		btnChart.setIcon(new ImageIcon(this.getClass().getResource("../../icon/chart-icon.png")));
+		panel.add(btnChart);
+		btnChart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnChartClicked();
+			}
+		});
+
+		btnList = new JButton("");
+		btnList.setIcon(new ImageIcon(this.getClass().getResource("../../icon/list-icon.png")));
+		panel.add(btnList);
+		btnList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnListClicked();
+			}
+		});
+		btnList.setVisible(false);
+
 		if (LoginForm.nhanVien.isVaiTro()) {
 			tabbedPane.setEnabledAt(3, true);
 		} else {
@@ -244,11 +301,19 @@ public class ThongKeForm extends JFrame {
 		}
 	}
 
+	protected void cboYearSelected() {
+		loadDoanhThuTable();
+	}
+
 	protected void cboKhoaHocSelected() {
 		indexKhoaHoc = cboKhoaHoc.getSelectedIndex();
 		listHocVien = hocVienService.findByMaKH(listKhoaHoc.get(indexKhoaHoc).getMaKH());
 
 		loadHocVienTable();
+
+		if (!scrollPane.isVisible()) {
+			loadChartBangDiem();
+		}
 	}
 
 	/**
@@ -402,14 +467,6 @@ public class ThongKeForm extends JFrame {
 		}
 	}
 
-	/**
-	 * Table Doanh thu
-	 */
-
-	protected void cboYearClicked() {
-		loadDoanhThuTable();
-	}
-
 	// filter listYear for DoanhThu
 	private void filterYearDoanhThu() {
 		listYearDoanhThu = new ArrayList<Integer>();
@@ -465,6 +522,105 @@ public class ThongKeForm extends JFrame {
 			} else {
 				modelDoanhThu.addRow(new Object[] { chuyenDeModel.getTenCD(), count, countReal, money, min, max, avg });
 			}
+		}
+	}
+
+	/**
+	 * JFreeChart - Bảng điểm PieChart
+	 */
+	private JFreeChart createPieChart(PieDataset dataset, String khoaHoc) {
+		JFreeChart chart = ChartFactory.createPieChart("THỐNG KÊ BẢNG ĐIỂM KHOÁ HỌC " + khoaHoc, dataset, true, true,
+				true);
+		return chart;
+	}
+
+	private PieDataset createPieDataset() {
+		int xuatSac = 0, gioi = 0, kha = 0, tb = 0, chuaDat = 0;
+		for (int i = 0; i < tblBangDiem.getRowCount() - 1; i++) {
+			if (tblBangDiem.getValueAt(i, 3).equals("Xuất sắc")) {
+				xuatSac++;
+			} else if (tblBangDiem.getValueAt(i, 3).equals("Giỏi")) {
+				gioi++;
+			} else if (tblBangDiem.getValueAt(i, 3).equals("Khá")) {
+				kha++;
+			} else if (tblBangDiem.getValueAt(i, 3).equals("Trung bình")) {
+				tb++;
+			} else {
+				chuaDat++;
+			}
+		}
+		DefaultPieDataset dataset = new DefaultPieDataset();
+		dataset.setValue("Xuất sắc: " + xuatSac, xuatSac);
+		dataset.setValue("Giỏi: " + gioi, gioi);
+		dataset.setValue("Khá: " + kha, kha);
+		dataset.setValue("Trung bình: " + tb, tb);
+		dataset.setValue("Chưa đạt: " + chuaDat, chuaDat);
+		return dataset;
+	}
+
+	private void loadChartBangDiem() {
+		lypBangDiem.remove(chartPanel);
+		chartPanel = new ChartPanel(createPieChart(createPieDataset(), cboKhoaHoc.getSelectedItem().toString()));
+		lypBangDiem.add(chartPanel, BorderLayout.CENTER);
+	}
+
+	/**
+	 * JFreeChart - Lượng người học BarChart
+	 */
+	private JFreeChart createBarChartNguoiHoc() {
+		JFreeChart barChart = ChartFactory.createBarChart("THỐNG KÊ LƯỢNG NGƯỜI HỌC", "Năm", "Số người",
+				createBarDatasetNguoiHoc(), PlotOrientation.VERTICAL, false, false, false);
+		return barChart;
+	}
+
+	private CategoryDataset createBarDatasetNguoiHoc() {
+		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		for (int i = 0; i < tblNguoiHoc.getRowCount() - 1; i++) {
+			dataset.addValue(Double.parseDouble(tblNguoiHoc.getValueAt(i, 1).toString()), "Số người",
+					tblNguoiHoc.getValueAt(i, 0).toString());
+		}
+		return dataset;
+	}
+	
+	private void loadChartNguoiHoc() {
+		lypNguoiHoc.remove(chartPanel);
+		chartPanel = new ChartPanel(createBarChartNguoiHoc());
+		lypNguoiHoc.add(chartPanel, BorderLayout.CENTER);
+	}
+
+	protected void btnChartClicked() {
+		// Tab BangDiem
+		if (tabbedPane.getSelectedIndex() == 0) {
+			scrollPane.setVisible(false);
+			loadChartBangDiem();
+			chartPanel.setVisible(true);
+			btnChart.setVisible(false);
+			btnList.setVisible(true);
+			lypBangDiem.repaint();
+		} else if (tabbedPane.getSelectedIndex() == 1) {
+			scrollPane_1.setVisible(false);
+			loadChartNguoiHoc();
+			chartPanel.setVisible(true);
+			btnChart.setVisible(false);
+			btnList.setVisible(true);
+			lypNguoiHoc.repaint();
+		}
+	}
+
+	protected void btnListClicked() {
+		// Tab BangDiem
+		if (tabbedPane.getSelectedIndex() == 0) {
+			chartPanel.setVisible(false);
+			scrollPane.setVisible(true);
+			btnChart.setVisible(true);
+			btnList.setVisible(false);
+			lypBangDiem.repaint();
+		} else if (tabbedPane.getSelectedIndex() == 1) {
+			chartPanel.setVisible(false);
+			scrollPane_1.setVisible(true);
+			btnChart.setVisible(true);
+			btnList.setVisible(false);
+			lypNguoiHoc.repaint();
 		}
 	}
 }

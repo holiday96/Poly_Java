@@ -13,6 +13,8 @@
 		<weld.servlet.version>2.4.8.Final</weld.servlet.version>
 		<maven.compiler.source>15</maven.compiler.source>
 		<maven.compiler.target>15</maven.compiler.target>
+		<jcalendar.version>1.4</jcalendar.version>
+		<jfreechart.version>1.0.13</jfreechart.version>
 	</properties>
 
 	<dependencies>
@@ -25,6 +27,16 @@
 			<groupId>org.jboss.weld.servlet</groupId>
 			<artifactId>weld-servlet</artifactId>
 			<version>${weld.servlet.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.toedter</groupId>
+			<artifactId>jcalendar</artifactId>
+			<version>${jcalendar.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>${jfreechart.version}</version>
 		</dependency>
 	</dependencies>
 

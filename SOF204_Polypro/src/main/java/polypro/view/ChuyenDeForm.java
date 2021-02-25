@@ -1,7 +1,9 @@
 package polypro.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -18,9 +20,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -34,7 +38,7 @@ import polypro.model.ChuyenDeModel;
 import polypro.service.IChuyenDeService;
 import polypro.service.impl.ChuyenDeService;
 
-public class ChuyenDeForm extends JFrame {
+public class ChuyenDeForm extends JInternalFrame {
 
 	private static final long serialVersionUID = -4913935832695327558L;
 	private JTable tblDanhSach;
@@ -61,6 +65,8 @@ public class ChuyenDeForm extends JFrame {
 
 	@Inject
 	private IChuyenDeService chuyenDeService = new ChuyenDeService();
+	private JPanel panel;
+	private JLabel lblTitle;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -94,33 +100,34 @@ public class ChuyenDeForm extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Lists.png")));
+		setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Lists.png"))));
 		setVisible(true);
 		setBounds(100, 100, 620, 492);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
-		setResizable(false);
+		setResizable(true);
 
 		setTitle("EduSys - Quản lý chuyên đề");
-		getContentPane().setLayout(null);
-
-		JLabel lblTitle = new JLabel("QUẢN LÝ CHUYÊN ĐỀ");
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.NORTH);
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		
+		lblTitle = new JLabel("QUẢN LÝ CHUYÊN ĐỀ");
 		lblTitle.setForeground(new Color(102, 0, 255));
 		lblTitle.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblTitle.setBounds(6, 6, 159, 20);
-		getContentPane().add(lblTitle);
+		panel.add(lblTitle);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(6, 27, 590, 430);
 		getContentPane().add(tabbedPane);
 
 		model = new DefaultTableModel(column, 0);
 
 		JLayeredPane lypDanhSach = new JLayeredPane();
 		tabbedPane.addTab("DANH SÁCH", null, lypDanhSach, null);
+		lypDanhSach.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 590, 394);
 		lypDanhSach.add(scrollPane);
 		tblDanhSach = new JTable(model){
 

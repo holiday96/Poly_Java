@@ -16,9 +16,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -43,7 +45,7 @@ import polypro.service.impl.HocVienService;
 import polypro.service.impl.KhoaHocService;
 import polypro.service.impl.NguoiHocService;
 
-public class HocVienForm extends JFrame {
+public class HocVienForm extends JInternalFrame {
 
 	private static final long serialVersionUID = -4913935832695327558L;
 	private JTable tblHocVien;
@@ -107,11 +109,10 @@ public class HocVienForm extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/User.png")));
+		setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/User.png"))));
 		setVisible(true);
 		setBounds(100, 100, 750, 550);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setResizable(false);
 
 		setTitle("EduSys - Quản lý học viên");

@@ -14,7 +14,6 @@ public class WelcomeForm extends JFrame {
 
 	private static final long serialVersionUID = -7253530192216100758L;
 	private JProgressBar progressBar;
-	private LoginForm loginForm;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -34,8 +33,6 @@ public class WelcomeForm extends JFrame {
 	 */
 	public WelcomeForm() {
 		setUndecorated(true);
-		loginForm = new LoginForm();
-		loginForm.setVisible(false);
 		initialize();
 	}
 
@@ -72,7 +69,7 @@ public class WelcomeForm extends JFrame {
 					}
 					if (progressBar.getValue() == 100) {
 						setVisible(false);
-						loginForm.setVisible(true);
+						new LoginForm().repaint();
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

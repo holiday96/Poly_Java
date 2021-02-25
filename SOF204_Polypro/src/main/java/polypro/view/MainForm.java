@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -36,6 +38,7 @@ public class MainForm extends JFrame {
 	private JMenuItem mntmDoanhThu;
 	private JLabel lblUser;
 	private JLabel lblName;
+	private JPanel pnlChild;
 
 	private static final long serialVersionUID = -4913935832695327558L;
 
@@ -66,10 +69,10 @@ public class MainForm extends JFrame {
 	private void initialize() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/fpt.png")));
 		setVisible(true);
-		setBounds(100, 100, 1030, 550);
+		setBounds(100, 100, 1030, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setResizable(false);
+//		setResizable(false);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -379,12 +382,16 @@ public class MainForm extends JFrame {
 		Component horizontalStrut_2_1 = Box.createHorizontalStrut(5);
 		panel.add(horizontalStrut_2_1);
 
+		pnlChild = new JPanel();
+		getContentPane().add(pnlChild, BorderLayout.CENTER);
+		pnlChild.setLayout(null);
 		JLabel lblBackground = new JLabel("");
+		lblBackground.setBounds(-8, 5, 1030, 450);
 		lblBackground.setBackground(new Color(255, 255, 255));
-		getContentPane().add(lblBackground, BorderLayout.CENTER);
+		pnlChild.add(lblBackground);
 		lblBackground.setIcon(new ImageIcon(this.getClass().getResource("../../icon/bee.png")));
 
-		//Multithread for Clock
+		// Multithread for Clock
 		Thread th = new Thread() {
 			public void run() {
 				while (true) {
@@ -396,7 +403,7 @@ public class MainForm extends JFrame {
 		};
 		th.start();
 
-		//Custom for every single Role (as Trưởng phòng || as Nhân viên)
+		// Custom for every single Role (as Trưởng phòng || as Nhân viên)
 		try {
 			if (LoginForm.nhanVien.isVaiTro()) {
 				setTitle("HỆ THỐNG QUẢN LÝ ĐÀO TẠO - TRƯỞNG PHÒNG");
@@ -429,51 +436,51 @@ public class MainForm extends JFrame {
 	}
 
 	protected void gioiThieu() {
-		new AboutForm();
+		loadChild(new AboutForm());
 	}
 
 	protected void changePassword() {
-		new ChangePasswordForm();
+		loadChild(new ChangePasswordForm());
 	}
 
 	protected void doanhThu() {
-		new ThongKeForm();
+		loadChild(new ThongKeForm());
 		ThongKeForm.tabbedPane.setSelectedIndex(3);
 	}
 
 	protected void diemChuyenDe() {
-		new ThongKeForm();
+		loadChild(new ThongKeForm());
 		ThongKeForm.tabbedPane.setSelectedIndex(2);
 	}
 
 	protected void luongNguoiHoc() {
-		new ThongKeForm();
+		loadChild(new ThongKeForm());
 		ThongKeForm.tabbedPane.setSelectedIndex(1);
 	}
 
 	protected void bangDiem() {
-		new ThongKeForm();
+		loadChild(new ThongKeForm());
 		ThongKeForm.tabbedPane.setSelectedIndex(0);
 	}
 
 	protected void nhanVien() {
-		new NhanVienForm();
+		loadChild(new NhanVienForm());
 	}
 
 	protected void hocVien() {
-		new HocVienForm();
+		loadChild(new HocVienForm());
 	}
 
 	protected void nguoiHoc() {
-		new NguoiHocForm();
+		loadChild(new NguoiHocForm());
 	}
 
 	protected void khoaHoc() {
-		new KhoaHocForm();
+		loadChild(new KhoaHocForm());
 	}
 
 	protected void chuyenDe() {
-		new ChuyenDeForm();
+		loadChild(new ChuyenDeForm());
 	}
 
 	protected void exit() {
@@ -485,4 +492,16 @@ public class MainForm extends JFrame {
 		new LoginForm();
 	}
 
+	private void loadChild(JInternalFrame frame) {
+		pnlChild.removeAll();
+		
+		frame.setSize(pnlChild.getSize());
+		try {
+			frame.setMaximum(true);
+		} catch (PropertyVetoException e) {
+			e.printStackTrace();
+		}
+		pnlChild.add(frame);
+		pnlChild.repaint();
+	}
 }

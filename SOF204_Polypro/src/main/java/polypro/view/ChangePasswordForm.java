@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ChangePasswordForm extends JFrame {
+public class ChangePasswordForm extends JInternalFrame {
 
 	private static final long serialVersionUID = -4913935832695327558L;
 	private JPasswordField txtOld;
@@ -63,10 +64,9 @@ public class ChangePasswordForm extends JFrame {
 		setVisible(true);
 		setBounds(100, 100, 257, 191);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setResizable(false);
 
-		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Refresh.png")));
+		setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Refresh.png"))));
 		setTitle("Đổi mật khẩu");
 		getContentPane().setLayout(null);
 

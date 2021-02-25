@@ -10,7 +10,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +17,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -33,11 +34,16 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
+
 import polypro.model.NguoiHocModel;
 import polypro.service.INguoiHocService;
 import polypro.service.impl.NguoiHocService;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
-public class NguoiHocForm extends JFrame {
+public class NguoiHocForm extends JInternalFrame {
 
 	private static final long serialVersionUID = -4913935832695327558L;
 	private JTable table;
@@ -49,7 +55,7 @@ public class NguoiHocForm extends JFrame {
 	private JTextField txtHoTen;
 	private JRadioButton rdoNam;
 	private JRadioButton rdoNu;
-	private JTextField txtNgaySinh;
+	private JDateChooser txtNgaySinh;
 	private JTextField txtDienThoai;
 	private JTextField txtEmail;
 	private JTextArea txtGhiChu;
@@ -98,30 +104,28 @@ public class NguoiHocForm extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Conference.png")));
+		setFrameIcon(new ImageIcon(
+				Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Conference.png"))));
 		setVisible(true);
 		setBounds(100, 100, 615, 540);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setResizable(false);
 
 		setTitle("EduSys - Quản lý khoá học");
-		getContentPane().setLayout(null);
+		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(6, 31, 587, 452);
 		getContentPane().add(tabbedPane);
 
 		JPanel pnlDanhSach = new JPanel();
 		tabbedPane.addTab("DANH SÁCH", null, pnlDanhSach, null);
-		pnlDanhSach.setLayout(null);
+		pnlDanhSach.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 67, 587, 355);
-		pnlDanhSach.add(scrollPane);
+		pnlDanhSach.add(scrollPane, BorderLayout.CENTER);
 
 		model = new DefaultTableModel(column, 0);
-		table = new JTable(model){
+		table = new JTable(model) {
 
 			private static final long serialVersionUID = 5377371199505474349L;
 
@@ -138,21 +142,20 @@ public class NguoiHocForm extends JFrame {
 		scrollPane.setViewportView(table);
 
 		JPanel pnlFind = new JPanel();
-		pnlFind.setBounds(0, 6, 587, 63);
-		pnlDanhSach.add(pnlFind);
+		pnlDanhSach.add(pnlFind, BorderLayout.NORTH);
 		pnlFind.setBorder(new TitledBorder(null, "T\u00CCM KI\u1EBEM", TitledBorder.LEADING, TitledBorder.TOP,
 				new Font("SansSerif", Font.BOLD, 15), new Color(51, 0, 153)));
-		pnlFind.setLayout(null);
 
 		txtFind = new JTextField();
+		txtFind.setToolTipText("Nhập mã Người học");
 		txtFind.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				findKeyPressed();
 			}
 		});
+		pnlFind.setLayout(new BorderLayout(0, 0));
 		txtFind.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		txtFind.setBounds(14, 18, 561, 30);
 		pnlFind.add(txtFind);
 
 		JPanel pnlCapNhat = new JPanel();
@@ -185,6 +188,7 @@ public class NguoiHocForm extends JFrame {
 		pnlCapNhat.add(lblDienThoai);
 
 		txtDienThoai = new JTextField();
+		txtDienThoai.setToolTipText("SĐT từ 84 3/5/7/8/9\r\nhoặc 03/5/7/8/9");
 		txtDienThoai.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -300,17 +304,14 @@ public class NguoiHocForm extends JFrame {
 		lblNgaySinh.setBounds(314, 132, 90, 16);
 		pnlCapNhat.add(lblNgaySinh);
 
-		txtNgaySinh = new JTextField();
-		txtNgaySinh.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				txtNgaySinh.setBackground(null);
-			}
-		});
+		txtNgaySinh = new JDateChooser();
+		txtNgaySinh.setDateFormatString("dd/MM/yyyy");
 		txtNgaySinh.setToolTipText("VD: 01/12/2020");
-		txtNgaySinh.setColumns(10);
 		txtNgaySinh.setBounds(314, 152, 267, 28);
 		pnlCapNhat.add(txtNgaySinh);
+		//disable editor in jdatechooser
+		JTextFieldDateEditor editor = (JTextFieldDateEditor) txtNgaySinh.getDateEditor();
+		editor.setEditable(false);
 
 		JLabel lblEmail = new JLabel("Địa chỉ Email");
 		lblEmail.setBounds(314, 184, 73, 16);
@@ -337,12 +338,16 @@ public class NguoiHocForm extends JFrame {
 		buttonGroup.add(rdoNu);
 		rdoNu.setBounds(72, 152, 49, 18);
 		pnlCapNhat.add(rdoNu);
-
+		
+		JPanel panel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		getContentPane().add(panel, BorderLayout.NORTH);
+		
 		JLabel lblTitle = new JLabel("QUẢN LÝ NGƯỜI HỌC");
-		lblTitle.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblTitle.setForeground(new Color(51, 0, 153));
-		lblTitle.setBounds(6, 6, 160, 20);
-		getContentPane().add(lblTitle);
+		lblTitle.setFont(new Font("SansSerif", Font.BOLD, 15));
+		panel.add(lblTitle);
 
 		disableFunction();
 	}
@@ -351,7 +356,7 @@ public class NguoiHocForm extends JFrame {
 		txtMaNH.setText("");
 		txtHoTen.setText("");
 		rdoNam.setSelected(true);
-		txtNgaySinh.setText("");
+		txtNgaySinh.setDate(null);
 		txtDienThoai.setText("");
 		txtEmail.setText("");
 		txtGhiChu.setText("");
@@ -397,7 +402,8 @@ public class NguoiHocForm extends JFrame {
 				nguoiHocModel.setMaNH(txtMaNH.getText());
 				nguoiHocModel.setHoTen(txtHoTen.getText());
 				nguoiHocModel.setGioiTinh((rdoNam.isSelected()) ? true : false);
-				nguoiHocModel.setNgaySinh(new SimpleDateFormat("dd/MM/yyyy").parse(txtNgaySinh.getText()));
+				nguoiHocModel.setNgaySinh(new SimpleDateFormat("dd/MM/yyyy")
+						.parse(new SimpleDateFormat("dd/MM/yyyy").format(txtNgaySinh.getDate())));
 				nguoiHocModel.setDienThoai(txtDienThoai.getText());
 				nguoiHocModel.setEmail(txtEmail.getText());
 				nguoiHocModel.setGhiChu(txtGhiChu.getText());
@@ -422,7 +428,8 @@ public class NguoiHocForm extends JFrame {
 				nguoiHocModel.setMaNH(txtMaNH.getText());
 				nguoiHocModel.setHoTen(txtHoTen.getText());
 				nguoiHocModel.setGioiTinh((rdoNam.isSelected()) ? true : false);
-				nguoiHocModel.setNgaySinh(new SimpleDateFormat("dd/MM/yyyy").parse(txtNgaySinh.getText()));
+				nguoiHocModel.setNgaySinh(new SimpleDateFormat("dd/MM/yyyy")
+						.parse(new SimpleDateFormat("dd/MM/yyyy").format(txtNgaySinh.getDate())));
 				nguoiHocModel.setDienThoai(txtDienThoai.getText());
 				nguoiHocModel.setEmail(txtEmail.getText());
 				nguoiHocModel.setGhiChu(txtGhiChu.getText());
@@ -451,8 +458,13 @@ public class NguoiHocForm extends JFrame {
 		String regexDate = "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$";
 		String regexPhone = "(84|0[3|5|7|8|9])+([0-9]{8})\\b";
 		StringBuilder message = new StringBuilder();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		if (txtMaNH.getText().isBlank()) {
 			message.append("\nMã người học trống");
+			txtMaNH.setBackground(Color.decode("#f38aff"));
+			txtMaNH.requestFocus();
+		} else if (txtMaNH.getText().length() > 7) {
+			message.append("\nMã người học quá 7 ký tự");
 			txtMaNH.setBackground(Color.decode("#f38aff"));
 			txtMaNH.requestFocus();
 		} else {
@@ -474,22 +486,22 @@ public class NguoiHocForm extends JFrame {
 			txtHoTen.setBackground(Color.decode("#ff96a6"));
 			txtHoTen.requestFocus();
 		}
-		if (txtNgaySinh.getText().isBlank()) {
+		if (txtNgaySinh.getDate() == null) {
 			message.append("\nNgày sinh trống");
 			txtNgaySinh.setBackground(Color.decode("#f38aff"));
 			txtNgaySinh.requestFocus();
-		} else if (!txtNgaySinh.getText().matches(regexDate)) {
+		} else if (!sdf.format(txtNgaySinh.getDate()).matches(regexDate)) {
 			message.append("\nNgày sinh không hợp lệ!");
 			txtNgaySinh.setBackground(Color.decode("#ff96a6"));
 			txtNgaySinh.requestFocus();
 		} else
 			try {
-				if (new SimpleDateFormat("dd/MM/yyyy").parse(txtNgaySinh.getText()).after(new Date())) {
+				if (txtNgaySinh.getDate().after(new Date())) {
 					message.append("\nNgày sinh phải trước ngày hiện tại!");
 					txtNgaySinh.setBackground(Color.decode("#ff96a6"));
 					txtNgaySinh.requestFocus();
 				}
-			} catch (NumberFormatException | ParseException e) {
+			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
 		if (txtDienThoai.getText().isBlank()) {
@@ -522,11 +534,14 @@ public class NguoiHocForm extends JFrame {
 		String regexEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
 		String regexDate = "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$";
 		String regexPhone = "(84|0[3|5|7|8|9])+([0-9]{8})\\b";
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		StringBuilder message = new StringBuilder();
 		if (txtMaNH.getText().isBlank()) {
 			message.append("\nMã người học trống");
 			txtMaNH.setBackground(Color.decode("#f38aff"));
 			txtMaNH.requestFocus();
+		} else if (txtMaNH.getText().length() > 7) {
+			message.append("\nMã người học quá 7 ký tự");
 		}
 		if (txtHoTen.getText().isBlank()) {
 			message.append("\nHọ và tên trống");
@@ -537,22 +552,22 @@ public class NguoiHocForm extends JFrame {
 			txtHoTen.setBackground(Color.decode("#ff96a6"));
 			txtHoTen.requestFocus();
 		}
-		if (txtNgaySinh.getText().isBlank()) {
+		if (txtNgaySinh.getDate() == null) {
 			message.append("\nNgày sinh trống");
 			txtNgaySinh.setBackground(Color.decode("#f38aff"));
 			txtNgaySinh.requestFocus();
-		} else if (!txtNgaySinh.getText().matches(regexDate)) {
+		} else if (!sdf.format(txtNgaySinh.getDate()).matches(regexDate)) {
 			message.append("\nNgày sinh không hợp lệ!");
 			txtNgaySinh.setBackground(Color.decode("#ff96a6"));
 			txtNgaySinh.requestFocus();
 		} else
 			try {
-				if (new SimpleDateFormat("dd/MM/yyyy").parse(txtNgaySinh.getText()).after(new Date())) {
+				if (txtNgaySinh.getDate().after(new Date())) {
 					message.append("\nNgày sinh phải trước ngày hiện tại!");
 					txtNgaySinh.setBackground(Color.decode("#ff96a6"));
 					txtNgaySinh.requestFocus();
 				}
-			} catch (NumberFormatException | ParseException e) {
+			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
 		if (txtDienThoai.getText().isBlank()) {
@@ -596,7 +611,7 @@ public class NguoiHocForm extends JFrame {
 		txtGhiChu.setEnabled(true);
 		btnUpdate.setEnabled(true);
 		btnDelete.setEnabled(true);
-		
+
 		txtMaNH.setBackground(null);
 		txtHoTen.setBackground(null);
 		txtNgaySinh.setBackground(null);
@@ -612,7 +627,7 @@ public class NguoiHocForm extends JFrame {
 		}
 		reloadTable();
 	}
-	
+
 	private void reloadTable() {
 		model.setRowCount(0);
 		for (NguoiHocModel i : list) {
@@ -630,7 +645,11 @@ public class NguoiHocForm extends JFrame {
 		} else {
 			rdoNu.setSelected(true);
 		}
-		txtNgaySinh.setText(new SimpleDateFormat("dd/MM/yyyy").format(list.get(index).getNgaySinh()));
+		try {
+			txtNgaySinh.setDate(list.get(index).getNgaySinh());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		txtDienThoai.setText(list.get(index).getDienThoai());
 		txtEmail.setText(list.get(index).getEmail());
 		txtGhiChu.setText(list.get(index).getGhiChu());
@@ -666,7 +685,7 @@ public class NguoiHocForm extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		clear();
 		disableFunction();
 	}

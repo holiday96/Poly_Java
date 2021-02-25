@@ -15,8 +15,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
@@ -33,8 +35,11 @@ import javax.swing.table.DefaultTableModel;
 import polypro.model.NhanVienModel;
 import polypro.service.INhanVienService;
 import polypro.service.impl.NhanVienService;
+import javax.swing.JPanel;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
 
-public class NhanVienForm extends JFrame {
+public class NhanVienForm extends JInternalFrame {
 
 	private static final long serialVersionUID = -4913935832695327558L;
 	private JTable tblDanhSach;
@@ -58,6 +63,8 @@ public class NhanVienForm extends JFrame {
 	private int index;
 
 	private INhanVienService nhanVienSevice = new NhanVienService();
+	private JPanel panel;
+	private JLabel lblTitle;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -85,33 +92,25 @@ public class NhanVienForm extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/User group.png")));
+		setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/User group.png"))));
 		setVisible(true);
 		setBounds(100, 100, 620, 398);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setResizable(false);
 
 		setTitle("EduSys - Quản lý nhân viên");
-		getContentPane().setLayout(null);
-
-		JLabel lblTitle = new JLabel("QUẢN LÝ NHÂN VIÊN");
-		lblTitle.setForeground(new Color(102, 0, 255));
-		lblTitle.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblTitle.setBounds(6, 6, 159, 20);
-		getContentPane().add(lblTitle);
+		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(6, 27, 590, 330);
 		getContentPane().add(tabbedPane);
 
 		model = new DefaultTableModel(column, 0);
 
 		JLayeredPane lypDanhSach = new JLayeredPane();
 		tabbedPane.addTab("DANH SÁCH", null, lypDanhSach, null);
+		lypDanhSach.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 590, 302);
 		lypDanhSach.add(scrollPane);
 		tblDanhSach = new JTable(model){
 
@@ -259,6 +258,16 @@ public class NhanVienForm extends JFrame {
 		rdoTruongPhong.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdoTruongPhong.setBounds(387, 75, 109, 23);
 		lypCapNhat.add(rdoTruongPhong);
+		
+		panel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		getContentPane().add(panel, BorderLayout.NORTH);
+		
+		lblTitle = new JLabel("QUẢN LÝ NHÂN VIÊN");
+		lblTitle.setForeground(new Color(102, 0, 255));
+		lblTitle.setFont(new Font("SansSerif", Font.BOLD, 15));
+		panel.add(lblTitle);
 
 		disableFunction();
 	}

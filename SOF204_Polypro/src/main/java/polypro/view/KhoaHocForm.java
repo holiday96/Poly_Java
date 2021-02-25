@@ -1,25 +1,26 @@
 package polypro.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -33,6 +34,9 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
+
 import polypro.model.ChuyenDeModel;
 import polypro.model.KhoaHocModel;
 import polypro.service.IChuyenDeService;
@@ -40,7 +44,7 @@ import polypro.service.IKhoaHocService;
 import polypro.service.impl.ChuyenDeService;
 import polypro.service.impl.KhoaHocService;
 
-public class KhoaHocForm extends JFrame {
+public class KhoaHocForm extends JInternalFrame {
 
 	private static final long serialVersionUID = -4913935832695327558L;
 
@@ -50,7 +54,7 @@ public class KhoaHocForm extends JFrame {
 	private JTextField txtHocPhi;
 	private JTextField txtNguoiTao;
 	private JTextArea txtGhiChu;
-	private JTextField txtKhaiGiang;
+	private JDateChooser txtKhaiGiang;
 	private JTextField txtThoiLuong;
 	private JTextField txtNgayTao;
 	private JButton btnAdd;
@@ -106,22 +110,20 @@ public class KhoaHocForm extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Certificate.png")));
+		setFrameIcon(new ImageIcon(
+				Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Certificate.png"))));
 		setVisible(true);
 		setBounds(100, 100, 615, 440);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setResizable(false);
 
 		setTitle("EduSys - Quản lý khoá học");
-		getContentPane().setLayout(null);
+		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "CHUY\u00CAN \u0110\u1EC0", TitledBorder.LEADING, TitledBorder.TOP,
 				new Font("SansSerif", Font.BOLD, 15), new Color(153, 0, 51)));
-		panel.setBounds(6, 6, 587, 58);
-		getContentPane().add(panel);
-		panel.setLayout(null);
+		getContentPane().add(panel, BorderLayout.NORTH);
 
 		comboBox = new JComboBox<Object>();
 		comboBox.addItemListener(new ItemListener() {
@@ -129,23 +131,21 @@ public class KhoaHocForm extends JFrame {
 				comboBoxSelected();
 			}
 		});
-		comboBox.setBounds(14, 18, 554, 26);
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 2));
 		panel.add(comboBox);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(6, 63, 587, 331);
 		getContentPane().add(tabbedPane);
 
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("DANH SÁCH", null, panel_1, null);
-		panel_1.setLayout(null);
+		panel_1.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 587, 295);
 		panel_1.add(scrollPane);
 
 		model = new DefaultTableModel(column, 0);
-		table = new JTable(model){
+		table = new JTable(model) {
 
 			private static final long serialVersionUID = 5377371199505474349L;
 
@@ -291,24 +291,20 @@ public class KhoaHocForm extends JFrame {
 		lblKhaiGiang.setBounds(314, 6, 59, 16);
 		panel_1_1.add(lblKhaiGiang);
 
-		txtKhaiGiang = new JTextField();
-		txtKhaiGiang.addMouseListener(new MouseAdapter() {
+		txtKhaiGiang = new JDateChooser();
+		txtKhaiGiang.getCalendarButton().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				txtKhaiGiang.setText("");
-			}
-		});
-		txtKhaiGiang.setText("Ngày / Tháng / Năm");
-		txtKhaiGiang.setToolTipText("VD: 31/12/2020");
-		txtKhaiGiang.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
 				txtKhaiGiang.setBackground(null);
 			}
 		});
-		txtKhaiGiang.setColumns(10);
+		txtKhaiGiang.setDateFormatString("dd/MM/yyyy");
+		txtKhaiGiang.setToolTipText("VD: 31/12/2020");
 		txtKhaiGiang.setBounds(314, 28, 267, 28);
 		panel_1_1.add(txtKhaiGiang);
+		//disable editor in jdatechooser
+		JTextFieldDateEditor editor = (JTextFieldDateEditor) txtKhaiGiang.getDateEditor();
+		editor.setEditable(false);
 
 		JLabel lblThoiLuong = new JLabel("Thời lượng (giờ)");
 		lblThoiLuong.setBounds(314, 68, 90, 16);
@@ -390,7 +386,8 @@ public class KhoaHocForm extends JFrame {
 				KhoaHocModel khoaHocModel = new KhoaHocModel();
 				khoaHocModel.setThoiLuong(Integer.valueOf(txtThoiLuong.getText()));
 				khoaHocModel.setHocPhi(Math.floor(Double.valueOf(txtHocPhi.getText())));
-				khoaHocModel.setNgayKG(new SimpleDateFormat("dd/MM/yyyy").parse(txtKhaiGiang.getText()));
+				khoaHocModel.setNgayKG(new SimpleDateFormat("dd/MM/yyyy")
+						.parse(new SimpleDateFormat("dd/MM/yyyy").format(txtKhaiGiang.getDate())));
 				khoaHocModel.setNgayTao(new SimpleDateFormat("dd/MM/yyyy").parse(txtNgayTao.getText()));
 				khoaHocModel.setGhiChu(txtGhiChu.getText());
 				khoaHocModel.setMaCD(listChuyenDe.get(indexChuyenDe).getMaCD());
@@ -411,7 +408,8 @@ public class KhoaHocForm extends JFrame {
 				KhoaHocModel khoaHocModel = new KhoaHocModel();
 				khoaHocModel.setThoiLuong(Integer.valueOf(txtThoiLuong.getText()));
 				khoaHocModel.setHocPhi(Math.floor(Double.valueOf(txtHocPhi.getText())));
-				khoaHocModel.setNgayKG(new SimpleDateFormat("dd/MM/yyyy").parse(txtKhaiGiang.getText()));
+				khoaHocModel.setNgayKG(new SimpleDateFormat("dd/MM/yyyy")
+						.parse(new SimpleDateFormat("dd/MM/yyyy").format(txtKhaiGiang.getDate())));
 				khoaHocModel.setNgayTao(new SimpleDateFormat("dd/MM/yyyy").parse(txtNgayTao.getText()));
 				khoaHocModel.setGhiChu(txtGhiChu.getText());
 				khoaHocModel.setMaCD(listChuyenDe.get(indexChuyenDe).getMaCD());
@@ -441,7 +439,11 @@ public class KhoaHocForm extends JFrame {
 	}
 
 	private void showDetail() {
-		txtKhaiGiang.setText(new SimpleDateFormat("dd/MM/yyyy").format(listKhoaHoc.get(indexKhoaHoc).getNgayKG()));
+		try {
+			txtKhaiGiang.setDate(listKhoaHoc.get(indexKhoaHoc).getNgayKG());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		txtThoiLuong.setText(String.valueOf(listKhoaHoc.get(indexKhoaHoc).getThoiLuong()));
 		txtHocPhi.setText(String.valueOf(listKhoaHoc.get(indexKhoaHoc).getHocPhi()));
 		txtNguoiTao.setText(listKhoaHoc.get(indexKhoaHoc).getMaNV());
@@ -457,7 +459,7 @@ public class KhoaHocForm extends JFrame {
 		txtGhiChu.setEnabled(true);
 		btnUpdate.setEnabled(true);
 		btnDelete.setEnabled(true);
-		
+
 		txtKhaiGiang.setBackground(null);
 		txtGhiChu.setBackground(null);
 	}
@@ -487,23 +489,24 @@ public class KhoaHocForm extends JFrame {
 
 	private boolean validated() {
 		String regexDate = "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$";
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		StringBuilder message = new StringBuilder();
-		if (txtKhaiGiang.getText().isBlank()) {
+		if (txtKhaiGiang.getDate() == null) {
 			message.append("\nNgày khai giảng trống");
 			txtKhaiGiang.setBackground(Color.decode("#f38aff"));
 			txtKhaiGiang.requestFocus();
-		} else if (!txtKhaiGiang.getText().matches(regexDate)) {
+		} else if (!sdf.format(txtKhaiGiang.getDate()).matches(regexDate)) {
 			message.append("\nNgày khai giảng không hợp lệ!");
 			txtKhaiGiang.setBackground(Color.decode("#ff96a6"));
 			txtKhaiGiang.requestFocus();
 		} else
 			try {
-				if (new SimpleDateFormat("dd/MM/yyyy").parse(txtKhaiGiang.getText()).before(new Date())) {
+				if (txtKhaiGiang.getDate().before(new Date())) {
 					message.append("\nNgày khai giảng phải sau ngày hiện tại!");
 					txtKhaiGiang.setBackground(Color.decode("#ff96a6"));
 					txtKhaiGiang.requestFocus();
 				}
-			} catch (NumberFormatException | ParseException e) {
+			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
 		if (message.isEmpty()) {
@@ -523,7 +526,7 @@ public class KhoaHocForm extends JFrame {
 	}
 
 	private void clear() {
-		txtKhaiGiang.setText("Ngày / Tháng / Năm");
+		txtKhaiGiang.setDate(null);
 		txtGhiChu.setText("");
 		try {
 			txtNguoiTao.setText(LoginForm.nhanVien.getHoTen());

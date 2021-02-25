@@ -1,6 +1,7 @@
 package polypro.view;
 
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -68,7 +69,7 @@ public class LoginForm extends JFrame {
 	private void initialize() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Shield.png")));
 		setVisible(true);
-		setBounds(100, 100, 400, 250);
+		setBounds(100, 100, 450, 310);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -77,16 +78,19 @@ public class LoginForm extends JFrame {
 		getContentPane().setLayout(null);
 
 		JLabel lblLogin = new JLabel("");
-		lblLogin.setIcon(new ImageIcon(this.getClass().getResource("../../icon/security.png")));
-		lblLogin.setBounds(0, 0, 173, 211);
+		lblLogin.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Secure.png")));
+		lblLogin.setBounds(-41, 6, 242, 290);
 		getContentPane().add(lblLogin);
 
 		JLabel lblUsername = new JLabel("Tên đăng nhập");
 		lblUsername.setFont(new Font("SansSerif", Font.PLAIN, 13));
-		lblUsername.setBounds(182, 6, 85, 18);
+		lblUsername.setBounds(213, 20, 85, 18);
 		getContentPane().add(lblUsername);
 
 		txtUsername = new JTextField();
+		txtUsername.setText("admin");
+		txtUsername.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		txtUsername.setBorder(null);
 		txtUsername.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -95,16 +99,18 @@ public class LoginForm extends JFrame {
 				exitKeyPressed(e);
 			}
 		});
-		txtUsername.setBounds(182, 26, 186, 28);
+		txtUsername.setBounds(213, 40, 186, 28);
 		getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 
 		JLabel lblPassword = new JLabel("Mật khẩu");
 		lblPassword.setFont(new Font("SansSerif", Font.PLAIN, 13));
-		lblPassword.setBounds(182, 56, 54, 18);
+		lblPassword.setBounds(213, 70, 54, 18);
 		getContentPane().add(lblPassword);
 
 		txtPassword = new JPasswordField();
+		txtPassword.setText("admin");
+		txtPassword.setBorder(null);
 		txtPassword.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -114,10 +120,11 @@ public class LoginForm extends JFrame {
 			}
 		});
 		txtPassword.setColumns(10);
-		txtPassword.setBounds(182, 76, 186, 28);
+		txtPassword.setBounds(213, 90, 186, 28);
 		getContentPane().add(txtPassword);
 
 		btnLogin = new JButton("Đăng nhập");
+		btnLogin.setBorder(null);
 		btnLogin.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -131,12 +138,13 @@ public class LoginForm extends JFrame {
 			}
 		});
 		btnLogin.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Key.png")));
-		btnLogin.setBounds(182, 109, 89, 56);
+		btnLogin.setBounds(213, 123, 89, 56);
 		btnLogin.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnLogin.setHorizontalTextPosition(SwingConstants.CENTER);
 		getContentPane().add(btnLogin);
 
 		btnExit = new JButton("Kết thúc");
+		btnExit.setBorder(null);
 		btnExit.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -151,7 +159,7 @@ public class LoginForm extends JFrame {
 			}
 		});
 		btnExit.setIcon(new ImageIcon(this.getClass().getResource("../../icon/Exit.png")));
-		btnExit.setBounds(280, 109, 88, 56);
+		btnExit.setBounds(311, 123, 88, 56);
 		btnExit.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnExit.setHorizontalTextPosition(SwingConstants.CENTER);
 		getContentPane().add(btnExit);
