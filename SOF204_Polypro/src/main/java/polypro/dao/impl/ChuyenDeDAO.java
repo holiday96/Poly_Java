@@ -34,4 +34,17 @@ public class ChuyenDeDAO extends AbstractDAO<ChuyenDeModel> implements IChuyenDe
 		delete(sql, chuyenDeModel.getMaCD());
 	}
 
+	@Override
+	public int countDB() {
+		String sql = "SELECT COUNT(*) FROM CHUYENDE";
+		return countDB(sql);
+	}
+
+	@Override
+	public List<ChuyenDeModel> top5(int indexPage) {
+		String sql = "SELECT TOP 5 * FROM CHUYENDE WHERE MACD NOT IN (SELECT TOP " + (indexPage * 5 - 5)
+				+ " MACD FROM CHUYENDE)";
+		return query(sql, new ChuyenDeMapper());
+	}
+
 }

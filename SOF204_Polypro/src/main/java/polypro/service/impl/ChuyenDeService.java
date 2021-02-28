@@ -40,4 +40,14 @@ public class ChuyenDeService implements IChuyenDeService{
 	public List<ChuyenDeModel> findAll() {
 		return chuyenDeDAO.findAll();
 	}
+
+	@Override
+	public int countDB() {
+		return chuyenDeDAO.countDB();
+	}
+
+	@Override
+	public List<ChuyenDeModel> top5(int indexPage) {
+		return chuyenDeDAO.top5(indexPage);
+	}
 }

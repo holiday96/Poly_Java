@@ -10,4 +10,5 @@ public interface GenericDAO<T> {
 	void update(String sql, Object... parameters);
 	String insert(String sql, Object... parameters);
 	void delete(String sql, Object... parameters);
+	int countDB(String sql);
 }

@@ -61,12 +61,15 @@ public class ChuyenDeForm extends JInternalFrame {
 	private JTextArea txtMoTa;
 	private boolean unlockLogo;
 	private List<ChuyenDeModel> list;
-	private int index;
+	private int index, sumDB, numPage, indexPage;
+	private JPanel panel;
+	private JLabel lblTitle;
+	private JPanel panel_1;
+	private JButton btnDau, btnTruoc, btnTiep, btnCuoi;
+	private JLabel lblNumPage;
 
 	@Inject
 	private IChuyenDeService chuyenDeService = new ChuyenDeService();
-	private JPanel panel;
-	private JLabel lblTitle;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -89,8 +92,9 @@ public class ChuyenDeForm extends JInternalFrame {
 		initialize();
 		try {
 			index = 0;
-			list = chuyenDeService.findAll();
-			loadToTable();
+			indexPage = 1;
+			loadToTable(1);
+			checkPositionListPage();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -100,7 +104,8 @@ public class ChuyenDeForm extends JInternalFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Lists.png"))));
+		setFrameIcon(new ImageIcon(
+				Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("../../icon/Lists.png"))));
 		setVisible(true);
 		setBounds(100, 100, 620, 492);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -108,11 +113,11 @@ public class ChuyenDeForm extends JInternalFrame {
 
 		setTitle("EduSys - Quản lý chuyên đề");
 		getContentPane().setLayout(new BorderLayout(0, 0));
-		
+
 		panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.NORTH);
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-		
+
 		lblTitle = new JLabel("QUẢN LÝ CHUYÊN ĐỀ");
 		lblTitle.setForeground(new Color(102, 0, 255));
 		lblTitle.setFont(new Font("SansSerif", Font.BOLD, 15));
@@ -129,7 +134,7 @@ public class ChuyenDeForm extends JInternalFrame {
 
 		JScrollPane scrollPane = new JScrollPane();
 		lypDanhSach.add(scrollPane);
-		tblDanhSach = new JTable(model){
+		tblDanhSach = new JTable(model) {
 
 			private static final long serialVersionUID = 5377371199505474349L;
 
@@ -145,6 +150,44 @@ public class ChuyenDeForm extends JInternalFrame {
 			}
 		});
 		scrollPane.setViewportView(tblDanhSach);
+
+		panel_1 = new JPanel();
+		lypDanhSach.add(panel_1, BorderLayout.SOUTH);
+
+		btnDau = new JButton("|<");
+		btnDau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnDau();
+			}
+		});
+		panel_1.add(btnDau);
+
+		btnTruoc = new JButton("<<");
+		btnTruoc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnTruoc();
+			}
+		});
+		panel_1.add(btnTruoc);
+
+		lblNumPage = new JLabel("numPage");
+		panel_1.add(lblNumPage);
+
+		btnTiep = new JButton(">>");
+		btnTiep.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnTiep();
+			}
+		});
+		panel_1.add(btnTiep);
+
+		btnCuoi = new JButton(">|");
+		btnCuoi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnCuoi();
+			}
+		});
+		panel_1.add(btnCuoi);
 		tblDanhSach.getColumnModel().getColumn(0).setMaxWidth(70);
 
 		JLayeredPane lypCapNhat = new JLayeredPane();
@@ -324,6 +367,54 @@ public class ChuyenDeForm extends JInternalFrame {
 		disableFunction();
 	}
 
+	protected void btnDau() {
+		indexPage = 1;
+		loadToTable(indexPage);
+		checkPositionListPage();
+	}
+
+	protected void btnTruoc() {
+		indexPage--;
+		loadToTable(indexPage);
+		checkPositionListPage();
+	}
+
+	protected void btnTiep() {
+		indexPage++;
+		loadToTable(indexPage);
+		checkPositionListPage();
+	}
+
+	protected void btnCuoi() {
+		indexPage = numPage;
+		loadToTable(indexPage);
+		checkPositionListPage();
+	}
+
+	private void checkPositionListPage() {
+		if (numPage > 1) {
+			if (indexPage == 1) {
+				btnDau.setEnabled(false);
+				btnTruoc.setEnabled(false);
+				btnTiep.setEnabled(true);
+				btnCuoi.setEnabled(true);
+			}
+			if (indexPage > 1 && indexPage < numPage) {
+				btnDau.setEnabled(true);
+				btnTruoc.setEnabled(true);
+				btnTiep.setEnabled(true);
+				btnCuoi.setEnabled(true);
+			}
+			if (indexPage == numPage) {
+				btnDau.setEnabled(true);
+				btnTruoc.setEnabled(true);
+				btnTiep.setEnabled(false);
+				btnCuoi.setEnabled(false);
+			}
+		}
+		lblNumPage.setText(indexPage + "/" + numPage);
+	}
+
 	protected void btnEnd() {
 		index = list.size() - 1;
 		tblDanhSach.setRowSelectionInterval(index, index);
@@ -370,7 +461,7 @@ public class ChuyenDeForm extends JInternalFrame {
 
 			clear();
 			disableFunction();
-			loadToTable();
+			loadToTable(1);
 		}
 	}
 
@@ -421,12 +512,13 @@ public class ChuyenDeForm extends JInternalFrame {
 
 	protected void btnDelete() {
 		if (!LoginForm.nhanVien.isVaiTro()) {
-			JOptionPane.showMessageDialog(this, "Bạn không có quyền thực hiện chức năng này!", "Chức năng giới hạn", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Bạn không có quyền thực hiện chức năng này!", "Chức năng giới hạn",
+					JOptionPane.ERROR_MESSAGE);
 		} else {
 			if (JOptionPane.showConfirmDialog(this, "Xác nhận xoá chuyên đề có Mã CD:  " + list.get(index).getMaCD(),
 					"Xoá", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
 				chuyenDeService.delete(list.get(index));
-				loadToTable();
+				loadToTable(1);
 
 				disableFunction();
 				clear();
@@ -449,7 +541,7 @@ public class ChuyenDeForm extends JInternalFrame {
 		txtThoiLuong.setEnabled(true);
 		txtMoTa.setEnabled(true);
 		unlockLogo = true;
-		
+
 		txtHocPhi.setBackground(null);
 		txtMaCD.setBackground(null);
 		txtTenCD.setBackground(null);
@@ -561,19 +653,21 @@ public class ChuyenDeForm extends JInternalFrame {
 				chuyenDeModel.setHinh(this.getClass().getResource("../../icon/question.png").getPath());
 			}
 			chuyenDeService.save(chuyenDeModel);
-			
+
 			ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("../../icon/question.png"));
 			Image image = imageIcon.getImage().getScaledInstance(164, 177, Image.SCALE_SMOOTH);
 			lblLogo.setIcon(new ImageIcon(image));
 
 			clear();
-			loadToTable();
+			loadToTable(1);
 		}
 	}
 
-	private void loadToTable() {
+	private void loadToTable(int indexPage) {
 		try {
-			list = chuyenDeService.findAll();
+			sumDB = chuyenDeService.countDB();
+			numPage = numPage(sumDB);
+			list = chuyenDeService.top5(indexPage);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -581,6 +675,14 @@ public class ChuyenDeForm extends JInternalFrame {
 		for (ChuyenDeModel i : list) {
 			model.addRow(new Object[] { i.getMaCD(), i.getTenCD(), (int) i.getHocPhi() + " VNĐ",
 					i.getThoiLuong() + " Giờ", i.getHinh(), i.getMoTa() });
+		}
+	}
+
+	private int numPage(int sumDB) {
+		if (sumDB % 5 == 0) {
+			return sumDB / 5;
+		} else {
+			return sumDB / 5 + 1;
 		}
 	}
 
@@ -632,6 +734,12 @@ public class ChuyenDeForm extends JInternalFrame {
 	}
 
 	private void disableFunction() {
+		// btn Trang Danh sach
+		btnDau.setEnabled(false);
+		btnTruoc.setEnabled(false);
+		btnTiep.setEnabled(false);
+		btnCuoi.setEnabled(false);
+		// btn Trang Chi tiet
 		btnAdd.setEnabled(false);
 		btnDelete.setEnabled(false);
 		btnUpdate.setEnabled(false);
