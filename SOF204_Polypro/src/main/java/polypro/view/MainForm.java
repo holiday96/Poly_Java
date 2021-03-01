@@ -72,7 +72,6 @@ public class MainForm extends JFrame {
 		setBounds(100, 100, 1030, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-//		setResizable(false);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
