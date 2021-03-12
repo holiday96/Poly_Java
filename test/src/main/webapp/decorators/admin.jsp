@@ -28,9 +28,9 @@
 		<script type="text/javascript">
 				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
 		</script>
-		<!-- header -->
+		<!-- menu -->
     	<%@ include file="/common/admin/menu.jsp" %>
-    	<!-- header -->
+    	<!-- menu -->
 		
 		<dec:body/>
 		
