@@ -5,7 +5,6 @@ import java.util.List;
 import test.dao.INewDAO;
 import test.mapper.NewMapper;
 import test.model.NewModel;
-import test.model.UserModel;
 
 public class NewDAO extends AbstractDAO<NewModel> implements INewDAO {
 	
