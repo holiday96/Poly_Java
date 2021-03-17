@@ -2,12 +2,9 @@ package test.dao.impl;
 
 import java.util.List;
 
-import com.mysql.cj.util.StringUtils;
-
 import test.dao.INewDAO;
 import test.mapper.NewMapper;
 import test.model.NewModel;
-import test.paging.Pageble;
 
 public class NewDAO extends AbstractDAO<NewModel> implements INewDAO {
 	
@@ -50,18 +47,18 @@ public class NewDAO extends AbstractDAO<NewModel> implements INewDAO {
 		String sql = "DELETE FROM news WHERE id = ?";
 		update(sql, id);
 	}
-
-	@Override
-	public List<NewModel> findAll(Pageble pageble) {
-		StringBuilder sql = new StringBuilder("SELECT * FROM news");
-		if (pageble.getSorter() != null && StringUtils.isNotBlank(pageble.getSorter().getSortName()) && StringUtils.isNotBlank(pageble.getSorter().getSortBy())) {
-			sql.append(" ORDER BY "+pageble.getSorter().getSortName()+" "+pageble.getSorter().getSortBy()+"");
-		}
-		if (pageble.getOffset() != null && pageble.getLimit() != null) {
-			sql.append(" LIMIT "+pageble.getOffset()+", "+pageble.getLimit()+"");
-		}
-		return query(sql.toString(), new NewMapper());
-	}
+//
+//	@Override
+//	public List<NewModel> findAll(Pageble pageble) {
+//		StringBuilder sql = new StringBuilder("SELECT * FROM news");
+//		if (pageble.getSorter() != null && StringUtils.isNotBlank(pageble.getSorter().getSortName()) && StringUtils.isNotBlank(pageble.getSorter().getSortBy())) {
+//			sql.append(" ORDER BY "+pageble.getSorter().getSortName()+" "+pageble.getSorter().getSortBy()+"");
+//		}
+//		if (pageble.getOffset() != null && pageble.getLimit() != null) {
+//			sql.append(" LIMIT "+pageble.getOffset()+", "+pageble.getLimit()+"");
+//		}
+//		return query(sql.toString(), new NewMapper());
+//	}
 
 	@Override
 	public int getTotalItem() {
