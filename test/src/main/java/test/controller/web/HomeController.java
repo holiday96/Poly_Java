@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import test.model.UserModel;
-
 @WebServlet(urlPatterns = { "/trang-chu", "/home-page" })
 public class HomeController extends HttpServlet {
 

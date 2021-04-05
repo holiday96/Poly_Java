@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import test.dao.GenericDAO;
 import test.mapper.RowMapper;
@@ -24,7 +23,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 //			String url = resourceBundle.getString("url");
 //			String user = resourceBundle.getString("user");
 //			String password = resourceBundle.getString("password");
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/jspservletjdbc";
 			String user = "abc";
 			String password = "abc";
