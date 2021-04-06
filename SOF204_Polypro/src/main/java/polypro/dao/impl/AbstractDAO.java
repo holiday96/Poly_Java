@@ -67,7 +67,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 				Object parameter = parameters[i];
 				int index = i + 1;
 				if (parameter instanceof String) {
-					ps.setString(index, (String) parameter);
+					ps.setNString(index, (String) parameter);
 				} else if (parameter instanceof Integer) {
 					ps.setInt(index, (Integer) parameter);
 				} else if (parameter instanceof Double) {
