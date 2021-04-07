@@ -13,8 +13,8 @@
 		<jstl.version>1.2</jstl.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
 		<sqlserver.version>8.4.1.jre14</sqlserver.version>
-		<maven.compiler.source>14</maven.compiler.source>
-		<maven.compiler.target>14</maven.compiler.target>
+		<maven.compiler.source>15</maven.compiler.source>
+		<maven.compiler.target>15</maven.compiler.target>
 	</properties>
 
 	<dependencies>
