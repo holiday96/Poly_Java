@@ -13,6 +13,7 @@
 		<jstl.version>1.2</jstl.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
 		<sqlserver.version>8.4.1.jre14</sqlserver.version>
+		<weld.servlet.version>2.4.8.Final</weld.servlet.version>
 		<maven.compiler.source>15</maven.compiler.source>
 		<maven.compiler.target>15</maven.compiler.target>
 	</properties>
@@ -37,6 +38,23 @@
 			<groupId>opensymphony</groupId>
 			<artifactId>sitemesh</artifactId>
 			<version>${sitemesh.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.weld.servlet</groupId>
+			<artifactId>weld-servlet</artifactId>
+			<version>${weld.servlet.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
 		</dependency>
 
 		<!-- json -->
