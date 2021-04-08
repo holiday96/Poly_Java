@@ -30,7 +30,6 @@ public class HomeController extends HttpServlet {
 		SanPhamModel model = new SanPhamModel();
 		model.setListResult(sanPhamService.findAll());
 		request.setAttribute(SystemConstant.MODEL, model);
-		
 		LoaiSanPhamModel loaiSanPhamModel = new LoaiSanPhamModel();
 		loaiSanPhamModel.setListResult(loaiSanPhamService.findAll());
 		request.setAttribute(SystemConstant.LOAI, loaiSanPhamModel);
