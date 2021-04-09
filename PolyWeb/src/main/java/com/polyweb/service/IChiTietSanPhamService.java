@@ -8,6 +8,10 @@ public interface IChiTietSanPhamService {
 
     List<ChiTietSanPhamModel> findAll();
 
-    ChiTietSanPhamModel getById(Integer id);
+    List<ChiTietSanPhamModel> findByIdSanPham(Integer id);
+    
+    Long findMinPriceByIdSanPham(Integer id);
+    
+    Long findMaxPriceByIdSanPham(Integer id);
 
 }

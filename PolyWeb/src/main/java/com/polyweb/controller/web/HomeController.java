@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.polyweb.constant.SystemConstant;
 import com.polyweb.model.LoaiSanPhamModel;
 import com.polyweb.model.SanPhamModel;
+import com.polyweb.service.IChiTietSanPhamService;
 import com.polyweb.service.ILoaiSanPhamService;
 import com.polyweb.service.ISanPhamService;
+import com.polyweb.service.impl.ChiTietSanPhamService;
 import com.polyweb.service.impl.LoaiSanPhamService;
 import com.polyweb.service.impl.SanPhamService;
 
@@ -24,12 +26,19 @@ public class HomeController extends HttpServlet {
 
 	private ISanPhamService sanPhamService = new SanPhamService();
 	private ILoaiSanPhamService loaiSanPhamService = new LoaiSanPhamService();
+	private IChiTietSanPhamService chiTietSanPhamService = new ChiTietSanPhamService();
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		SanPhamModel model = new SanPhamModel();
 		model.setListResult(sanPhamService.findAll());
+		model.getListResult().forEach(e-> {
+			e.setMinPrice(chiTietSanPhamService.findMinPriceByIdSanPham(model.getId()));
+			e.setMaxPrice(chiTietSanPhamService.findMinPriceByIdSanPham(model.getId()));
+		});
 		request.setAttribute(SystemConstant.MODEL, model);
+		
 		LoaiSanPhamModel loaiSanPhamModel = new LoaiSanPhamModel();
 		loaiSanPhamModel.setListResult(loaiSanPhamService.findAll());
 		request.setAttribute(SystemConstant.LOAI, loaiSanPhamModel);

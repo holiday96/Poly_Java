@@ -60,7 +60,7 @@
                                         <h4 class="card-title">
                                             <a href="#">${item.tenSP}</a>
                                         </h4>
-                                        <h5>$24.99</h5>
+                                        <h5>${item.minPrice} - ${item.maxPrice} VNĐ</h5>
                                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
                                     </div>
                                     <div class="card-footer">

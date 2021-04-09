@@ -13,4 +13,10 @@ public class ChiTietSanPhamDAO extends AbstractDAO<ChiTietSanPhamModel> implemen
         String sql = "SELECT * FROM CHITIETSANPHAM WHERE TRANGTHAI = 1";
         return query(sql, new ChiTietSanPhamMapper());
     }
+
+	@Override
+	public List<ChiTietSanPhamModel> findByIdSanPham(Integer id) {
+		String sql = "SELECT*FROM CHITIETSANPHAM WHERE TRANGTHAI = 1 AND IDSANPHAM = ?";
+		return query(sql, new ChiTietSanPhamMapper(), id);
+	}
 }
