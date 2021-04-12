@@ -5,5 +5,7 @@ import java.util.List;
 import com.polyweb.model.AnhSanPhamModel;
 
 public interface IAnhSanPhamDAO extends GenericDAO<AnhSanPhamModel> {
-	List<AnhSanPhamModel> findById(Integer id);
+	List<AnhSanPhamModel> findByIdCTSP(Integer idCTSP);
+	
+	List<AnhSanPhamModel> findByIdSP(Integer idSP);
 }

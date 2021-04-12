@@ -1,6 +1,7 @@
 package com.polyweb.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class ChiTietSanPhamModel extends AbstractModel<ChiTietSanPhamModel> {
 	private Integer idSanPham;
@@ -12,6 +13,15 @@ public class ChiTietSanPhamModel extends AbstractModel<ChiTietSanPhamModel> {
 	private Long giaGiam;
 	private Timestamp ngayCapNhat;
 	private Boolean status;
+	private List<String> images;
+
+	public List<String> getAnh() {
+		return images;
+	}
+
+	public void setAnh(List<String> anh) {
+		this.images = anh;
+	}
 
 	public Integer getIdSanPham() {
 		return idSanPham;

@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.polyweb.constant.SystemConstant;
 import com.polyweb.model.LoaiSanPhamModel;
 import com.polyweb.model.SanPhamModel;
+import com.polyweb.service.IAnhSanPhamService;
 import com.polyweb.service.IChiTietSanPhamService;
 import com.polyweb.service.ILoaiSanPhamService;
 import com.polyweb.service.ISanPhamService;
+import com.polyweb.service.impl.AnhSanPhamService;
 import com.polyweb.service.impl.ChiTietSanPhamService;
 import com.polyweb.service.impl.LoaiSanPhamService;
 import com.polyweb.service.impl.SanPhamService;
@@ -27,6 +29,7 @@ public class HomeController extends HttpServlet {
 	private ISanPhamService sanPhamService = new SanPhamService();
 	private ILoaiSanPhamService loaiSanPhamService = new LoaiSanPhamService();
 	private IChiTietSanPhamService chiTietSanPhamService = new ChiTietSanPhamService();
+	private IAnhSanPhamService anhSanPhamService = new AnhSanPhamService();
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,6 +39,7 @@ public class HomeController extends HttpServlet {
 		model.getListResult().forEach(e-> {
 			e.setMinPrice(chiTietSanPhamService.findMinPriceByIdSanPham(e.getId()));
 			e.setMaxPrice(chiTietSanPhamService.findMaxPriceByIdSanPham(e.getId()));
+			e.setImages(anhSanPhamService.findByIdSP(e.getId()));
 		});
 		request.setAttribute(SystemConstant.MODEL, model);
 		
