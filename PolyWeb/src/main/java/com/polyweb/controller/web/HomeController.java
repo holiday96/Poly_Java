@@ -34,8 +34,8 @@ public class HomeController extends HttpServlet {
 		SanPhamModel model = new SanPhamModel();
 		model.setListResult(sanPhamService.findAll());
 		model.getListResult().forEach(e-> {
-			e.setMinPrice(chiTietSanPhamService.findMinPriceByIdSanPham(model.getId()));
-			e.setMaxPrice(chiTietSanPhamService.findMinPriceByIdSanPham(model.getId()));
+			e.setMinPrice(chiTietSanPhamService.findMinPriceByIdSanPham(e.getId()));
+			e.setMaxPrice(chiTietSanPhamService.findMaxPriceByIdSanPham(e.getId()));
 		});
 		request.setAttribute(SystemConstant.MODEL, model);
 		

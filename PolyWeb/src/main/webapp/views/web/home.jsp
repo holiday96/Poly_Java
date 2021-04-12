@@ -17,9 +17,9 @@
 
                     <h1 class="my-4">Poly Mart</h1>
                     <div class="list-group">
-                    	<c:forEach var="item" items="${loaiSanPhamModel.listResult}">
-                        	<a href="#" class="list-group-item">${item.tenLoaiSP}</a>
-                    	</c:forEach>
+                        <c:forEach var="item" items="${loaiSanPhamModel.listResult}">
+                            <a href="#" class="list-group-item">${item.tenLoaiSP}</a>
+                        </c:forEach>
                     </div>
 
                 </div>
@@ -60,7 +60,14 @@
                                         <h4 class="card-title">
                                             <a href="#">${item.tenSP}</a>
                                         </h4>
-                                        <h5>${item.minPrice} - ${item.maxPrice} VNĐ</h5>
+                                        <c:choose>
+                                            <c:when test="${item.minPrice < item.maxPrice}">
+                                                <h5>${item.minPrice}₫ - ${item.maxPrice}₫</h5>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <h5>${item.minPrice}₫</h5>
+                                            </c:otherwise>
+                                        </c:choose>
                                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
                                     </div>
                                     <div class="card-footer">
