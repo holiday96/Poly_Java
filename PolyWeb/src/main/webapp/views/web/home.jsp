@@ -55,7 +55,7 @@
                         <c:forEach var="item" items="${model.listResult}">
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="card h-100">
-                                    <a href="#"><img class="card-img-top" src="${pageContext.request.contextPath}/images/${model.images[1]}"
+                                    <a href="#"><img class="card-img-top" src="${pageContext.request.contextPath}/images/${item.images[0]}"
                                             alt=""></a>
                                     <div class="card-body">
                                         <h4 class="card-title">
