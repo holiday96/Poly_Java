@@ -5,10 +5,19 @@ import java.util.List;
 public class SanPhamModel extends AbstractModel<SanPhamModel> {
 	private Integer idLoaiSP;
 	private String tenSP;
+	private String moTa;
 	private Long minPrice;
 	private Long maxPrice;
 	private List<String> images;
 
+	public String getMoTa() {
+		return moTa;
+	}
+
+	public void setMoTa(String moTa) {
+		this.moTa = moTa;
+	}
+	
 	public List<String> getImages() {
 		return images;
 	}

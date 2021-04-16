@@ -15,4 +15,9 @@ public class SanPhamService implements ISanPhamService {
 	public List<SanPhamModel> findAll() {
 		return sanPhamDAO.findAll();
 	}
+
+	@Override
+	public SanPhamModel findOne(Integer id) {
+		return sanPhamDAO.findOne(id);
+	}
 }

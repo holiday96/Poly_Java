@@ -13,4 +13,11 @@ public class SanPhamDAO extends AbstractDAO<SanPhamModel> implements ISanPhamDAO
 		StringBuilder sql = new StringBuilder("SELECT*FROM SANPHAM");
 		return query(sql.toString(), new SanPhamMapper());
 	}
+
+	@Override
+	public SanPhamModel findOne(Integer id) {
+		String sql = "SELECT*FROM SANPHAM WHERE ID = ?";
+		List<SanPhamModel> list = query(sql, new SanPhamMapper(), id);
+		return list.isEmpty() ? null : list.get(0);
+	}
 }

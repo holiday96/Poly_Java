@@ -7,4 +7,6 @@ import com.polyweb.model.SanPhamModel;
 public interface ISanPhamDAO extends GenericDAO<SanPhamModel>{
 	
 	List<SanPhamModel> findAll();
+	
+	SanPhamModel findOne(Integer id);
 }
