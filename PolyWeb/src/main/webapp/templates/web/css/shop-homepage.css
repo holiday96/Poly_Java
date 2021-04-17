@@ -3,6 +3,12 @@
  * Copyright 2013-2020 Start Bootstrap
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
  */
+
 body {
-  padding-top: 56px;
+    padding-top: 56px;
+}
+
+h5.card-price {
+    font-weight: 500;
+    color: #ee4d2d;
 }

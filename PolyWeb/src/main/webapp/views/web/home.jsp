@@ -63,10 +63,10 @@
                                         </h4>
                                         <c:choose>
                                             <c:when test="${item.minPrice < item.maxPrice}">
-                                                <h5>${item.minPrice}₫ - ${item.maxPrice}₫</h5>
+                                                <h5 class="card-price">${item.minPrice}₫ - ${item.maxPrice}₫</h5>
                                             </c:when>
                                             <c:otherwise>
-                                                <h5>${item.minPrice}₫</h5>
+                                                <h5 class="card-price">${item.minPrice}₫</h5>
                                             </c:otherwise>
                                         </c:choose>
                                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
