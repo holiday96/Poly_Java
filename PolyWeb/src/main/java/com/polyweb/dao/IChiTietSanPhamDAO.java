@@ -9,4 +9,5 @@ public interface IChiTietSanPhamDAO extends GenericDAO<ChiTietSanPhamModel> {
     List<ChiTietSanPhamModel> findAll();
     
     List<ChiTietSanPhamModel> findByIdSanPham(Integer id);
+
 }

@@ -14,4 +14,9 @@ public interface IChiTietSanPhamService {
     
     Long findMaxPriceByIdSanPham(Integer id);
 
+    List<String> getColors(Integer id);
+    
+    List<String> getSizes(Integer id);
+    
+    Integer getAmount(Integer id);
 }

@@ -34,10 +34,14 @@ public class ProductDetailController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse respone) throws ServletException, IOException {
 		
-		SanPhamModel model = sanPhamService.findOne(Integer.valueOf(request.getParameter("id")));
+		String id = request.getParameter("id");
+		SanPhamModel model = sanPhamService.findOne(Integer.valueOf(id));
 		model.setMinPrice(chiTietSanPhamService.findMinPriceByIdSanPham(model.getId()));
 		model.setMaxPrice(chiTietSanPhamService.findMaxPriceByIdSanPham(model.getId()));
 		model.setImages(anhSanPhamService.findByIdSP(model.getId()));
+		model.setAmount(chiTietSanPhamService.getAmount(Integer.valueOf(id)));
+		model.setColors(chiTietSanPhamService.getColors(Integer.valueOf(id)));
+		model.setSizes(chiTietSanPhamService.getSizes(Integer.valueOf(id)));
 		request.setAttribute(SystemConstant.MODEL, model);
 
 		LoaiSanPhamModel loaiSanPhamModel = new LoaiSanPhamModel();

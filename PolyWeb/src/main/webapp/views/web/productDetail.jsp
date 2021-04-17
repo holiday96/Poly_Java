@@ -27,23 +27,26 @@
 
 			<div class="card mt-4">
 				<img class="card-img-top img-fluid"
-					src="${pageContext.request.contextPath}/images/${model.images[0]}" alt="">
+					src="${pageContext.request.contextPath}/images/${model.images[0]}"
+					alt="">
 				<div class="card-body">
 					<h3 class="card-title">${model.tenSP}</h3>
 					<c:choose>
 						<c:when test="${model.minPrice < model.maxPrice}">
-							<h4>${model.minPrice}₫- ${model.maxPrice}₫</h4>
+							<h4 class="card-price">${model.minPrice}₫-${model.maxPrice}₫</h4>
 						</c:when>
 						<c:otherwise>
-							<h4>${model.minPrice}₫</h4>
+							<h4 class="card-price">${model.minPrice}₫</h4>
 						</c:otherwise>
 					</c:choose>
+					
+					<h4 class="card-sizes">Size: ${model.sizes}</h4>
+					<h4 class="card-colors">Màu sắc: ${model.colors}</h4>
+					<h4 class="card-amount">Số lượng hiện có: ${model.amount}</h4>
+					
 					<c:choose>
 						<c:when test="${model.moTa != null }">
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-								adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque
-								facere, soluta. Totam id dolores, sint aperiam sequi pariatur
-								praesentium animi perspiciatis molestias iure, ducimus!</p>
+							<p class="card-text">${model.moTa}</p>
 						</c:when>
 						<c:otherwise>
 							<p class="card-text">Lorem ipsum dolor sit amet, consectetur

@@ -18,6 +18,7 @@
 	<!-- css -->
 	<link href="<c:url value='/templates/web/bootstrap/css/bootstrap.min.css' />" rel="stylesheet">
 	<link href='<c:url value='/templates/web/css/shop-homepage.css' />' rel="stylesheet">
+	<link href="<c:url value='/templates/web/css/shop-item.css' />" rel="stylesheet ">
 </head>
 
 <body>

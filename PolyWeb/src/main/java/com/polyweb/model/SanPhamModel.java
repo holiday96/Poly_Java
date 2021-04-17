@@ -9,6 +9,33 @@ public class SanPhamModel extends AbstractModel<SanPhamModel> {
 	private Long minPrice;
 	private Long maxPrice;
 	private List<String> images;
+	private List<String> sizes;
+	private List<String> colors;
+	private Integer amount;
+
+	public List<String> getSizes() {
+		return sizes;
+	}
+
+	public void setSizes(List<String> sizes) {
+		this.sizes = sizes;
+	}
+
+	public List<String> getColors() {
+		return colors;
+	}
+
+	public void setColors(List<String> colors) {
+		this.colors = colors;
+	}
+
+	public Integer getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
 
 	public String getMoTa() {
 		return moTa;
@@ -17,7 +44,7 @@ public class SanPhamModel extends AbstractModel<SanPhamModel> {
 	public void setMoTa(String moTa) {
 		this.moTa = moTa;
 	}
-	
+
 	public List<String> getImages() {
 		return images;
 	}
