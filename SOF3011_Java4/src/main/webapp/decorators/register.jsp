@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <link rel="stylesheet"
 	href="<c:url value='/templates/login/style.css' />">
-	<title><dec:title default="Login" /></title>
+<title><dec:title default="Register" /></title>
 </head>
 <body>
 	<dec:body />
