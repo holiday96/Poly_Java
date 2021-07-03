@@ -8,11 +8,13 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet"
-	href="<c:url value='/templates/admin/css/style.css' />">
+	href="<c:url value='/templates/admin/css/style.css' /> ">
 <!-- Boxiocns CDN Link -->
 <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css'
 	rel='stylesheet'>
+<%-- <link rel="icon" href="<c:url value='/templates/img/logo.png' />" /> --%>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><dec:title default="Admin Page" /></title>
 </head>
 
 <body>
@@ -24,7 +26,7 @@
 		</section>
 	</div>
 
-	<script src="<c:url value='/templates/admin/js/script.js' />"></script>
+	<script src="<c:url value='/templates/admin/js/script.js' /> "></script>
 </body>
 
 </html>

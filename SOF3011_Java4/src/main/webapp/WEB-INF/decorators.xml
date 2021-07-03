@@ -6,7 +6,7 @@
     </excludes>
     
     <!-- apply Sitemesh default template -->
-    <decorator name="admin" page="lab.jsp">
+    <decorator name="lab" page="lab.jsp">
         <pattern>/lab*</pattern>
     </decorator>
     

@@ -1,7 +1,8 @@
 <div class="sidebar">
 	<div class="logo-details">
-		<i class='bx bxl-c-plus-plus'></i> <span class="logo_name">WaMo</span>
+		<i class='bx bx-camera-movie'></i> <span class="logo_name">WaMo</span>
 	</div>
+	<hr style="margin: 0 20px; opacity: .25;">
 	<ul class="nav-links">
 		<li><a href="#"> <i class='bx bx-grid-alt'></i> <span
 				class="link_name">Dashboard</span>
@@ -77,18 +78,17 @@
 			<ul class="sub-menu blank">
 				<li><a class="link_name" href="#">Setting</a></li>
 			</ul></li>
-		<li class="logout">
-			<a href="#"> <i class='bx bx-log-out'></i>
+		<li class="logout"><a href="#"> <i class='bx bx-log-out'></i>
 				<span class="link_name">Logout</span>
-			</a>
+		</a>
 			<ul class="sub-menu blank">
 				<li><a class="link_name" href="#">Logout</a></li>
-			</ul>
-		</li>
+			</ul></li>
 		<li>
 			<div class="profile-details">
 				<div class="profile-content">
-					<img src="<c:url value='/templates/img/avatar.jpg' />" alt="profile">
+					<img src="<c:url value='/templates/img/avatar.jpg' />"
+						alt="profile">
 				</div>
 				<div class="name-job">
 					<div class="profile_name">Boss</div>
