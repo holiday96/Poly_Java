@@ -1,1 +1,35 @@
 @charset "UTF-8";
+/*Lab 1*/
+
+.calculator-form {
+    padding: 10px;
+}
+
+.calculator-form p.title-lab1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(42, 21, 226);
+}
+
+.calculator-form .width input {
+    margin-left: 12px;
+}
+
+.calculator-form button {
+    margin-left: 85px;
+    border-radius: 5px;
+    background-color: rgb(33, 13, 145);
+    color: white;
+    border-style: none;
+    padding: 3px 10px;
+}
+
+.result-form {
+    padding: 10px;
+}
+
+.result-form p.title-result {
+    font-weight: bold;
+    font-size: 20px;
+    color: rgb(55, 3, 241);
+}
