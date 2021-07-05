@@ -1,22 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/commons/taglib.jsp"%>
-<nav
-	class="container d-flex flex-column flex-md-row justify-content-between">
-	<a class="py-2" href="<c:url value='/lab' />" aria-label="Product"> <svg
-			xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-			stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-			stroke-width="2" class="d-block mx-auto" role="img"
-			viewBox="0 0 24 24">
-			<title>Lab</title><circle cx="12" cy="12" r="10"></circle>
-			<path
-				d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"></path></svg>
-	</a> <a class="py-2 d-none d-md-inline-block" href="<c:url value='/lab/1' />">Lab 1</a> <a
-		class="py-2 d-none d-md-inline-block" href="<c:url value='/lab/2' />">Lab 2</a> <a
-		class="py-2 d-none d-md-inline-block" href="<c:url value='/lab/3' />">Lab 3</a> <a
-		class="py-2 d-none d-md-inline-block" href="<c:url value='/lab/4' />">Lab 4</a> <a
-		class="py-2 d-none d-md-inline-block" href="<c:url value='/lab/5' />">Lab 5</a> <a
-		class="py-2 d-none d-md-inline-block" href="<c:url value='/lab/6' />">Lab 6</a> <a
-		class="py-2 d-none d-md-inline-block" href="<c:url value='/lab/7' />">Lab 7</a> <a
-		class="py-2 d-none d-md-inline-block" href="<c:url value='/lab/8' />">Lab 8</a>
-</nav>
+
+<div class="nav">
+	<ul>
+		<li><a href="<c:url value='/lab/1' />">Lab 1</a></li>
+		<li><a href="<c:url value='/lab/2' />">Lab 2</a></li>
+		<li><a href="<c:url value='/lab/3' />">Lab 3</a></li>
+		<li><a href="<c:url value='/lab/4' />">Lab 4</a></li>
+		<li><a href="<c:url value='/lab/5' />">Lab 5</a></li>
+		<li><a href="<c:url value='/lab/6' />">Lab 6</a></li>
+		<li><a href="<c:url value='/lab/7' />">Lab 7</a></li>
+		<li><a href="<c:url value='/lab/8' />">Lab 8</a></li>
+	</ul>
+</div>

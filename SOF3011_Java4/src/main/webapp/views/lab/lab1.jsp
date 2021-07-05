@@ -5,46 +5,36 @@
 
 <c:if test="${empty name }">
 	<form action="<c:url value='/lab/1' />" id="formName" method="GET">
-		<p class="fs-5">Please insert your name</p>
+		<p class="title-name">Please insert your name</p>
 		<div class="input-group">
 			<input type="text" name="name" id="name">
-			<button type="submit" class="btn btn-primary">Apply</button>
+			<button type="submit" class="btn-name">Apply</button>
 		</div>
 	</form>
 </c:if>
 <c:if test="${not empty name }">
-	<p class="fs-5">Hi, ${name}</p>
-	<div class="row">
-		<div class="calculator-form col">
+	<p class="title-name">Hi, ${name}</p>
+	<form action="<c:url value='/lab/1' />" id="formName" method="GET">
+		<div class="calculator-form">
 			<p class="title-lab1">THÔNG TIN HÌNH CHỮ NHẬT</p>
-			<div class="height my-3">
-				<span>Chiều rộng: </span> <input type="text" name="heightNumber"
-					id="heightNumber">
+			<div class="input-form">
+				<span>Chiều rộng: </span> <input type="text" name="height"
+					id="height">
 			</div>
-			<div class="width my-3">
-				<span>Chiều dài: </span> <input type="text" name="widthNumber"
-					id="widthNumber">
+			<div class="input-form">
+				<span>Chiều dài: </span> <input type="text" name="width" id="width">
 			</div>
-			<button id="calculate" onclick="calculate()">Tính</button>
+			<button id="calculate" type="submit">Tính</button>
+
+			<input type="hidden" name="name" value="${name}">
 		</div>
-		<div class="result-form col">
+	</form>
+	<c:if test="${not empty message }">${message}</c:if>
+	<c:if test="${not empty c && not empty s}">
+		<div class="result-form">
 			<p class="title-result">KẾT QUẢ</p>
-			<p class="result">
-				Chu vi: <span id="result-c"></span>
-			</p>
-			<p class="result">
-				Diện tích: <span id="result-s"></span>
-			</p>
+			<p class="result">Chu vi: ${c}</p>
+			<p class="result">Diện tích: ${s}</p>
 		</div>
-	</div>
+	</c:if>
 </c:if>
-
-<script>
-	function calculate() {
-		var h = document.querySelector("#heightNumber").value;
-		var w = document.querySelector("#widthNumber").value;
-
-		document.querySelector("#result-c").innerHTML = (Number(h) + Number(w)) * 2;
-		document.querySelector("#result-s").innerHTML = Number(h) * Number(w);
-	}
-</script>

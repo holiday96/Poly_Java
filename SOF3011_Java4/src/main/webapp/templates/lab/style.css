@@ -1,35 +1,133 @@
 @charset "UTF-8";
+
+body {
+	background-image: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%);
+	background-size: 100% 100vh;
+	font-family: sans-serif;
+}
+
+/* Navbar */
+.nav {
+	text-align: center;
+}
+
+.nav ul {
+	padding: 0;
+	list-style: none;
+}
+
+.nav ul li {
+	display: inline-block;
+	width: 5rem;
+	height: 40px;
+	background-color: black;
+	opacity: .8;
+	line-height: 40px;
+	text-align: center;
+	font-size: 20px;
+	margin: 0 1vw;
+	border-radius: 15px;
+}
+
+.nav ul li a {
+	text-decoration: none;
+	color: white;
+	display: block;
+}
+
+.nav ul li a:hover {
+	color: rgb(0, 26, 51);
+	background-color: darkorange;
+	transition: 0.2s ease-in-out;
+	border-radius: 15px;
+}
+
+/* Container */
+.container {
+	margin: 0 10vw;
+}
+
 /*Lab 1*/
+.container .title-name {
+	font-size: 20px;
+	color: #041a88;
+	margin: 30px 0 10px 0;
+}
+
+.container .input-group input {
+	height: 25px;
+	font-size: 15px;
+	border-style: none;
+	border-radius: 5px;
+	padding: 0 5px;
+}
+
+.container .input-group input:focus-visible {
+	outline-style: none;
+}
+
+.container .input-group button {
+	height: 25px;
+	font-size: 15px;
+	border-style: none;
+	border-radius: 5px;
+	background-color: #0037ff;
+	color: white;
+}
+
+.container .input-group button:hover {
+	background-color: #ff5e00;
+	color: white;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: 0.1s ease-in-out;
+}
 
 .calculator-form {
-    padding: 10px;
+	padding: 10px;
 }
 
 .calculator-form p.title-lab1 {
-    font-size: 20px;
-    font-weight: bold;
-    color: rgb(42, 21, 226);
+	font-size: 20px;
+	font-weight: bold;
+	color: rgb(42, 21, 226);
 }
 
-.calculator-form .width input {
-    margin-left: 12px;
+.calculator-form .input-form {
+	margin: 10px 0;
+}
+
+.calculator-form .input-form input{
+	height: 25px;
+    font-size: 15px;
+}
+
+.calculator-form #width {
+	margin-left: 11px;
 }
 
 .calculator-form button {
-    margin-left: 85px;
-    border-radius: 5px;
-    background-color: rgb(33, 13, 145);
-    color: white;
-    border-style: none;
-    padding: 3px 10px;
+	margin-left: 87px;
+	border-radius: 5px;
+	background-color: rgb(145, 13, 13);
+	color: white;
+	border-style: none;
+	padding: 5px 15px;
+	font-size: 15px;
+}
+
+.calculator-form button:hover {
+	cursor: pointer;
+	background-color: #8500ff;
+	transition: 0.1s ease-in-out;
 }
 
 .result-form {
-    padding: 10px;
+	padding: 10px;
 }
 
 .result-form p.title-result {
-    font-weight: bold;
-    font-size: 20px;
-    color: rgb(55, 3, 241);
+	font-weight: bold;
+	font-size: 20px;
+	color: rgb(55, 3, 241);
 }
