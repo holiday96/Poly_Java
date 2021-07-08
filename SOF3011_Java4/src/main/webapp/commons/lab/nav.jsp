@@ -8,10 +8,10 @@
 		<li><a href="<c:url value='/lab/2' />">Lab 2</a>
 		<div class="sub-nav">
 				<ul>
-					<li><a href="">1</a></li>
-					<li><a href="">2</a></li>
-					<li><a href="">3</a></li>
-					<li><a href="">4</a></li>
+					<li><a href="<c:url value='/lab/2/bai1' />">1</a></li>
+					<li><a href="<c:url value='/lab/2/bai2' />">2</a></li>
+					<li><a href="<c:url value='/lab/2/bai3' />">3</a></li>
+					<li><a href="<c:url value='/lab/2/bai4' />">4</a></li>
 				</ul>
 			</div></li>
 		<li><a href="<c:url value='/lab/3' />">Lab 3</a></li>

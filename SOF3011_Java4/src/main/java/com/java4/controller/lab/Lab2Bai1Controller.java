@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/lab/2" })
-public class Lab2Controller extends HttpServlet {
+@WebServlet(urlPatterns = { "/lab/2", "/lab/2/bai1" })
+public class Lab2Bai1Controller extends HttpServlet {
 
 	private static final long serialVersionUID = 5979727585524443455L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab2.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab2bai1.jsp");
 		rd.forward(request, response);
 	}
 
@@ -32,7 +32,7 @@ public class Lab2Controller extends HttpServlet {
 				String action = request.getParameter("action");
 				Double chuVi = a + b + c;
 				if (action.equals("chu-vi")) {
-					request.setAttribute("message", "Chu vi:" + chuVi);
+					request.setAttribute("message", "Chu vi: " + chuVi);
 				} else if (action.equals("dien-tich")) {
 					Double dienTich = Math.sqrt(chuVi * (a + b - c) * (a + c - b) * (b + c - a)) / 4;
 					request.setAttribute("message", "Diện tích: " + dienTich);
@@ -43,7 +43,7 @@ public class Lab2Controller extends HttpServlet {
 		} catch (NumberFormatException e) {
 			request.setAttribute("message", "Vui lòng chỉ nhập ký tự số!");
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab2.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab2bai1.jsp");
 		rd.forward(request, response);
 	}
 }
