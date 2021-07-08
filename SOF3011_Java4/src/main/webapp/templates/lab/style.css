@@ -12,12 +12,12 @@ body {
 }
 
 .nav ul {
+	display: inline-flex;
 	padding: 0;
 	list-style: none;
 }
 
 .nav ul li {
-	display: inline-block;
 	width: 5rem;
 	height: 40px;
 	background-color: black;
@@ -40,6 +40,23 @@ body {
 	background-color: darkorange;
 	transition: 0.2s ease-in-out;
 	border-radius: 15px;
+}
+.sub-nav {
+	display: none;
+}
+
+.nav ul li:hover .sub-nav {
+	display: block;
+	position: absolute;
+}
+
+.nav ul li:hover .sub-nav ul {
+	display: block;
+	margin: 5px;
+}
+
+.nav ul li:hover .sub-nav ul li {
+	margin: 5px;
 }
 
 /* Container */

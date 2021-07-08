@@ -5,7 +5,15 @@
 <div class="nav">
 	<ul>
 		<li><a href="<c:url value='/lab/1' />">Lab 1</a></li>
-		<li><a href="<c:url value='/lab/2' />">Lab 2</a></li>
+		<li><a href="<c:url value='/lab/2' />">Lab 2</a>
+		<div class="sub-nav">
+				<ul>
+					<li><a href="">1</a></li>
+					<li><a href="">2</a></li>
+					<li><a href="">3</a></li>
+					<li><a href="">4</a></li>
+				</ul>
+			</div></li>
 		<li><a href="<c:url value='/lab/3' />">Lab 3</a></li>
 		<li><a href="<c:url value='/lab/4' />">Lab 4</a></li>
 		<li><a href="<c:url value='/lab/5' />">Lab 5</a></li>
