@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 
@@ -17,6 +18,14 @@
             </li>
             <li>
                 <a href="">Lab 2</a>
+                <div class="sub-nav">
+                    <ul>
+                        <li><a href="">1</a></li>
+                        <li><a href="">2</a></li>
+                        <li><a href="">3</a></li>
+                        <li><a href="">4</a></li>
+                    </ul>
+                </div>
             </li>
             <li>
                 <a href="">Lab 3</a>
@@ -39,10 +48,20 @@
         </ul>
     </div>
     <div class="container">
+        <div class="formRegister">
+            <h1 class="title">Tam giác</h1>
+            <form action="<c:url value='/lab/2/bai1' />" method="POST">
+                <input class="input" type="text" name="a" placeholder="Nhập cạnh a"><br>
+                <input class="input" type="text" name="b" placeholder="Nhập cạnh b"><br>
+                <input class="input" type="text" name="c" placeholder="Nhập cạnh c"><br>
+                <hr>
+                <button class="btn" formaction="/lab/2/bai1?action=chu-vi">Tính chu vi</button>
+                <button class="btn" formaction="/lab/2/bai1?action=dien-tich">Tính diện tích</button>
+            </form>
+            <h2 class="message">${message}</h2>
+        </div>
 
-    </div>
-
-    <script src="script.js"></script>
+        <script src="script.js"></script>
 </body>
 
 </html>

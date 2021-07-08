@@ -7,7 +7,7 @@
 	<form action="<c:url value='/lab/1' />" id="formName" method="GET">
 		<p class="title-name">Please insert your name</p>
 		<div class="input-group">
-			<input type="text" name="name" id="name">
+			<input type="text" name="name" id="name" placeholder="Nhập tên của bạn">
 			<button type="submit" class="btn-name">Apply</button>
 		</div>
 	</form>
@@ -19,10 +19,10 @@
 			<p class="title-lab1">THÔNG TIN HÌNH CHỮ NHẬT</p>
 			<div class="input-form">
 				<span>Chiều rộng: </span> <input type="text" name="height"
-					id="height">
+					id="height" placeholder="Nhập chiều rộng">
 			</div>
 			<div class="input-form">
-				<span>Chiều dài: </span> <input type="text" name="width" id="width">
+				<span>Chiều dài: </span> <input type="text" name="width" id="width" placeholder="Nhập chiều dài">
 			</div>
 			<button id="calculate" type="submit">Tính</button>
 

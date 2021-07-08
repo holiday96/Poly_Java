@@ -4,17 +4,21 @@ body {
     font-family: sans-serif;
 }
 
+.container {
+    margin: 0 10vh;
+}
+
 .nav {
     text-align: center;
 }
 
 .nav ul {
+    display: inline-flex;
     padding: 0;
     list-style: none;
 }
 
 .nav ul li {
-    display: inline-block;
     width: 5rem;
     height: 40px;
     background-color: black;
@@ -37,6 +41,24 @@ body {
     background-color: darkorange;
     transition: 0.2s ease-in-out;
     border-radius: 15px;
+}
+
+.sub-nav {
+    display: none;
+}
+
+.nav ul li:hover .sub-nav {
+    display: block;
+    position: absolute;
+}
+
+.nav ul li:hover .sub-nav ul {
+    display: block;
+    margin: 5px;
+}
+
+.nav ul li:hover .sub-nav ul li {
+    margin: 5px;
 }
 
 
@@ -73,4 +95,51 @@ body {
     font-weight: bold;
     font-size: 20px;
     color: rgb(55, 3, 241);
+}
+
+
+/* Lab 2 */
+
+textarea {
+    resize: none;
+}
+
+.container {
+    position: relative;
+}
+
+.formRegister {
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    left: 49%;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
+}
+
+
+/* Lab 2.1 */
+
+.title,
+.message {
+    color: #0211ca;
+    font-family: sans-serif;
+}
+
+.input {
+    margin: 5px 0;
+    font-size: 20px;
+    height: 25px;
+    padding: 5px;
+}
+
+.btn {
+    font-size: 20px;
+    border-radius: 12px;
+    border-style: none;
+    cursor: pointer;
+    padding: 8px 10px;
+    color: white;
+    background-color: #d02545;
+    margin: 5px;
 }

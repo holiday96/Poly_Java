@@ -41,6 +41,7 @@ body {
 	transition: 0.2s ease-in-out;
 	border-radius: 15px;
 }
+
 .sub-nav {
 	display: none;
 }
@@ -114,9 +115,9 @@ body {
 	margin: 10px 0;
 }
 
-.calculator-form .input-form input{
+.calculator-form .input-form input {
 	height: 25px;
-    font-size: 15px;
+	font-size: 15px;
 }
 
 .calculator-form #width {
@@ -147,4 +148,46 @@ body {
 	font-weight: bold;
 	font-size: 20px;
 	color: rgb(55, 3, 241);
+}
+
+/* Lab 2 */
+textarea {
+	resize: none;
+}
+
+.container {
+	position: relative;
+}
+
+.formRegister {
+	position: absolute;
+	margin: 0;
+	top: 50%;
+	left: 49%;
+	-ms-transform: translate(-50%, 0%);
+	transform: translate(-50%, 0%);
+}
+
+.title, .message {
+	color: #0211ca;
+	font-family: sans-serif;
+}
+
+.input {
+	margin: 5px 0;
+	font-size: 20px;
+	height: 25px;
+	padding: 5px;
+	width: 300px;
+}
+
+.btn {
+	font-size: 20px;
+	border-radius: 12px;
+	border-style: none;
+	cursor: pointer;
+	padding: 8px 10px;
+	color: white;
+	background-color: #d02545;
+	margin: 5px;
 }

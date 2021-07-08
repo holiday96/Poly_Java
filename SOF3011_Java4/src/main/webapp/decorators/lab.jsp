@@ -17,7 +17,9 @@
 	<%@include file="/commons/lab/nav.jsp"%>
 	
 	<div class="container">
-		<dec:body />
+		<div class="formRegister">
+			<dec:body />
+		</div>
 	</div>
 </body>
 

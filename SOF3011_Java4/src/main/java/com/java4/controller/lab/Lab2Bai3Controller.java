@@ -1,6 +1,7 @@
 package com.java4.controller.lab;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,6 +25,18 @@ public class Lab2Bai3Controller extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setAttribute("result", "oke");
+		String username = request.getParameter("username");
+		boolean gender = Boolean.valueOf(request.getParameter("gender"));
+		boolean married = request.getParameter("married") != null;
+		String[] hobbies = request.getParameterValues("hobbies");
+		String country = request.getParameter("nationality");
+
+		System.out.println(">>Username: " + username);
+		System.out.println(">>Gender: " + gender);
+		System.out.println(">>Married: " + married);
+		System.out.println(">>Hobbies: " + Arrays.toString(hobbies));
+		System.out.println(">>Country: " + country);
 		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab2bai3.jsp");
 		rd.forward(request, response);
 	}

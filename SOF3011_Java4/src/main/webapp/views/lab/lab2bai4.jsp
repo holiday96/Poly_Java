@@ -2,4 +2,4 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/commons/taglib.jsp"%>
 
-bai4
+<h1>Lần truy cập thứ ${count}</h1>
