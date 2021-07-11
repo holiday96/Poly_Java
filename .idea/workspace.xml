@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac4bfc87-3ae4-4e17-87d9-a81a2240520a" name="Default Changelist" comment="" />
+    <list default="true" id="ac4bfc87-3ae4-4e17-87d9-a81a2240520a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Poly_Java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Poly_Java.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SOF3011_Java4/src/main/java/com/java4/controller/lab/Lab2Bai1Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/SOF3011_Java4/src/main/java/com/java4/controller/lab/lab2/Bai1Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SOF3011_Java4/src/main/java/com/java4/controller/lab/Lab2Bai2Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/SOF3011_Java4/src/main/java/com/java4/controller/lab/lab2/Bai2Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SOF3011_Java4/src/main/java/com/java4/controller/lab/Lab2Bai3Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/SOF3011_Java4/src/main/java/com/java4/controller/lab/lab2/Bai3Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SOF3011_Java4/src/main/java/com/java4/controller/lab/Lab2Bai4Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/SOF3011_Java4/src/main/java/com/java4/controller/lab/lab2/Bai4Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SOF3011_Java4/src/main/resources/count.txt" beforeDir="false" afterPath="$PROJECT_DIR$/SOF3011_Java4/src/main/resources/count.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SOF3011_Java4/src/main/webapp/commons/lab/nav.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/SOF3011_Java4/src/main/webapp/commons/lab/nav.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SOF3011_Java4/src/main/webapp/views/lab/lab2bai1.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/SOF3011_Java4/src/main/webapp/views/lab/lab2/bai1.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SOF3011_Java4/src/main/webapp/views/lab/lab2bai2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/SOF3011_Java4/src/main/webapp/views/lab/lab2/bai2.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SOF3011_Java4/src/main/webapp/views/lab/lab2bai3.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/SOF3011_Java4/src/main/webapp/views/lab/lab2/bai3.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SOF3011_Java4/src/main/webapp/views/lab/lab2bai4.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/SOF3011_Java4/src/main/webapp/views/lab/lab2/bai4.jsp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -9,6 +25,21 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../../Program Files/apache-maven-3.8.1" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProjectId" id="1pZn2R3LVdeGekU846Rpk2mYNEr" />
   <component name="ProjectViewState">
@@ -21,8 +52,23 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/SOF3011_Java4" />
+    <property name="settings.editor.selected.configurable" value="preferences.applicationServers" />
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -34,24 +80,18 @@
       <option name="presentableId" value="Default" />
       <updated>1615399274610</updated>
       <workItem from="1615399292412" duration="494000" />
+      <workItem from="1625986746381" duration="292000" />
+      <workItem from="1625987089515" duration="447000" />
+      <workItem from="1625987552921" duration="392000" />
+      <workItem from="1625987960743" duration="550000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1615399748441">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615399748441" />
-    <state x="779" y="210" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1615399776909">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="779" y="210" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615399776909" />
-    <state x="769" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1615399580339">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="769" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1615399580339" />
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

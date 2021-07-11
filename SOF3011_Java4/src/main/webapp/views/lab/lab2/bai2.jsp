@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/commons/taglib.jsp"%>
 
+<head>
+    <title>Lab 2 Bài 2</title>
+</head>
+<body>
 <c:if test="${empty result }">
 	<form action="<c:url value='/lab/2/bai2' />" method="post" id="register">
 	    <h1>Đăng Ký</h1>
@@ -37,3 +41,4 @@
         <li>Ghi chú: <b>${param.note}</b></li>
     </ul>
 </c:if>
+</body>

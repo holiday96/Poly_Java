@@ -1,4 +1,4 @@
-package com.java4.controller.lab;
+package com.java4.controller.lab.lab2;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = { "/lab/2/bai4" })
-public class Lab2Bai4Controller extends HttpServlet {
+public class Bai4Controller extends HttpServlet {
 
 	private static final long serialVersionUID = 5979727585524443455L;
 	
@@ -34,7 +34,7 @@ public class Lab2Bai4Controller extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		count++;
 		request.setAttribute("count", count);
-		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab2bai4.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab2/bai4.jsp");
 		rd.forward(request, response);
 	}
 	

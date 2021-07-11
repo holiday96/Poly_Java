@@ -1,4 +1,4 @@
-package com.java4.controller.lab;
+package com.java4.controller.lab.lab1;
 
 import java.io.IOException;
 
@@ -33,7 +33,7 @@ public class Lab1Controller extends HttpServlet {
 				request.setAttribute("message", "Dữ liệu nhập không hợp lệ!");
 			}
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab1.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab1/lab1.jsp");
 		rd.forward(request, response);
 	}
 

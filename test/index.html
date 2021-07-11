@@ -49,16 +49,19 @@
     </div>
     <div class="container">
         <div class="formRegister">
-            <h1 class="title">Tam giác</h1>
-            <form action="<c:url value='/lab/2/bai1' />" method="POST">
-                <input class="input" type="text" name="a" placeholder="Nhập cạnh a"><br>
-                <input class="input" type="text" name="b" placeholder="Nhập cạnh b"><br>
-                <input class="input" type="text" name="c" placeholder="Nhập cạnh c"><br>
+            <h1>Send Mail</h1>
+            <form action="/lab/3/bai5" method="post">
+                <label for="from">From: </label>
+                <input type="text" name="from" id="from" placeholder="Type your email address"><br>
+                <label for="to">To: </label>
+                <input type="text" name="to" id="to" placeholder="Type destination email address"><br>
+                <label for="subject">Subject: </label>
+                <input type="text" name="subject" id="subject" placeholder="Subject Email"><br>
+                <label for="body">Body: </label>
+                <textarea name="body" id="body" cols="40" rows="7" placeholder="Your message"></textarea>
                 <hr>
-                <button class="btn" formaction="/lab/2/bai1?action=chu-vi">Tính chu vi</button>
-                <button class="btn" formaction="/lab/2/bai1?action=dien-tich">Tính diện tích</button>
+                <button class="btn" type="submit">Send</button>
             </form>
-            <h2 class="message">${message}</h2>
         </div>
 
         <script src="script.js"></script>
