@@ -24,16 +24,15 @@ public class Bai2Controller extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		request.setAttribute("result", "oke");
-		String username = request.getParameter("username");
-		boolean gender = Boolean.valueOf(request.getParameter("gender"));
-		boolean married = request.getParameter("married") != null;
-		String country = request.getParameter("nationality");
 
-		System.out.println(">>Username: " + username);
-		System.out.println(">>Gender: " + gender);
-		System.out.println(">>Married: " + married);
-		System.out.println(">>Country: " + country);
+		try {
+			request.getParameter("married");
+			request.setAttribute("married", "Đã kết hôn");
+		} catch (Exception e) {
+			request.setAttribute("married", "Chưa kết hôn");
+		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab2/bai2.jsp");
 		rd.forward(request, response);

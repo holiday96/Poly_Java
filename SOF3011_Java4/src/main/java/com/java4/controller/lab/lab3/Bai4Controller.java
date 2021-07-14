@@ -19,8 +19,10 @@ public class Bai4Controller extends HttpServlet {
 			throws ServletException, IOException {
 		String username = CookieUtils.get("username", request);
 		String password = CookieUtils.get("password", request);
+		String remember = CookieUtils.get("remember", request);
 		request.setAttribute("username", username);
 		request.setAttribute("password", password);
+		request.setAttribute("remember", remember);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab3/bai4.jsp");
 		rd.forward(request, response);
@@ -32,6 +34,9 @@ public class Bai4Controller extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String remember = request.getParameter("remember");
+		request.setAttribute("username", CookieUtils.get("username", request));
+		request.setAttribute("password", CookieUtils.get("password", request));
+		request.setAttribute("remember", CookieUtils.get("remember", request));
 
 		if (!username.equalsIgnoreCase("admin")) {
 			request.setAttribute("message", "Sai tên đăng nhập!");
@@ -42,6 +47,7 @@ public class Bai4Controller extends HttpServlet {
 			int hours = (remember == null) ? 0 : 1;
 			CookieUtils.add("username", username, hours, response);
 			CookieUtils.add("password", password, hours, response);
+			CookieUtils.add("remember", remember, hours, response);
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab3/bai4.jsp");

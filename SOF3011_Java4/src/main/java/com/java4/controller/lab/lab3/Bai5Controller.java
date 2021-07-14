@@ -24,6 +24,8 @@ public class Bai5Controller extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		String to = request.getParameter("to");
 		String subject = request.getParameter("subject");
 		String message = request.getParameter("message");

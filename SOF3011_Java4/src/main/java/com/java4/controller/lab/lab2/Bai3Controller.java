@@ -1,7 +1,6 @@
 package com.java4.controller.lab.lab2;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,18 +24,27 @@ public class Bai3Controller extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		request.setAttribute("result", "oke");
-		String username = request.getParameter("username");
-		boolean gender = Boolean.valueOf(request.getParameter("gender"));
-		boolean married = request.getParameter("married") != null;
-		String[] hobbies = request.getParameterValues("hobbies");
-		String country = request.getParameter("nationality");
 
-		System.out.println(">>Username: " + username);
-		System.out.println(">>Gender: " + gender);
-		System.out.println(">>Married: " + married);
-		System.out.println(">>Hobbies: " + Arrays.toString(hobbies));
-		System.out.println(">>Country: " + country);
+		String married = request.getParameter("married");
+		String[] hobbies = request.getParameterValues("hobbies");
+
+		if (married != null) {
+			request.setAttribute("married", "Đã kết hôn");
+		} else {
+			request.setAttribute("married", "Chưa kết hôn");
+		}
+		if (hobbies != null) {
+			StringBuilder listHobby = new StringBuilder();
+			for (String i : hobbies) {
+				listHobby.append(i + ", ");
+			}
+			request.setAttribute("hobbies", listHobby.substring(0, listHobby.length() - 2));
+		} else {
+			request.setAttribute("hobbies", "Trống");
+		}
+
 		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab2/bai3.jsp");
 		rd.forward(request, response);
 	}

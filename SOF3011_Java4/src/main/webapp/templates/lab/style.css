@@ -175,7 +175,7 @@ textarea {
     width: 300px;
 }
 
-.btn {
+.button-custom {
     font-size: 20px;
     border-radius: 12px;
     border-style: none;
@@ -196,7 +196,7 @@ textarea {
     height: 370px;
 }
 
-.btn a {
+.button-custom a {
     text-decoration: none;
     color: white;
 }

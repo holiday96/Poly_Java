@@ -27,8 +27,12 @@ public class Lab1Controller extends HttpServlet {
 			try {
 				Double w = Double.valueOf(width);
 				Double h = Double.valueOf(height);
-				request.setAttribute("c", (w + h) * 2);
-				request.setAttribute("s", w * h);
+				if (w > 0 && h > 0) {
+					request.setAttribute("c", (w + h) * 2);
+					request.setAttribute("s", w * h);
+				} else {
+					request.setAttribute("message", "Giá trị nhập phải là số dương lớn hơn 0!");
+				}
 			} catch (Exception e) {
 				request.setAttribute("message", "Dữ liệu nhập không hợp lệ!");
 			}

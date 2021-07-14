@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@include file="/commons/taglib.jsp" %>
 
-<div class="nav">
+<div class="nav mt-4">
     <ul>
         <li><a href="<c:url value='/lab/1' />">Lab 1</a></li>
         <li><a href="<c:url value='/lab/2/bai1' />">Lab 2</a>
