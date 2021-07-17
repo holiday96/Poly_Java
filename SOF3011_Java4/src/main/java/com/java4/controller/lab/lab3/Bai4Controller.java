@@ -17,13 +17,6 @@ public class Bai4Controller extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String username = CookieUtils.get("username", request);
-		String password = CookieUtils.get("password", request);
-		String remember = CookieUtils.get("remember", request);
-		request.setAttribute("username", username);
-		request.setAttribute("password", password);
-		request.setAttribute("remember", remember);
-		
 		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab3/bai4.jsp");
 		rd.forward(request, response);
 	}
@@ -34,9 +27,6 @@ public class Bai4Controller extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String remember = request.getParameter("remember");
-		request.setAttribute("username", CookieUtils.get("username", request));
-		request.setAttribute("password", CookieUtils.get("password", request));
-		request.setAttribute("remember", CookieUtils.get("remember", request));
 
 		if (!username.equalsIgnoreCase("admin")) {
 			request.setAttribute("message", "Sai tên đăng nhập!");
