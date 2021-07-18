@@ -6,14 +6,21 @@
     <title>Lab 3 Bài 5</title>
 </head>
 <body>
+<c:if test="${not empty message }">
+    <div class="toast" id="myToast" style="position: absolute; top: 10px; right: 10px;">
+        <div class="toast-header">
+            <img src="https://img.icons8.com/officel/16/fa314a/information.png" class="rounded me-2" alt="...">
+            <strong class="me-auto">Thông báo</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+                ${message}
+        </div>
+    </div>
+</c:if>
 <div class="container py-5">
     <h1>Send Mail</h1><br>
     <div style="width: 500px;">
-        <c:if test="${not empty message}">
-            <div class="alert alert-info" role="alert">
-                    ${message}
-            </div>
-        </c:if>
         <form action="/lab/3/bai5" method="post">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" name="to" id="to" placeholder="Type destination email address"
@@ -34,4 +41,10 @@
         </form>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#myToast").toast({autohide: false});
+        $("#myToast").toast('show');
+    });
+</script>
 </body>

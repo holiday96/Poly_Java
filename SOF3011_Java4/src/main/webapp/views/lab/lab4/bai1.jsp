@@ -21,7 +21,7 @@
 <div class="container rounded"
      style="background-color: #8BC6EC;
      		background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);">
-    
+
     <div class="row">
         <div class="col-md-8 text-center align-self-center">
             <a href="#" class="fs-2 fw-bold text-success">Online Shopping Mall</a>

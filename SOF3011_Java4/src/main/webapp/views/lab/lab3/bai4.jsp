@@ -6,13 +6,19 @@
     <title>Lab 3 Bài 4</title>
 </head>
 <body>
-<div class="container py-5">
-    <c:if test="${not empty message }">
-        <div class="alert alert-${iconMessage}" role="alert">
+<c:if test="${not empty message }">
+    <div class="toast" id="myToast" style="position: absolute; top: 10px; right: 10px;">
+        <div class="toast-header">
+            <img src="https://img.icons8.com/officel/16/fa314a/information.png" class="rounded me-2" alt="...">
+            <strong class="me-auto">Thông báo</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
                 ${message}
         </div>
-    </c:if>
-
+    </div>
+</c:if>
+<div class="container py-5">
     <h1>Login</h1><br>
     <form action="/lab/3/bai4" method="post" id="formLogin">
         <div style="width: 300px;">
@@ -39,4 +45,10 @@
         </div>
     </form>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#myToast").toast({autohide: false});
+        $("#myToast").toast('show');
+    });
+</script>
 </body>

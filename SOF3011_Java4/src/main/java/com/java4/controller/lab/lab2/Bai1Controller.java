@@ -32,10 +32,10 @@ public class Bai1Controller extends HttpServlet {
 				String action = request.getParameter("action");
 				Double chuVi = a + b + c;
 				if (action.equals("chu-vi")) {
-					request.setAttribute("message", "Chu vi: " + chuVi);
+					request.setAttribute("result", "Chu vi: " + chuVi);
 				} else if (action.equals("dien-tich")) {
 					Double dienTich = Math.sqrt(chuVi * (a + b - c) * (a + c - b) * (b + c - a)) / 4;
-					request.setAttribute("message", "Diện tích: " + dienTich);
+					request.setAttribute("result", "Diện tích: " + dienTich);
 				}
 			} else {
 				request.setAttribute("message", "Giá trị các cạnh không thoả mãn điều kiện tổng 2 cạnh > cạnh còn lại");

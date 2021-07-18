@@ -2,4 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/commons/taglib.jsp"%>
 
-lab5
+<head>
+    <title>Lab 5 Bài 1</title>
+</head>
+<body>
+	<div class="container">
+	
+	</div>
+</body>
