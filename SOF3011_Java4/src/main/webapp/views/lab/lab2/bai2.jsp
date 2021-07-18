@@ -78,7 +78,7 @@
                                             <div class="col-sm-6">
                                                 <p class="m-b-10 f-w-600">Mật khẩu</p>
                                                 <input type="password" id="pw" class="text-muted f-w-400" readonly
-                                                       style="border-style: none;" value="${param.password}" style/>
+                                                       style="border-style: none; width: 150px;" value="${param.password}"/>
                                             </div>
                                         </div>
                                         <div class="row">

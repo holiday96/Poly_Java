@@ -48,7 +48,7 @@
                 </div>
                 <div>
                     <div class="form-check form-check-inline">
-                        <label for="">Sở thích</label>
+                        <label>Sở thích</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" name="hobbies" id="read" value="Đọc sách">

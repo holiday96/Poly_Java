@@ -7,30 +7,31 @@
 </head>
 <body>
 <div class="container py-5">
-    <h1>Login</h1><br>
-    <c:if test="${not empty message}">
-        <div class="alert alert-info" style="width: 300px;" role="alert">
+    <c:if test="${not empty message }">
+        <div class="alert alert-${iconMessage}" role="alert">
                 ${message}
         </div>
     </c:if>
+
+    <h1>Login</h1><br>
     <form action="/lab/3/bai4" method="post" id="formLogin">
         <div style="width: 300px;">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="username" id="username" value="${cookie.username.value}"
+                <input type="text" class="form-control" name="username" id="username" value="${username}"
                        placeholder="Nhập tên đăng nhập"
                        required>
                 <label for="username" class="form-label">Tên đăng nhập</label>
             </div>
             <div class="form-floating mb-3">
                 <input type="password" class="form-control" name="password" id="password"
-                       value="${cookie.password.value}"
+                       value="${password}"
                        placeholder="Nhập mật khẩu"
                        required>
                 <label for="password" class="form-label">Mật khẩu</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                       <c:if test="${not empty cookie.remember}">checked</c:if>>
+                       <c:if test="${not empty remember}">checked</c:if>>
                 <label class="form-check-label" for="remember">Remember me?</label>
             </div>
             <hr>
@@ -38,20 +39,4 @@
         </div>
     </form>
 </div>
-
-<script>
-    //     $('#submitLogin').click(function (e) {
-    //         e.preventDefault();
-    //         Swal.fire({
-    //             position: 'top-end',
-    //             icon: 'success',
-    //             title: '${message}',
-    //             showConfirmButton: false,
-    //             timer: 1500
-    //         }).then(function () {
-    //                 $('#formLogin').submit()
-    //             }
-    //         )
-    //     })
-</script>
 </body>

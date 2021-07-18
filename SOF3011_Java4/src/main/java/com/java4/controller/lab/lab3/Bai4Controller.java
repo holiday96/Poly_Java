@@ -29,10 +29,13 @@ public class Bai4Controller extends HttpServlet {
 		String remember = request.getParameter("remember");
 
 		if (!username.equalsIgnoreCase("admin")) {
+			request.setAttribute("iconMessage", "danger");
 			request.setAttribute("message", "Sai tên đăng nhập!");
 		} else if (password.length() < 6) {
+			request.setAttribute("iconMessage", "danger");
 			request.setAttribute("message", "Mật khẩu bắt buộc >= 6 ký tự!");
 		} else {
+			request.setAttribute("iconMessage", "success");
 			request.setAttribute("message", "Đăng nhập thành công");
 			int hours = (remember == null) ? 0 : 1;
 			CookieUtils.add("username", username, hours, response);

@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+         pageEncoding="UTF-8" %>
 
-</body>
-</html>
+<a class="card" href="#">
+    <img src="${param.image}" class="card-img-top" alt="image">
+    <div class="card-body bg-light">
+        <h5 class="card-title text-center text-danger fst-italic fw-bold fs-4">${param.name}</h5>
+    </div>
+</a>
