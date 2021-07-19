@@ -78,23 +78,14 @@
                 </ul>
             </li>
             <li>
-                <a href="/lab/5/bai1"><img src="https://img.icons8.com/color/48/000000/5-c.png"/><span
+                <a href="/lab/5/bai3"><img src="https://img.icons8.com/color/48/000000/5-c.png"/><span
                         class="">Lab 5</span></a>
                 <ul class="nav-flyout">
-                    <li>
-                        <a href="/lab/5/bai1"><img src="https://img.icons8.com/fluent/50/000000/1-circle.png"/>Bài 1</a>
-                    </li>
-                    <li>
-                        <a href="/lab/5/bai2"><img src="https://img.icons8.com/fluent/50/000000/2-circle.png"/>Bài 2</a>
-                    </li>
                     <li>
                         <a href="/lab/5/bai3"><img src="https://img.icons8.com/fluent/50/000000/3-circle.png"/>Bài 3</a>
                     </li>
                     <li>
                         <a href="/lab/5/bai4"><img src="https://img.icons8.com/fluent/50/000000/4-circle.png"/>Bài 4</a>
-                    </li>
-                    <li>
-                        <a href="/lab/5/bai5"><img src="https://img.icons8.com/fluent/50/000000/5-circle.png"/>Bài 5</a>
                     </li>
                 </ul>
             </li>
