@@ -51,6 +51,10 @@ public class UserService {
 		return UserConverter.toDto(userRepository.findById(id)); 
 	}
 	
+	public UserDTO findByEmail(String email) {
+		return UserConverter.toDto(userRepository.findByEmail(email));
+	}
+	
 	public List<UserDTO> findPage(int page, int size) {
 		List<UserDTO> list = new ArrayList<UserDTO>();
 		for (UserEntity i : userRepository.findPage(page, size)) {

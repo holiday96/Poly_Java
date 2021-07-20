@@ -17,6 +17,10 @@ public class Bai4Controller extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setAttribute("username", CookieUtils.get("username", request));
+		request.setAttribute("password", CookieUtils.get("password", request));
+		request.setAttribute("remember", CookieUtils.get("remember", request));
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/views/lab/lab3/bai4.jsp");
 		rd.forward(request, response);
 	}

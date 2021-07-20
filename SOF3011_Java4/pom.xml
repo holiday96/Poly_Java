@@ -8,6 +8,7 @@
 	<packaging>war</packaging>
 
 	<properties>
+		<lombok.version>1.18.20</lombok.version>
 		<jsp.api.version>2.0</jsp.api.version>
 		<jstl.version>1.2</jstl.version>
 		<servlet.api.version>3.1.0</servlet.api.version>
@@ -19,6 +20,14 @@
 	</properties>
 
 	<dependencies>
+		<!-- Lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- json -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

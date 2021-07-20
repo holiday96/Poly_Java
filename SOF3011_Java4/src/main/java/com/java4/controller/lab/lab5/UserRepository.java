@@ -16,12 +16,15 @@ public class UserRepository {
 	public String save(UserEntity entity) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = null;
+		String id = null;
 		try {
 			et = em.getTransaction();
 			et.begin();
 
 			em.persist(entity);
 			et.commit();
+
+			id = em.find(UserEntity.class, entity.getId()).getId();
 		} catch (Exception e) {
 			if (et != null) {
 				et.rollback();
@@ -30,7 +33,7 @@ public class UserRepository {
 		} finally {
 			em.close();
 		}
-		return entity.getId();
+		return id;
 	}
 
 	public void update(UserEntity entity) {
@@ -145,6 +148,23 @@ public class UserRepository {
 
 		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
 		tq.setParameter("id", id);
+		UserEntity user = null;
+		try {
+			user = tq.getSingleResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return user;
+	}
+	
+	public UserEntity findByEmail(String email) {
+		EntityManager em = emf.createEntityManager();
+		String query = "SELECT U FROM UserEntity U WHERE U.email=:email";
+
+		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
+		tq.setParameter("email", email);
 		UserEntity user = null;
 		try {
 			user = tq.getSingleResult();
