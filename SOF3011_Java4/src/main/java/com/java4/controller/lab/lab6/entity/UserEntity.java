@@ -1,8 +1,12 @@
-package com.java4.controller.lab.lab5;
+package com.java4.controller.lab.lab6.entity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,14 +16,21 @@ public class UserEntity {
 	@Id
 	@Column(name = "id")
 	private String id;
+	
 	@Column(name = "password")
 	private String password;
+	
 	@Column(name = "fullname")
 	private String fullname;
+	
 	@Column(name = "email")
 	private String email;
+	
 	@Column(name = "admin")
-	private boolean admin;
+	private boolean admin = false;
+	
+	@OneToMany(mappedBy = "user")
+	private List<FavoriteEntity> favorites = new ArrayList<>();
 
 	public String getId() {
 		return id;
@@ -59,5 +70,13 @@ public class UserEntity {
 
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
+	}
+
+	public List<FavoriteEntity> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(List<FavoriteEntity> favorites) {
+		this.favorites = favorites;
 	}
 }

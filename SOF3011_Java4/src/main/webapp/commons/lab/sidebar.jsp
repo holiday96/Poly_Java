@@ -90,24 +90,19 @@
                 </ul>
             </li>
             <li>
-                <a href="/lab/6/bai1"><img src="https://img.icons8.com/color/48/000000/6-c.png"/> <span
+                <a href="/lab/6/bai2"><img src="https://img.icons8.com/color/48/000000/6-c.png"/> <span
                         class="">Lab 6</span></a>
                 <ul class="nav-flyout">
                     <li>
-                        <a href="#"><img src="https://img.icons8.com/fluent/50/000000/1-circle.png"/>Burn</a>
+                        <a href="/lab/6/bai2"><img src="https://img.icons8.com/fluent/50/000000/2-circle.png"/>Bài 2</a>
                     </li>
                     <li>
-                        <a href="#"><img src="https://img.icons8.com/fluent/50/000000/2-circle.png"/>Bulbs</a>
+                        <a href="/lab/6/bai3"><img src="https://img.icons8.com/fluent/50/000000/3-circle.png"/>Bài 3</a>
                     </li>
                     <li>
-                        <a href="#"><img src="https://img.icons8.com/fluent/50/000000/3-circle.png"/>Where You</a>
+                        <a href="/lab/6/bai4"><img src="https://img.icons8.com/fluent/50/000000/4-circle.png"/>Bài 4</a>
                     </li>
-                    <li>
-                        <a href="#"><img src="https://img.icons8.com/fluent/50/000000/4-circle.png"/>On Lock</a>
-                    </li>
-                    <li>
-                        <a href="#"><img src="https://img.icons8.com/fluent/50/000000/5-circle.png"/>Ghostface</a>
-                    </li>
+                
                 </ul>
             </li>
             <li>

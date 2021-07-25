@@ -1,9 +1,12 @@
-package com.java4.controller.lab.lab5;
+package com.java4.controller.lab.lab6.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.java4.controller.lab.lab6.converter.UserConverter;
+import com.java4.controller.lab.lab6.dto.UserDTO;
 import com.java4.controller.lab.lab6.entity.UserEntity;
+import com.java4.controller.lab.lab6.repository.UserRepository;
 
 public class UserService {
 
@@ -45,10 +48,6 @@ public class UserService {
 		return list;
 	}
 	
-	public UserDTO findOne(String username, String password) {
-		return UserConverter.toDto(userRepository.findOne(username, password));
-	}
-	
 	public UserDTO findById(String id) {
 		return UserConverter.toDto(userRepository.findById(id)); 
 	}
@@ -57,9 +56,9 @@ public class UserService {
 		return UserConverter.toDto(userRepository.findByEmail(email));
 	}
 	
-	public List<UserDTO> findPage(int page, int size) {
+	public List<UserDTO> findUsersLikeMovie(String id) {
 		List<UserDTO> list = new ArrayList<UserDTO>();
-		for (UserEntity i : userRepository.findPage(page, size)) {
+		for (UserEntity i : userRepository.findUsersLikeMovie(id)) {
 			list.add(UserConverter.toDto(i));
 		}
 		return list;

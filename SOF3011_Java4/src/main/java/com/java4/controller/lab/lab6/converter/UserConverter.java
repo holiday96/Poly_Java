@@ -1,5 +1,6 @@
-package com.java4.controller.lab.lab5;
+package com.java4.controller.lab.lab6.converter;
 
+import com.java4.controller.lab.lab6.dto.UserDTO;
 import com.java4.controller.lab.lab6.entity.UserEntity;
 
 public class UserConverter {

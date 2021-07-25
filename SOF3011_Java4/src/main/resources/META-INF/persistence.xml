@@ -8,7 +8,7 @@
 <!--         <class>com.java4.controller.lab.lab5.UserEntity</class> -->
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sof3011_lab5_polyoe" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sof3011_polyoe" />
             <property name="javax.persistence.jdbc.user" value="abc" />
             <property name="javax.persistence.jdbc.password" value="abc" />
         </properties>

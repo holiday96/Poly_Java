@@ -1,4 +1,4 @@
-package com.java4.controller.lab.lab5;
+package com.java4.controller.lab.lab6.repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,33 +126,12 @@ public class UserRepository {
 		return list;
 	}
 
-	public UserEntity findOne(String username, String password) {
-		EntityManager em = emf.createEntityManager();
-		String query = "SELECT U FROM UserEntity U WHERE U.id=:id AND U.password=:password";
-
-		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
-		tq.setParameter("id", username);
-		tq.setParameter("password", password);
-		UserEntity user = null;
-		try {
-			user = tq.getSingleResult();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			em.close();
-		}
-		return user;
-	}
-
 	public UserEntity findById(String id) {
 		EntityManager em = emf.createEntityManager();
-		String query = "SELECT U FROM UserEntity U WHERE U.id=:id";
 
-		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
-		tq.setParameter("id", id);
 		UserEntity user = null;
 		try {
-			user = tq.getSingleResult();
+			user = em.find(UserEntity.class, id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -177,15 +156,14 @@ public class UserRepository {
 		}
 		return user;
 	}
-
-	public List<UserEntity> findPage(int page, int size) {
+	
+	public List<UserEntity> findUsersLikeMovie(String id) {
 		EntityManager em = emf.createEntityManager();
-		String query = "SELECT U FROM UserEntity U";
+		String query = "SELECT f.user FROM FavoriteEntity f WHERE f.video.id=:id";
 
 		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
-		List<UserEntity> list = new ArrayList<UserEntity>();
-		tq.setFirstResult((page - 1) * size);
-		tq.setMaxResults(size);
+		tq.setParameter("id", id);
+		List<UserEntity> list = null;
 		try {
 			list = tq.getResultList();
 		} catch (Exception e) {

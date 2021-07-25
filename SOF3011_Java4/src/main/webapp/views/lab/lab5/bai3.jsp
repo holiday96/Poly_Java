@@ -55,59 +55,68 @@
                     </div>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="submit" formaction="/lab/5/bai3/add" id="btnAdd" class="btn btn-success btn-sm" value="Add">Add</button>
-                    <button type="submit" formaction="/lab/5/bai3/edit" id="btnUpdate" class="btn btn-info btn-sm" value="Update">Update</button>
-                    <input type="button" id="btnReset" class="btn btn-secondary btn-sm" value="Reset" />
+                    <button type="submit" formaction="/lab/5/bai3/add" id="btnAdd" class="btn btn-success btn-sm"
+                            value="Add">Add
+                    </button>
+                    <button type="submit" formaction="/lab/5/bai3/edit" id="btnUpdate" class="btn btn-info btn-sm"
+                            value="Update">Update
+                    </button>
+                    <input type="button" id="btnReset" class="btn btn-secondary btn-sm" value="Reset"/>
                 </div>
             </form>
         </div>
         <div class="col-md-8 px-3">
             <h4 class="text-secondary">User List</h4>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Password</th>
-                    <th scope="col">Fullname</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Role</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${list}" var="item" varStatus="theUser">
+            <div class="bg-light rounded p-2">
+                <table class="display" id="table_id">
+                    <thead>
                     <tr>
-                        <th scope="row">${theUser.count}</th>
-                        <td>${item.id}</td>
-                        <td><input type="password" class="text-muted f-w-400 bg-transparent" readonly
-                                   style="border-style: none; width: 150px;" value="${item.password}"/></td>
-                        <td>${item.fullname}</td>
-                        <td>${item.email}</td>
-                        <td>${item.admin?"Admin":"User"}</td>
-                        <td>
-                            <c:url var="editURL" value="/lab/5/bai3">
-                                <c:param name="type" value="edit"/>
-                                <c:param name="id" value="${item.id}"/>
-                            </c:url>
-                            <c:url var="deleteURL" value="/lab/5/bai3">
-                                <c:param name="type" value="delete"/>
-                                <c:param name="id" value="${item.id}"/>
-                            </c:url>
-                            <a href="${editURL}" type="button" id="btnEdit" class="btn btn-primary btn-sm">Edit</a>
-                            <a href="${deleteURL}" type="button" id="btnDelete" class="btn btn-danger btn-sm">Delete</a>
-                        </td>
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">Fullname</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col"></th>
                     </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${list}" var="item" varStatus="theUser">
+                        <tr>
+                            <th scope="row">${theUser.count}</th>
+                            <td>${item.id}</td>
+                            <td><input type="password" class="text-muted f-w-400 bg-transparent" readonly
+                                       style="border-style: none; width: 150px;" value="${item.password}"/></td>
+                            <td>${item.fullname}</td>
+                            <td>${item.email}</td>
+                            <td>${item.admin?"Admin":"User"}</td>
+                            <td>
+                                <c:url var="editURL" value="/lab/5/bai3">
+                                    <c:param name="type" value="edit"/>
+                                    <c:param name="id" value="${item.id}"/>
+                                </c:url>
+                                <c:url var="deleteURL" value="/lab/5/bai3">
+                                    <c:param name="type" value="delete"/>
+                                    <c:param name="id" value="${item.id}"/>
+                                </c:url>
+                                <a href="${editURL}" type="button" id="btnEdit" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="${deleteURL}" type="button" id="btnDelete"
+                                   class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
-        $("#myToast").toast({autohide: false});
+        $('#table_id').DataTable({});
+
+        $("#myToast").toast({autohide: true, delay: 3000});
         $("#myToast").toast('show');
     });
 

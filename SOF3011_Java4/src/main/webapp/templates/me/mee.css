@@ -323,13 +323,13 @@ body.page-template-page-fullsingle-me p {
 }
 
 .bio a {
-    color: #CCCCCC;
+    color: #a26201;
     -webkit-transition: 1s;
     transition: 1s;
 }
 
 .bio a:hover {
-    color: #FFFFFF;
+    color: #ff9900;
     -webkit-transition: 0.1s;
     transition: 0.1s;
 }

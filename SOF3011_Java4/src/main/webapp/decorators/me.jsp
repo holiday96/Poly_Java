@@ -12,7 +12,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://freepngimg.com/download/cute/29751-4-cute-octopus-photo.png" sizes="32x32">
     <!-- Styles -->
-    <link rel='stylesheet' href="<c:url value='/templates/me/me.css' /> " type='text/css' media='screen' />
+    <link rel='stylesheet' href="<c:url value='/templates/me/mee.css' /> " type='text/css' media='screen' />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 </head>
 
