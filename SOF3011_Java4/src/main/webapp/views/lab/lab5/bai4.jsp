@@ -15,7 +15,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-                <span class="text-danger">${param.error}</span>
+            <span class="text-danger">${param.error}</span>
         </div>
     </div>
 </c:if>
