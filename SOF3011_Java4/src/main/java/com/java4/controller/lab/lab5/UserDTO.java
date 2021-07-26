@@ -6,7 +6,7 @@ public class UserDTO {
 	private String password;
 	private String fullname;
 	private String email;
-	private boolean admin = false;
+	private boolean admin;
 	private String type;
 
 	public String getId() {

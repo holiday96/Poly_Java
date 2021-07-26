@@ -106,9 +106,6 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><img src="https://img.icons8.com/color/48/000000/7-c.png"/> <span class="">Lab 7</span></a>
-            </li>
-            <li>
                 <a href="#"><img src="https://img.icons8.com/color/48/000000/8-c.png"/> <span class="">Lab 8</span></a>
             </li>
         </ul>

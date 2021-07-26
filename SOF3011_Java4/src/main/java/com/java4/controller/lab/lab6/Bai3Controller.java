@@ -17,7 +17,7 @@ import com.java4.controller.lab.lab6.dto.VideoDTO;
 import com.java4.controller.lab.lab6.service.UserService;
 import com.java4.controller.lab.lab6.service.VideoService;
 
-@WebServlet(urlPatterns = { "/lab/6/bai3*" })
+@WebServlet(urlPatterns = { "/lab/6/bai3/*" })
 public class Bai3Controller extends HttpServlet {
 
 	private static final long serialVersionUID = -9176243254299670932L;

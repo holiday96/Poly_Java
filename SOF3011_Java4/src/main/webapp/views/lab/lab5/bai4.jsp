@@ -7,7 +7,19 @@
     <title>Lab 5 Bài 4</title>
 </head>
 <body>
-<c:if test="${not empty message }">
+<c:if test="${not empty param.error}">
+    <div class="toast" id="myToast" style="position: absolute; top: 10px; right: 10px;">
+        <div class="toast-header">
+            <img src="https://img.icons8.com/officel/16/fa314a/information.png" class="rounded me-2" alt="...">
+            <strong class="me-auto">Information</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+                <span class="text-danger">${param.error}</span>
+        </div>
+    </div>
+</c:if>
+<c:if test="${not empty message}">
     <div class="toast" id="myToast" style="position: absolute;top: 10px;right: 10px;z-index: 1;">
         <div class="toast-header">
             <img src="https://img.icons8.com/officel/16/fa314a/information.png" class="rounded me-2" alt="...">

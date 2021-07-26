@@ -28,7 +28,7 @@
         </div>
         <div class="col-md-4 p-3 text-center">
             <a href="#">
-                <img src="https://i.dlpng.com/static/png/1310221-png-svg-shopping-png-512_512_preview.png"
+                <img src="https://icon-library.com/images/icon-shop/icon-shop-3.jpg"
                      style="height: 70px;" alt="logo">
             </a>
         </div>
