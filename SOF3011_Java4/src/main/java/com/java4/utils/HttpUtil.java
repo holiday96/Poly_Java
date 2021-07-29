@@ -13,7 +13,7 @@ public class HttpUtil {
 		this.value = value;
 	}
 	
-	public <T> T toModel(Class<T> tClass) {
+	public <T> T toDTO(Class<T> tClass) {
 		try {
 			return new ObjectMapper().readValue(value, tClass);
 		} catch (Exception e) {

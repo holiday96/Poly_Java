@@ -3,11 +3,12 @@
 	xmlns="http://Java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
-	<display-name>test</display-name>
+	<display-name>sof3011_java4</display-name>
 
-	<!-- <listener> -->
-	<!-- <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class> -->
-	<!-- </listener> -->
+	<listener>
+		<listener-class>org.jboss.weld.environment.servlet.Listener
+		</listener-class>
+	</listener>
 
 	<!-- sitemesh -->
 	<filter>
@@ -21,14 +22,14 @@
 	</filter-mapping>
 
 	<!-- servletFilter -->
-	<!-- <filter> -->
-	<!-- <filter-name>servletFilter</filter-name> -->
-	<!-- <filter-class>com.test.filter.AuthorizationFilter</filter-class> -->
-	<!-- </filter> -->
-	<!-- <filter-mapping> -->
-	<!-- <filter-name>servletFilter</filter-name> -->
-	<!-- <url-pattern>/*</url-pattern> -->
-	<!-- </filter-mapping> -->
+	<filter>
+		<filter-name>servletFilter</filter-name>
+		<filter-class>com.java4.filter.AuthorizationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>servletFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<session-config>
 		<tracking-mode>COOKIE</tracking-mode>

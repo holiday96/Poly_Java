@@ -3,6 +3,3 @@
 <!DOCTYPE html>
 <%@ include file="/commons/taglib.jsp"%>
 
-<div class="home-content">
-	<i class='bx bx-menu'></i> <span class="text">Admin Page</span>
-</div>
