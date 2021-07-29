@@ -15,7 +15,7 @@ CREATE TABLE movies (
 	producer VARCHAR(255),
 	country VARCHAR(255),
 	runtime INT,
-	`release` VARCHAR(255),
+	`release` INT,
 	view INT,
 	`like` INT,
 	trailer VARCHAR(255),
