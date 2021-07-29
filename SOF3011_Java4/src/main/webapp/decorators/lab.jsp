@@ -45,21 +45,23 @@
 
 <div class="containerr">
     <div class="position-absolute top-0 end-0">
-        <p class="fst-italic text-danger fs-5">Visitors: ${applicationScope.visitors}</p>
+        <p class="pt-1 pe-2 fst-italic text-danger fs-5">Visitors: ${applicationScope.visitors}</p>
     </div>
     <c:choose>
         <c:when test="${empty sessionScope.model}">
             <div class="position-absolute top-0 end-50 translate-middle-x" style="z-index: 1;">
-                <a href="/lab/5/bai4" class="btn btn-warning">Login</a>
+                <a href="/lab/5/bai4" class="mt-1 btn btn-warning">Login</a>
             </div>
         </c:when>
         <c:otherwise>
             <div class="position-absolute top-0 start-50 translate-middle-x" style="z-index: 1;">
-                <span class="fst-italic fs-5 me-2">Welcome <span class="fw-bold">${sessionScope.model.fullname}</span></span>
-                <c:if test="${sessionScope.model.admin}">
-                    <a href="/lab/5/bai3" class="btn btn-warning btn-sm">Admin</a>
-                </c:if>
-                <a href="/lab/5/bai4/signout" class="btn btn-danger btn-sm">Logout</a>
+                <div class="mt-2">
+                	<span class="fst-italic fs-5 me-2">Welcome <span class="fw-bold">${sessionScope.model.fullname}</span></span>
+                	<c:if test="${sessionScope.model.admin}">
+                    	<a href="/lab/5/bai3" class="btn btn-warning btn-sm">Admin</a>
+                	</c:if>
+                	<a href="/lab/5/bai4/signout" class="btn btn-danger btn-sm">Logout</a>
+                </div>
             </div>
         </c:otherwise>
     </c:choose>
