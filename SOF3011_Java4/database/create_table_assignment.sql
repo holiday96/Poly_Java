@@ -9,7 +9,7 @@ CREATE TABLE categories (
 CREATE TABLE movies (
 	id BIGINT NOT NULL,
 	title VARCHAR(255),
-	description VARCHAR(255),
+	description MEDIUMTEXT,
 	director VARCHAR(255),
 	actors VARCHAR(255),
 	producer VARCHAR(255),
