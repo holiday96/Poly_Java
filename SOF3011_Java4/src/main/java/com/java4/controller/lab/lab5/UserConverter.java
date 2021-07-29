@@ -1,10 +1,10 @@
 package com.java4.controller.lab.lab5;
 
-import com.java4.controller.lab.lab6.entity.UserEntity;
+import com.java4.controller.lab.lab6.entity.UserrEntity;
 
 public class UserConverter {
 
-	public static UserDTO toDto(UserEntity entity) {
+	public static UserDTO toDto(UserrEntity entity) {
 		UserDTO result = new UserDTO();
 		result.setId(entity.getId());
 		result.setPassword(entity.getPassword());
@@ -14,8 +14,8 @@ public class UserConverter {
 		return result;
 	}
 	
-	public static UserEntity toEntity(UserDTO dto) {
-		UserEntity result = new UserEntity();
+	public static UserrEntity toEntity(UserDTO dto) {
+		UserrEntity result = new UserrEntity();
 		result.setId(dto.getId());
 		result.setPassword(dto.getPassword());
 		result.setFullname(dto.getFullname());

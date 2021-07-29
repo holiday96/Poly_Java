@@ -9,13 +9,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "themes")
-public class ThemeEntity extends BaseEntity {
+@Table(name = "categories")
+public class CategoryEntity extends BaseEntity {
 
 	@Column(name = "name")
 	private String name;
 
-	@ManyToMany(mappedBy = "themes")
+	@ManyToMany(mappedBy = "categories")
 	private List<MovieEntity> movies = new ArrayList<>();
 
 	public String getName() {

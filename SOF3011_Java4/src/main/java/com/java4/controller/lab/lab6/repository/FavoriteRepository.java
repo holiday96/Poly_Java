@@ -8,18 +8,18 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import com.java4.controller.lab.lab6.entity.FavoriteEntity;
+import com.java4.controller.lab.lab6.entity.FavoriteeEntity;
 
 public class FavoriteRepository {
 	
 	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-data");
 
-	public List<FavoriteEntity> findAll() {
+	public List<FavoriteeEntity> findAll() {
 		EntityManager em = emf.createEntityManager();
 		String query = "SELECT f FROM FavoriteEntity f";
 
-		TypedQuery<FavoriteEntity> tq = em.createQuery(query, FavoriteEntity.class);
-		List<FavoriteEntity> list = new ArrayList<FavoriteEntity>();
+		TypedQuery<FavoriteeEntity> tq = em.createQuery(query, FavoriteeEntity.class);
+		List<FavoriteeEntity> list = new ArrayList<FavoriteeEntity>();
 		try {
 			list = tq.getResultList();
 		} catch (Exception e) {

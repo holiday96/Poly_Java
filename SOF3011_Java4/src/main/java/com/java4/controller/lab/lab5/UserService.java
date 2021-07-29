@@ -3,7 +3,7 @@ package com.java4.controller.lab.lab5;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.java4.controller.lab.lab6.entity.UserEntity;
+import com.java4.controller.lab.lab6.entity.UserrEntity;
 
 public class UserService {
 
@@ -23,7 +23,7 @@ public class UserService {
 	
 	public List<UserDTO> findAll() {
 		List<UserDTO> list = new ArrayList<UserDTO>();
-		for (UserEntity i : userRepository.findAll()) {
+		for (UserrEntity i : userRepository.findAll()) {
 			list.add(UserConverter.toDto(i));
 		}
 		return list;
@@ -31,7 +31,7 @@ public class UserService {
 	
 	public List<UserDTO> findByRole(boolean role) {
 		List<UserDTO> list = new ArrayList<UserDTO>();
-		for (UserEntity i : userRepository.findByRole(role)) {
+		for (UserrEntity i : userRepository.findByRole(role)) {
 			list.add(UserConverter.toDto(i));
 		}
 		return list;
@@ -39,7 +39,7 @@ public class UserService {
 	
 	public List<UserDTO> findByName(String fullname) {
 		List<UserDTO> list = new ArrayList<UserDTO>();
-		for (UserEntity i : userRepository.findByName(fullname)) {
+		for (UserrEntity i : userRepository.findByName(fullname)) {
 			list.add(UserConverter.toDto(i));
 		}
 		return list;
@@ -59,7 +59,7 @@ public class UserService {
 	
 	public List<UserDTO> findPage(int page, int size) {
 		List<UserDTO> list = new ArrayList<UserDTO>();
-		for (UserEntity i : userRepository.findPage(page, size)) {
+		for (UserrEntity i : userRepository.findPage(page, size)) {
 			list.add(UserConverter.toDto(i));
 		}
 		return list;

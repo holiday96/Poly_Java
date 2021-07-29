@@ -13,6 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java4.dto.ThemeDTO;
 import com.java4.service.IThemeService;
 import com.java4.utils.HttpUtil;
+import com.test.model.NewModel;
+import com.test.model.UserModel;
+import com.test.utils.SessionUtil;
 
 @WebServlet(urlPatterns = { "/api/theme" })
 public class ThemeAPI extends HttpServlet {
@@ -31,5 +34,27 @@ public class ThemeAPI extends HttpServlet {
 		ThemeDTO dto = HttpUtil.of(request.getReader()).toDTO(ThemeDTO.class);
 		dto = themeService.save(dto);
 		mapper.writeValue(response.getOutputStream(), dto);
+	}
+
+	@Override
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		ObjectMapper mapper = new ObjectMapper(); // ObjectMapper dùng để đọc outputstream newModel qua json
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		ThemeDTO dto = HttpUtil.of(request.getReader()).toDTO(ThemeDTO.class);
+		dto = themeService.update(dto);
+		mapper.writeValue(response.getOutputStream(), dto);
+	}
+
+	@Override
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		ObjectMapper mapper = new ObjectMapper(); // ObjectMapper dùng để đọc outputstream newModel qua json
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		ThemeDTO dto = HttpUtil.of(request.getReader()).toDTO(ThemeDTO.class);
+		dto = themeService.delete(dto.getIds());
+		mapper.writeValue(response.getOutputStream(), "{}");
 	}
 }

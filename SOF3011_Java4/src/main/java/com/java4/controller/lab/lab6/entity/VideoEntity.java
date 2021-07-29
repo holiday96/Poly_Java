@@ -41,7 +41,7 @@ public class VideoEntity {
 	private int views;
 
 	@OneToMany(mappedBy = "video")
-	private List<FavoriteEntity> favorites = new ArrayList<>();
+	private List<FavoriteeEntity> favorites = new ArrayList<>();
 
 	public String getId() {
 		return id;

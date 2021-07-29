@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class UserrEntity {
 
 	@Id
 	@Column(name = "id")
@@ -30,7 +30,7 @@ public class UserEntity {
 	private boolean admin = false;
 	
 	@OneToMany(mappedBy = "user")
-	private List<FavoriteEntity> favorites = new ArrayList<>();
+	private List<FavoriteeEntity> favorites = new ArrayList<>();
 
 	public String getId() {
 		return id;
@@ -72,11 +72,11 @@ public class UserEntity {
 		this.admin = admin;
 	}
 
-	public List<FavoriteEntity> getFavorites() {
+	public List<FavoriteeEntity> getFavorites() {
 		return favorites;
 	}
 
-	public void setFavorites(List<FavoriteEntity> favorites) {
+	public void setFavorites(List<FavoriteeEntity> favorites) {
 		this.favorites = favorites;
 	}
 }

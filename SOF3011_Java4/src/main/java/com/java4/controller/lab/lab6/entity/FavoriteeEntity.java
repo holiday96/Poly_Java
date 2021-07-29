@@ -16,7 +16,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "favorites", uniqueConstraints = { @UniqueConstraint(columnNames = { "videoid", "userid" }) })
-public class FavoriteEntity {
+public class FavoriteeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class FavoriteEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userid")
-	private UserEntity user;
+	private UserrEntity user;
 
 	@Temporal(TemporalType.DATE)
 	private Date likeDate = new Date();
@@ -49,11 +49,11 @@ public class FavoriteEntity {
 		this.video = video;
 	}
 
-	public UserEntity getUser() {
+	public UserrEntity getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity user) {
+	public void setUser(UserrEntity user) {
 		this.user = user;
 	}
 

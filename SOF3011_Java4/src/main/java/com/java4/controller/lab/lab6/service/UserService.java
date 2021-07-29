@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.java4.controller.lab.lab6.converter.UserConverter;
 import com.java4.controller.lab.lab6.dto.UserDTO;
-import com.java4.controller.lab.lab6.entity.UserEntity;
+import com.java4.controller.lab.lab6.entity.UserrEntity;
 import com.java4.controller.lab.lab6.repository.UserRepository;
 
 public class UserService {
@@ -26,7 +26,7 @@ public class UserService {
 	
 	public List<UserDTO> findAll() {
 		List<UserDTO> list = new ArrayList<UserDTO>();
-		for (UserEntity i : userRepository.findAll()) {
+		for (UserrEntity i : userRepository.findAll()) {
 			list.add(UserConverter.toDto(i));
 		}
 		return list;
@@ -34,7 +34,7 @@ public class UserService {
 	
 	public List<UserDTO> findByRole(boolean role) {
 		List<UserDTO> list = new ArrayList<UserDTO>();
-		for (UserEntity i : userRepository.findByRole(role)) {
+		for (UserrEntity i : userRepository.findByRole(role)) {
 			list.add(UserConverter.toDto(i));
 		}
 		return list;
@@ -42,7 +42,7 @@ public class UserService {
 	
 	public List<UserDTO> findByName(String fullname) {
 		List<UserDTO> list = new ArrayList<UserDTO>();
-		for (UserEntity i : userRepository.findByName(fullname)) {
+		for (UserrEntity i : userRepository.findByName(fullname)) {
 			list.add(UserConverter.toDto(i));
 		}
 		return list;
@@ -58,7 +58,7 @@ public class UserService {
 	
 	public List<UserDTO> findUsersLikeMovie(String id) {
 		List<UserDTO> list = new ArrayList<UserDTO>();
-		for (UserEntity i : userRepository.findUsersLikeMovie(id)) {
+		for (UserrEntity i : userRepository.findUsersLikeMovie(id)) {
 			list.add(UserConverter.toDto(i));
 		}
 		return list;

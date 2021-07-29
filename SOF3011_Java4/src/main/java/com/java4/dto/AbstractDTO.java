@@ -6,6 +6,7 @@ import java.util.List;
 public class AbstractDTO<T> {
 
 	private Long id;
+	private Long[] ids;
 	private List<T> listResult = new ArrayList<>();
 	private String alert;
 	private String message;
@@ -17,6 +18,14 @@ public class AbstractDTO<T> {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long[] getIds() {
+		return ids;
+	}
+
+	public void setIds(Long[] ids) {
+		this.ids = ids;
 	}
 
 	public List<T> getListResult() {

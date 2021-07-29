@@ -9,13 +9,13 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import com.java4.controller.lab.lab6.entity.UserEntity;
+import com.java4.controller.lab.lab6.entity.UserrEntity;
 
 public class UserRepository {
 
 	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-data");
 
-	public String save(UserEntity entity) {
+	public String save(UserrEntity entity) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = null;
 		String id = null;
@@ -26,7 +26,7 @@ public class UserRepository {
 			em.persist(entity);
 			et.commit();
 
-			id = em.find(UserEntity.class, entity.getId()).getId();
+			id = em.find(UserrEntity.class, entity.getId()).getId();
 		} catch (Exception e) {
 			if (et != null) {
 				et.rollback();
@@ -38,7 +38,7 @@ public class UserRepository {
 		return id;
 	}
 
-	public void update(UserEntity entity) {
+	public void update(UserrEntity entity) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = null;
 		try {
@@ -64,7 +64,7 @@ public class UserRepository {
 			et = em.getTransaction();
 			et.begin();
 
-			em.remove(em.find(UserEntity.class, id));
+			em.remove(em.find(UserrEntity.class, id));
 			et.commit();
 		} catch (Exception e) {
 			if (et != null) {
@@ -76,12 +76,12 @@ public class UserRepository {
 		}
 	}
 
-	public List<UserEntity> findAll() {
+	public List<UserrEntity> findAll() {
 		EntityManager em = emf.createEntityManager();
 		String query = "SELECT u FROM UserEntity u";
 
-		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
-		List<UserEntity> list = new ArrayList<UserEntity>();
+		TypedQuery<UserrEntity> tq = em.createQuery(query, UserrEntity.class);
+		List<UserrEntity> list = new ArrayList<UserrEntity>();
 		try {
 			list = tq.getResultList();
 		} catch (Exception e) {
@@ -92,12 +92,12 @@ public class UserRepository {
 		return list;
 	}
 
-	public List<UserEntity> findByRole(boolean role) {
+	public List<UserrEntity> findByRole(boolean role) {
 		EntityManager em = emf.createEntityManager();
 		String query = "SELECT u FROM UserEntity u WHERE u.admin=:role";
 
-		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
-		List<UserEntity> list = new ArrayList<UserEntity>();
+		TypedQuery<UserrEntity> tq = em.createQuery(query, UserrEntity.class);
+		List<UserrEntity> list = new ArrayList<UserrEntity>();
 		tq.setParameter("role", role);
 		try {
 			list = tq.getResultList();
@@ -109,12 +109,12 @@ public class UserRepository {
 		return list;
 	}
 
-	public List<UserEntity> findByName(String fullname) {
+	public List<UserrEntity> findByName(String fullname) {
 		EntityManager em = emf.createEntityManager();
 		String query = "SELECT U FROM UserEntity U WHERE U.fullname LIKE?0";
 
-		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
-		List<UserEntity> list = new ArrayList<UserEntity>();
+		TypedQuery<UserrEntity> tq = em.createQuery(query, UserrEntity.class);
+		List<UserrEntity> list = new ArrayList<UserrEntity>();
 		tq.setParameter(0, fullname);
 		try {
 			list = tq.getResultList();
@@ -126,14 +126,14 @@ public class UserRepository {
 		return list;
 	}
 
-	public UserEntity findOne(String username, String password) {
+	public UserrEntity findOne(String username, String password) {
 		EntityManager em = emf.createEntityManager();
 		String query = "SELECT U FROM UserEntity U WHERE U.id=:id AND U.password=:password";
 
-		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
+		TypedQuery<UserrEntity> tq = em.createQuery(query, UserrEntity.class);
 		tq.setParameter("id", username);
 		tq.setParameter("password", password);
-		UserEntity user = null;
+		UserrEntity user = null;
 		try {
 			user = tq.getSingleResult();
 		} catch (Exception e) {
@@ -144,13 +144,13 @@ public class UserRepository {
 		return user;
 	}
 
-	public UserEntity findById(String id) {
+	public UserrEntity findById(String id) {
 		EntityManager em = emf.createEntityManager();
 		String query = "SELECT U FROM UserEntity U WHERE U.id=:id";
 
-		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
+		TypedQuery<UserrEntity> tq = em.createQuery(query, UserrEntity.class);
 		tq.setParameter("id", id);
-		UserEntity user = null;
+		UserrEntity user = null;
 		try {
 			user = tq.getSingleResult();
 		} catch (Exception e) {
@@ -161,13 +161,13 @@ public class UserRepository {
 		return user;
 	}
 	
-	public UserEntity findByEmail(String email) {
+	public UserrEntity findByEmail(String email) {
 		EntityManager em = emf.createEntityManager();
 		String query = "SELECT U FROM UserEntity U WHERE U.email=:email";
 
-		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
+		TypedQuery<UserrEntity> tq = em.createQuery(query, UserrEntity.class);
 		tq.setParameter("email", email);
-		UserEntity user = null;
+		UserrEntity user = null;
 		try {
 			user = tq.getSingleResult();
 		} catch (Exception e) {
@@ -178,12 +178,12 @@ public class UserRepository {
 		return user;
 	}
 
-	public List<UserEntity> findPage(int page, int size) {
+	public List<UserrEntity> findPage(int page, int size) {
 		EntityManager em = emf.createEntityManager();
 		String query = "SELECT U FROM UserEntity U";
 
-		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
-		List<UserEntity> list = new ArrayList<UserEntity>();
+		TypedQuery<UserrEntity> tq = em.createQuery(query, UserrEntity.class);
+		List<UserrEntity> list = new ArrayList<UserrEntity>();
 		tq.setFirstResult((page - 1) * size);
 		tq.setMaxResults(size);
 		try {
