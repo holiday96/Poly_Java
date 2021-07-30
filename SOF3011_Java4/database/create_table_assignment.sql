@@ -1,13 +1,15 @@
 CREATE DATABASE sof3011_java4_assignment;
 
+USE sof3011_java4_assignment;
+
 CREATE TABLE categories (
-    id BIGINT NOT NULL,
+    id BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255),
     PRIMARY KEY (id)
 );
 
 CREATE TABLE movies (
-	id BIGINT NOT NULL,
+	id BIGINT NOT NULL AUTO_INCREMENT,
 	title VARCHAR(255),
 	description MEDIUMTEXT,
 	director VARCHAR(255),
@@ -28,8 +30,8 @@ CREATE TABLE categories_movies (
 	categoryid BIGINT NOT NULL,
 	movieid BIGINT NOT NULL,
 	PRIMARY KEY(movieid,categoryid),
-	FOREIGN KEY (categoryid) REFERENCES categories(id),
-	FOREIGN KEY (movieid) REFERENCES movies(id)
+	FOREIGN KEY (categoryid) REFERENCES categories(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (movieid) REFERENCES movies(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE episodes (
@@ -37,11 +39,11 @@ CREATE TABLE episodes (
 	movieid BIGINT NOT NULL,
 	link VARCHAR(255),
 	PRIMARY KEY(number,movieid),
-	FOREIGN KEY (movieid) REFERENCES movies(id)
+	FOREIGN KEY (movieid) REFERENCES movies(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE users (
-	id BIGINT NOT NULL,
+	id BIGINT NOT NULL AUTO_INCREMENT,
 	username VARCHAR(255),
 	password VARCHAR(255),
 	fullname VARCHAR(255),
@@ -61,7 +63,7 @@ CREATE TABLE favorites (
 );
 
 CREATE TABLE themes (
-	id BIGINT NOT NULL,
+	id BIGINT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(255),
 	PRIMARY KEY(id)
 );
@@ -70,6 +72,6 @@ CREATE TABLE movies_themes (
 	movieid BIGINT NOT NULL,
 	themeid BIGINT NOT NULL,
 	PRIMARY KEY(movieid,themeid),
-	FOREIGN KEY (movieid) REFERENCES movies(id),
-	FOREIGN KEY (themeid) REFERENCES themes(id)
+	FOREIGN KEY (movieid) REFERENCES movies(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (themeid) REFERENCES themes(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
