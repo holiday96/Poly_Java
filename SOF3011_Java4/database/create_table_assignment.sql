@@ -17,9 +17,9 @@ CREATE TABLE movies (
 	producer VARCHAR(255),
 	country VARCHAR(255),
 	runtime INT,
-	`release` INT,
-	view INT,
-	`like` INT,
+	releaseYear INT,
+	viewCount INT,
+	likeCount INT,
 	trailer VARCHAR(255),
 	banner VARCHAR(255),
 	poster VARCHAR(255),
@@ -35,10 +35,11 @@ CREATE TABLE categories_movies (
 );
 
 CREATE TABLE episodes (
-	number INT NOT NULL,
-	movieid BIGINT NOT NULL,
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	number INT,
+	movieid BIGINT,
 	link VARCHAR(255),
-	PRIMARY KEY(number,movieid),
+	PRIMARY KEY(id),
 	FOREIGN KEY (movieid) REFERENCES movies(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
