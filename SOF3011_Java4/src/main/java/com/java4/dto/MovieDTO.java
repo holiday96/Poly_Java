@@ -1,7 +1,10 @@
 package com.java4.dto;
 
-public class MovieDTO extends AbstractDTO<MovieDTO>{
-	
+import java.util.HashSet;
+import java.util.Set;
+
+public class MovieDTO extends AbstractDTO<MovieDTO> {
+
 	private String title;
 	private String description;
 	private String director;
@@ -9,12 +12,15 @@ public class MovieDTO extends AbstractDTO<MovieDTO>{
 	private String producer;
 	private String country;
 	private Integer runtime;
-	private Integer release;
-	private Integer view;
-	private Integer like;
+	private Integer releaseYear;
+	private Integer viewCount;
+	private Integer likeCount;
 	private String trailer;
 	private String banner;
 	private String poster;
+	private Set<CategoryDTO> categories = new HashSet<CategoryDTO>();
+	private Set<UserDTO> users = new HashSet<UserDTO>();
+	private Set<ThemeDTO> themes = new HashSet<ThemeDTO>();
 
 	public String getTitle() {
 		return title;
@@ -72,28 +78,28 @@ public class MovieDTO extends AbstractDTO<MovieDTO>{
 		this.runtime = runtime;
 	}
 
-	public Integer getRelease() {
-		return release;
+	public Integer getReleaseYear() {
+		return releaseYear;
 	}
 
-	public void setRelease(Integer release) {
-		this.release = release;
+	public void setReleaseYear(Integer releaseYear) {
+		this.releaseYear = releaseYear;
 	}
 
-	public Integer getView() {
-		return view;
+	public Integer getViewCount() {
+		return viewCount;
 	}
 
-	public void setView(Integer view) {
-		this.view = view;
+	public void setViewCount(Integer viewCount) {
+		this.viewCount = viewCount;
 	}
 
-	public Integer getLike() {
-		return like;
+	public Integer getLikeCount() {
+		return likeCount;
 	}
 
-	public void setLike(Integer like) {
-		this.like = like;
+	public void setLikeCount(Integer likeCount) {
+		this.likeCount = likeCount;
 	}
 
 	public String getTrailer() {
@@ -119,4 +125,29 @@ public class MovieDTO extends AbstractDTO<MovieDTO>{
 	public void setPoster(String poster) {
 		this.poster = poster;
 	}
+
+	public Set<CategoryDTO> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<CategoryDTO> categories) {
+		this.categories = categories;
+	}
+
+	public Set<UserDTO> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<UserDTO> users) {
+		this.users = users;
+	}
+
+	public Set<ThemeDTO> getThemes() {
+		return themes;
+	}
+
+	public void setThemes(Set<ThemeDTO> themes) {
+		this.themes = themes;
+	}
+
 }

@@ -7,6 +7,8 @@ import com.java4.entity.ThemeEntity;
 public interface IThemeRepository {
 
 	List<ThemeEntity> findAll();
-	Long save(ThemeEntity entity);
 	ThemeEntity findOne(Long id);
+	Long save(ThemeEntity entity);
+	void update(ThemeEntity entity);
+	void delete(Long id);
 }

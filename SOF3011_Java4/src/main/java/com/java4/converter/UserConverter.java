@@ -30,4 +30,26 @@ public class UserConverter {
 		result.setVerify(dto.getVerify());
 		return result;
 	}
+
+	public static UserEntity toListEntity(UserEntity entity, UserDTO dto) {
+		dto.getMovies().forEach(i -> entity.getMovies().add(MovieConverter.toEntity(i)));
+		return entity;
+	}
+
+	public static UserDTO toListDTO(UserDTO dto, UserEntity entity) {
+		entity.getMovies().forEach(i -> dto.getMovies().add(MovieConverter.toDto(i)));
+		return dto;
+	}
+
+	public static UserEntity toAllEntity(UserDTO dto) {
+		UserEntity entity = UserConverter.toEntity(dto);
+		entity = UserConverter.toListEntity(entity, dto);
+		return entity;
+	}
+
+	public static UserDTO toAllDTO(UserEntity entity) {
+		UserDTO dto = UserConverter.toDto(entity);
+		dto = UserConverter.toListDTO(dto, entity);
+		return dto;
+	}
 }

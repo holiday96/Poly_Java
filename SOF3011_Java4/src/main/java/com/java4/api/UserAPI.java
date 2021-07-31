@@ -10,15 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.java4.dto.ThemeDTO;
-import com.java4.service.IThemeService;
+import com.java4.dto.UserDTO;
+import com.java4.service.IMovieService;
+import com.java4.service.IUserService;
 import com.java4.utils.HttpUtil;
 
-@WebServlet(urlPatterns = { "/api/theme" })
-public class ThemeAPI extends HttpServlet {
+@WebServlet(urlPatterns = { "/api/user" })
+public class UserAPI extends HttpServlet {
 
 	@Inject
-	private IThemeService themeService;
+	private IUserService userService;
+	@Inject
+	private IMovieService movieService;
 
 	private static final long serialVersionUID = -4163323890724430012L;
 
@@ -28,8 +31,8 @@ public class ThemeAPI extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper(); // ObjectMapper dùng để đọc outputstream dto qua json
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		ThemeDTO dto = HttpUtil.of(request.getReader()).toDTO(ThemeDTO.class);
-		dto = themeService.save(dto);
+		UserDTO dto = HttpUtil.of(request.getReader()).toDTO(UserDTO.class);
+		dto = userService.save(dto);
 		mapper.writeValue(response.getOutputStream(), dto);
 	}
 
@@ -39,8 +42,12 @@ public class ThemeAPI extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper(); // ObjectMapper dùng để đọc outputstream dto qua json
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		ThemeDTO dto = HttpUtil.of(request.getReader()).toDTO(ThemeDTO.class);
-		dto = themeService.update(dto);
+		UserDTO dto = HttpUtil.of(request.getReader()).toDTO(UserDTO.class);
+		//test api add favor
+		dto.setMovies(userService.findOne(dto.getId()).getMovies());
+		dto.getMovies().add(movieService.findOne(23l));
+		dto.getMovies().add(movieService.findOne(24l));
+		dto = userService.update(dto);
 		mapper.writeValue(response.getOutputStream(), dto);
 	}
 
@@ -50,8 +57,8 @@ public class ThemeAPI extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper(); // ObjectMapper dùng để đọc outputstream dto qua json
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		ThemeDTO dto = HttpUtil.of(request.getReader()).toDTO(ThemeDTO.class);
-		themeService.delete(dto.getIds());
+		UserDTO dto = HttpUtil.of(request.getReader()).toDTO(UserDTO.class);
+		userService.delete(dto.getIds());
 		mapper.writeValue(response.getOutputStream(), "{}");
 	}
 }

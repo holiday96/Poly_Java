@@ -9,20 +9,20 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import com.java4.entity.ThemeEntity;
-import com.java4.repository.IThemeRepository;
+import com.java4.entity.UserEntity;
+import com.java4.repository.IUserRepository;
 
-public class ThemeRepository implements IThemeRepository {
+public class UserRepository implements IUserRepository {
 
 	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-data-asm");
 
 	@Override
-	public List<ThemeEntity> findAll() {
+	public List<UserEntity> findAll() {
 		EntityManager em = emf.createEntityManager();
-		String query = "SELECT t FROM ThemeEntity t";
+		String query = "SELECT t FROM UserEntity t";
 
-		TypedQuery<ThemeEntity> tq = em.createQuery(query, ThemeEntity.class);
-		List<ThemeEntity> list = new ArrayList<ThemeEntity>();
+		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
+		List<UserEntity> list = new ArrayList<UserEntity>();
 		try {
 			list = tq.getResultList();
 		} catch (Exception e) {
@@ -34,7 +34,7 @@ public class ThemeRepository implements IThemeRepository {
 	}
 
 	@Override
-	public Long save(ThemeEntity entity) {
+	public Long save(UserEntity entity) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = null;
 		Long id = null;
@@ -45,7 +45,7 @@ public class ThemeRepository implements IThemeRepository {
 			em.persist(entity);
 			et.commit();
 
-			id = em.find(ThemeEntity.class, entity.getId()).getId();
+			id = em.find(UserEntity.class, entity.getId()).getId();
 		} catch (Exception e) {
 			if (et != null) {
 				et.rollback();
@@ -58,11 +58,11 @@ public class ThemeRepository implements IThemeRepository {
 	}
 
 	@Override
-	public ThemeEntity findOne(Long id) {
+	public UserEntity findOne(Long id) {
 		EntityManager em = emf.createEntityManager();
-		ThemeEntity entity = new ThemeEntity();
+		UserEntity entity = new UserEntity();
 		try {
-			entity = em.find(ThemeEntity.class, id);
+			entity = em.find(UserEntity.class, id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -72,7 +72,7 @@ public class ThemeRepository implements IThemeRepository {
 	}
 
 	@Override
-	public void update(ThemeEntity entity) {
+	public void update(UserEntity entity) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = null;
 		try {
@@ -99,7 +99,7 @@ public class ThemeRepository implements IThemeRepository {
 			et = em.getTransaction();
 			et.begin();
 
-			em.remove(em.find(ThemeEntity.class, id));
+			em.remove(em.find(UserEntity.class, id));
 			et.commit();
 		} catch (Exception e) {
 			if (et != null) {

@@ -21,7 +21,7 @@ public class ThemeService implements IThemeService {
 		List<ThemeDTO> dtos = new ArrayList<ThemeDTO>();
 		List<ThemeEntity> entities = themeRepository.findAll();
 		for (ThemeEntity item : entities) {
-			ThemeDTO themeDTO = ThemeConverter.toDto(item);
+			ThemeDTO themeDTO = ThemeConverter.toAllDTO(item);
 			dtos.add(themeDTO);
 		}
 		return dtos;
@@ -29,13 +29,26 @@ public class ThemeService implements IThemeService {
 
 	@Override
 	public ThemeDTO findOne(Long id) {
-		return ThemeConverter.toDto(themeRepository.findOne(id));
+		return ThemeConverter.toAllDTO(themeRepository.findOne(id));
 	}
 
 	@Override
 	public ThemeDTO save(ThemeDTO dto) {
-		Long id = themeRepository.save(ThemeConverter.toEntity(dto));
-		return ThemeConverter.toDto(themeRepository.findOne(id));
+		Long id = themeRepository.save(ThemeConverter.toAllEntity(dto));
+		return ThemeConverter.toAllDTO(themeRepository.findOne(id));
+	}
+
+	@Override
+	public ThemeDTO update(ThemeDTO dto) {
+		themeRepository.update(ThemeConverter.toAllEntity(dto));
+		return ThemeConverter.toAllDTO(themeRepository.findOne(dto.getId()));
+	}
+
+	@Override
+	public void delete(Long[] ids) {
+		for (Long id : ids) {
+			themeRepository.delete(id);
+		}
 	}
 
 }

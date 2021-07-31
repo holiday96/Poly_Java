@@ -1,6 +1,6 @@
 package com.java4.dto;
 
-public class EpisodeDTO {
+public class EpisodeDTO extends AbstractDTO<EpisodeDTO> {
 
 	private Integer number;
 	private Long movieid;

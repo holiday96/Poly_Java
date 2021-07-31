@@ -9,20 +9,20 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import com.java4.entity.ThemeEntity;
-import com.java4.repository.IThemeRepository;
+import com.java4.entity.MovieEntity;
+import com.java4.repository.IMovieRepository;
 
-public class ThemeRepository implements IThemeRepository {
+public class MovieRepository implements IMovieRepository {
 
 	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-data-asm");
 
 	@Override
-	public List<ThemeEntity> findAll() {
+	public List<MovieEntity> findAll() {
 		EntityManager em = emf.createEntityManager();
-		String query = "SELECT t FROM ThemeEntity t";
+		String query = "SELECT t FROM MovieEntity t";
 
-		TypedQuery<ThemeEntity> tq = em.createQuery(query, ThemeEntity.class);
-		List<ThemeEntity> list = new ArrayList<ThemeEntity>();
+		TypedQuery<MovieEntity> tq = em.createQuery(query, MovieEntity.class);
+		List<MovieEntity> list = new ArrayList<MovieEntity>();
 		try {
 			list = tq.getResultList();
 		} catch (Exception e) {
@@ -34,7 +34,7 @@ public class ThemeRepository implements IThemeRepository {
 	}
 
 	@Override
-	public Long save(ThemeEntity entity) {
+	public Long save(MovieEntity entity) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = null;
 		Long id = null;
@@ -45,7 +45,7 @@ public class ThemeRepository implements IThemeRepository {
 			em.persist(entity);
 			et.commit();
 
-			id = em.find(ThemeEntity.class, entity.getId()).getId();
+			id = em.find(MovieEntity.class, entity.getId()).getId();
 		} catch (Exception e) {
 			if (et != null) {
 				et.rollback();
@@ -58,11 +58,11 @@ public class ThemeRepository implements IThemeRepository {
 	}
 
 	@Override
-	public ThemeEntity findOne(Long id) {
+	public MovieEntity findOne(Long id) {
 		EntityManager em = emf.createEntityManager();
-		ThemeEntity entity = new ThemeEntity();
+		MovieEntity entity = new MovieEntity();
 		try {
-			entity = em.find(ThemeEntity.class, id);
+			entity = em.find(MovieEntity.class, id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -72,7 +72,7 @@ public class ThemeRepository implements IThemeRepository {
 	}
 
 	@Override
-	public void update(ThemeEntity entity) {
+	public void update(MovieEntity entity) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = null;
 		try {
@@ -99,7 +99,7 @@ public class ThemeRepository implements IThemeRepository {
 			et = em.getTransaction();
 			et.begin();
 
-			em.remove(em.find(ThemeEntity.class, id));
+			em.remove(em.find(MovieEntity.class, id));
 			et.commit();
 		} catch (Exception e) {
 			if (et != null) {

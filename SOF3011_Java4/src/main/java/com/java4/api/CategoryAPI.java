@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.java4.dto.ThemeDTO;
-import com.java4.service.IThemeService;
+import com.java4.dto.CategoryDTO;
+import com.java4.service.ICategoryService;
 import com.java4.utils.HttpUtil;
 
-@WebServlet(urlPatterns = { "/api/theme" })
-public class ThemeAPI extends HttpServlet {
+@WebServlet(urlPatterns = { "/api/category" })
+public class CategoryAPI extends HttpServlet {
 
 	@Inject
-	private IThemeService themeService;
+	private ICategoryService categoryService;
 
 	private static final long serialVersionUID = -4163323890724430012L;
 
@@ -28,8 +28,8 @@ public class ThemeAPI extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper(); // ObjectMapper dùng để đọc outputstream dto qua json
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		ThemeDTO dto = HttpUtil.of(request.getReader()).toDTO(ThemeDTO.class);
-		dto = themeService.save(dto);
+		CategoryDTO dto = HttpUtil.of(request.getReader()).toDTO(CategoryDTO.class);
+		dto = categoryService.save(dto);
 		mapper.writeValue(response.getOutputStream(), dto);
 	}
 
@@ -39,8 +39,8 @@ public class ThemeAPI extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper(); // ObjectMapper dùng để đọc outputstream dto qua json
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		ThemeDTO dto = HttpUtil.of(request.getReader()).toDTO(ThemeDTO.class);
-		dto = themeService.update(dto);
+		CategoryDTO dto = HttpUtil.of(request.getReader()).toDTO(CategoryDTO.class);
+		dto = categoryService.update(dto);
 		mapper.writeValue(response.getOutputStream(), dto);
 	}
 
@@ -50,8 +50,8 @@ public class ThemeAPI extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper(); // ObjectMapper dùng để đọc outputstream dto qua json
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		ThemeDTO dto = HttpUtil.of(request.getReader()).toDTO(ThemeDTO.class);
-		themeService.delete(dto.getIds());
+		CategoryDTO dto = HttpUtil.of(request.getReader()).toDTO(CategoryDTO.class);
+		categoryService.delete(dto.getIds());
 		mapper.writeValue(response.getOutputStream(), "{}");
 	}
 }

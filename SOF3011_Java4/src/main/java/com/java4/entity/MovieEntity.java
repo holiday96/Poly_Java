@@ -1,8 +1,9 @@
 package com.java4.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,14 +38,14 @@ public class MovieEntity extends BaseEntity {
 	@Column(name = "runtime")
 	private Integer runtime;
 
-	@Column(name = "release")
-	private Integer release;
+	@Column(name = "releaseYear")
+	private Integer releaseYear;
 
-	@Column(name = "view")
-	private Integer view;
+	@Column(name = "viewCount")
+	private Integer viewCount;
 
-	@Column(name = "like")
-	private Integer like;
+	@Column(name = "likeCount")
+	private Integer likeCount;
 
 	@Column(name = "trailer")
 	private String trailer;
@@ -56,19 +57,17 @@ public class MovieEntity extends BaseEntity {
 	private String poster;
 
 	@OneToMany(mappedBy = "movie")
-	private List<EpisodeEntity> episodes = new ArrayList<>();
+	private Set<EpisodeEntity> episodes = new HashSet<>();
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "movies_themes", joinColumns = @JoinColumn(name = "movieid"), inverseJoinColumns = @JoinColumn(name = "themeid"))
-	private List<ThemeEntity> themes = new ArrayList<>();
+	@ManyToMany(mappedBy = "movies", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	private Set<ThemeEntity> themes = new HashSet<>();
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(name = "categories_movies", joinColumns = @JoinColumn(name = "movieid"), inverseJoinColumns = @JoinColumn(name = "categoryid"))
-	private List<CategoryEntity> categories = new ArrayList<>();
+	private Set<CategoryEntity> categories = new HashSet<>();
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "favorites", joinColumns = @JoinColumn(name = "movieid"), inverseJoinColumns = @JoinColumn(name = "userid"))
-	private List<UserEntity> users = new ArrayList<>();
+	@ManyToMany(mappedBy = "movies", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	private Set<UserEntity> users = new HashSet<>();
 
 	public String getTitle() {
 		return title;
@@ -126,28 +125,28 @@ public class MovieEntity extends BaseEntity {
 		this.runtime = runtime;
 	}
 
-	public Integer getRelease() {
-		return release;
+	public Integer getReleaseYear() {
+		return releaseYear;
 	}
 
-	public void setRelease(Integer release) {
-		this.release = release;
+	public void setReleaseYear(Integer releaseYear) {
+		this.releaseYear = releaseYear;
 	}
 
-	public Integer getView() {
-		return view;
+	public Integer getViewCount() {
+		return viewCount;
 	}
 
-	public void setView(Integer view) {
-		this.view = view;
+	public void setViewCount(Integer viewCount) {
+		this.viewCount = viewCount;
 	}
 
-	public Integer getLike() {
-		return like;
+	public Integer getLikeCount() {
+		return likeCount;
 	}
 
-	public void setLike(Integer like) {
-		this.like = like;
+	public void setLikeCount(Integer likeCount) {
+		this.likeCount = likeCount;
 	}
 
 	public String getTrailer() {
@@ -174,35 +173,35 @@ public class MovieEntity extends BaseEntity {
 		this.poster = poster;
 	}
 
-	public List<EpisodeEntity> getEpisodes() {
+	public Set<EpisodeEntity> getEpisodes() {
 		return episodes;
 	}
 
-	public void setEpisodes(List<EpisodeEntity> episodes) {
+	public void setEpisodes(Set<EpisodeEntity> episodes) {
 		this.episodes = episodes;
 	}
 
-	public List<ThemeEntity> getThemes() {
+	public Set<ThemeEntity> getThemes() {
 		return themes;
 	}
 
-	public void setThemes(List<ThemeEntity> themes) {
+	public void setThemes(Set<ThemeEntity> themes) {
 		this.themes = themes;
 	}
 
-	public List<CategoryEntity> getCategories() {
+	public Set<CategoryEntity> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<CategoryEntity> categories) {
+	public void setCategories(Set<CategoryEntity> categories) {
 		this.categories = categories;
 	}
 
-	public List<UserEntity> getUsers() {
+	public Set<UserEntity> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<UserEntity> users) {
+	public void setUsers(Set<UserEntity> users) {
 		this.users = users;
 	}
 

@@ -9,4 +9,6 @@ public interface IThemeService {
 	List<ThemeDTO> findAll();
 	ThemeDTO findOne(Long id);
 	ThemeDTO save(ThemeDTO dto);
+	ThemeDTO update(ThemeDTO dto);
+	void delete(Long[] ids);
 }

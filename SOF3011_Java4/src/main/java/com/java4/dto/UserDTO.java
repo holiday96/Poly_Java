@@ -1,6 +1,9 @@
 package com.java4.dto;
 
-public class UserDTO extends AbstractDTO<UserDTO>{
+import java.util.HashSet;
+import java.util.Set;
+
+public class UserDTO extends AbstractDTO<UserDTO> {
 
 	private String username;
 	private String password;
@@ -9,6 +12,7 @@ public class UserDTO extends AbstractDTO<UserDTO>{
 	private boolean role;
 	private boolean status;
 	private String verify;
+	private Set<MovieDTO> movies = new HashSet<>();
 
 	public String getUsername() {
 		return username;
@@ -65,4 +69,13 @@ public class UserDTO extends AbstractDTO<UserDTO>{
 	public void setVerify(String verify) {
 		this.verify = verify;
 	}
+
+	public Set<MovieDTO> getMovies() {
+		return movies;
+	}
+
+	public void setMovies(Set<MovieDTO> movies) {
+		this.movies = movies;
+	}
+
 }

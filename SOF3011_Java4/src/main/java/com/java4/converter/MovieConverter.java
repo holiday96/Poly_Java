@@ -15,9 +15,9 @@ public class MovieConverter {
 		result.setProducer(entity.getProducer());
 		result.setCountry(entity.getCountry());
 		result.setRuntime(entity.getRuntime());
-		result.setRelease(entity.getRelease());
-		result.setView(entity.getView());
-		result.setLike(entity.getLike());
+		result.setReleaseYear(entity.getReleaseYear());
+		result.setViewCount(entity.getViewCount());
+		result.setLikeCount(entity.getLikeCount());
 		result.setTrailer(entity.getTrailer());
 		result.setBanner(entity.getBanner());
 		result.setPoster(entity.getPoster());
@@ -34,12 +34,38 @@ public class MovieConverter {
 		result.setProducer(dto.getProducer());
 		result.setCountry(dto.getCountry());
 		result.setRuntime(dto.getRuntime());
-		result.setRelease(dto.getRelease());
-		result.setView(dto.getView());
-		result.setLike(dto.getLike());
+		result.setReleaseYear(dto.getReleaseYear());
+		result.setViewCount(dto.getViewCount());
+		result.setLikeCount(dto.getLikeCount());
 		result.setTrailer(dto.getTrailer());
 		result.setBanner(dto.getBanner());
 		result.setPoster(dto.getPoster());
 		return result;
+	}
+
+	public static MovieEntity toListEntity(MovieEntity entity, MovieDTO dto) {
+		dto.getUsers().forEach(i -> entity.getUsers().add(UserConverter.toEntity(i)));
+		dto.getCategories().forEach(i->entity.getCategories().add(CategoryConverter.toEntity(i)));
+		dto.getThemes().forEach(i->entity.getThemes().add(ThemeConverter.toEntity(i)));
+		return entity;
+	}
+
+	public static MovieDTO toListDTO(MovieDTO dto, MovieEntity entity) {
+		entity.getUsers().forEach(i -> dto.getUsers().add(UserConverter.toDto(i)));
+		entity.getCategories().forEach(i->dto.getCategories().add(CategoryConverter.toDto(i)));
+		entity.getThemes().forEach(i->dto.getThemes().add(ThemeConverter.toDto(i)));
+		return dto;
+	}
+	
+	public static MovieEntity toAllEntity(MovieDTO dto) {
+		MovieEntity entity = MovieConverter.toEntity(dto);
+		entity = MovieConverter.toListEntity(entity, dto);
+		return entity;
+	}
+	
+	public static MovieDTO toAllDTO(MovieEntity entity) {
+		MovieDTO dto = MovieConverter.toDto(entity);
+		dto = MovieConverter.toListDTO(dto, entity);
+		return dto;
 	}
 }

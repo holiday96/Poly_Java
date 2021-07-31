@@ -18,4 +18,26 @@ public class CategoryConverter {
 		result.setName(dto.getName());
 		return result;
 	}
+
+	public static CategoryEntity toListEntity(CategoryEntity entity, CategoryDTO dto) {
+		dto.getMovies().forEach(i -> entity.getMovies().add(MovieConverter.toEntity(i)));
+		return entity;
+	}
+
+	public static CategoryDTO toListDTO(CategoryDTO dto, CategoryEntity entity) {
+		entity.getMovies().forEach(i -> dto.getMovies().add(MovieConverter.toDto(i)));
+		return dto;
+	}
+
+	public static CategoryEntity toAllEntity(CategoryDTO dto) {
+		CategoryEntity entity = CategoryConverter.toEntity(dto);
+		entity = CategoryConverter.toListEntity(entity, dto);
+		return entity;
+	}
+
+	public static CategoryDTO toAllDTO(CategoryEntity entity) {
+		CategoryDTO dto = CategoryConverter.toDto(entity);
+		dto = CategoryConverter.toListDTO(dto, entity);
+		return dto;
+	}
 }

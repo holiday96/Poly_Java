@@ -1,10 +1,12 @@
 package com.java4.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -15,8 +17,8 @@ public class CategoryEntity extends BaseEntity {
 	@Column(name = "name")
 	private String name;
 
-	@ManyToMany(mappedBy = "categories")
-	private List<MovieEntity> movies = new ArrayList<>();
+	@ManyToMany(mappedBy = "categories", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	private Set<MovieEntity> movies = new HashSet<>();
 
 	public String getName() {
 		return name;
@@ -26,11 +28,11 @@ public class CategoryEntity extends BaseEntity {
 		this.name = name;
 	}
 
-	public List<MovieEntity> getMovies() {
+	public Set<MovieEntity> getMovies() {
 		return movies;
 	}
 
-	public void setMovies(List<MovieEntity> movies) {
+	public void setMovies(Set<MovieEntity> movies) {
 		this.movies = movies;
 	}
 

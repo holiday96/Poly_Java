@@ -1,10 +1,14 @@
 package com.java4.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -29,9 +33,10 @@ public class UserEntity extends BaseEntity {
 
 	@Column(name = "status")
 	private boolean status;
-
-	@ManyToMany(mappedBy = "users")
-	private List<MovieEntity> movies = new ArrayList<>();
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinTable(name = "favorites", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "movieid"))
+	private Set<MovieEntity> movies = new HashSet<>();
 
 	public String getUsername() {
 		return username;
@@ -92,11 +97,11 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "verify")
 	private String verify;
 
-	public List<MovieEntity> getMovies() {
+	public Set<MovieEntity> getMovies() {
 		return movies;
 	}
 
-	public void setMovies(List<MovieEntity> movies) {
+	public void setMovies(Set<MovieEntity> movies) {
 		this.movies = movies;
 	}
 }
