@@ -78,4 +78,10 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 		this.movies = movies;
 	}
 
+	@Override
+	public String toString() {
+		return "UserDTO [username=" + username + ", password=" + password + ", fullname=" + fullname + ", email="
+				+ email + ", role=" + role + ", status=" + status + ", verify=" + verify + ", movies=" + movies + "]";
+	}
+
 }

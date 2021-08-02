@@ -3,13 +3,13 @@
 <%@ include file="/commons/taglib.jsp" %>
 
 <head>
-    <title>Admin Page</title>
+    <title>Dashboard</title>
 </head>
 <body>
 <div class="home-content">
-    <i class='bx bx-menu'></i> <span class="text">Admin Home</span>
+    <i class='bx bx-menu'></i> <span class="text">Dashboard</span>
 </div>
-<div class="container">
+<div class="container bg-light p-2">
     <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
         <thead>
         <tr>

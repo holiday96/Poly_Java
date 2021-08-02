@@ -1,6 +1,7 @@
 package com.java4.api;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.java4.dto.CategoryDTO;
 import com.java4.dto.MovieDTO;
+import com.java4.service.ICategoryService;
 import com.java4.service.IMovieService;
 import com.java4.utils.HttpUtil;
 
@@ -19,6 +22,8 @@ public class MovieAPI extends HttpServlet {
 
 	@Inject
 	private IMovieService movieService;
+	@Inject
+	private ICategoryService categoryService;
 
 	private static final long serialVersionUID = -4163323890724430012L;
 
@@ -29,6 +34,14 @@ public class MovieAPI extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		MovieDTO dto = HttpUtil.of(request.getReader()).toDTO(MovieDTO.class);
+
+		//add categories to movie by Manual
+		Long[] idsCategory = new Long[dto.getIdsCategory().length];
+		for (int i = 0; i < dto.getIdsCategory().length; i++) {
+			idsCategory[i] = Long.parseLong(dto.getIdsCategory()[i]);
+		}
+		Set<CategoryDTO> categories = categoryService.findByIds(idsCategory);
+		dto.setCategories(categories);
 		dto = movieService.save(dto);
 		mapper.writeValue(response.getOutputStream(), dto);
 	}
@@ -40,6 +53,14 @@ public class MovieAPI extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		MovieDTO dto = HttpUtil.of(request.getReader()).toDTO(MovieDTO.class);
+		
+		Long[] idsCategory = new Long[dto.getIdsCategory().length];
+		for (int i = 0; i < dto.getIdsCategory().length; i++) {
+			idsCategory[i] = Long.parseLong(dto.getIdsCategory()[i]);
+		}
+		Set<CategoryDTO> categories = categoryService.findByIds(idsCategory);
+		// test add more categories to movie
+		dto.setCategories(categories);
 		dto = movieService.update(dto);
 		mapper.writeValue(response.getOutputStream(), dto);
 	}

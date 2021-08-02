@@ -30,4 +30,9 @@ public class EpisodeDTO extends AbstractDTO<EpisodeDTO> {
 		this.link = link;
 	}
 
+	@Override
+	public String toString() {
+		return "EpisodeDTO [number=" + number + ", movieid=" + movieid + ", link=" + link + "]";
+	}
+
 }

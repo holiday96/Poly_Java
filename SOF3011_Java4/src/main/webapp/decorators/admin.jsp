@@ -7,11 +7,11 @@
 
 <head>
     <meta charset="UTF-8">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="<c:url value='/templates/admin/css/stylee.css' /> ">
 
-    <!-- Boxiocns CDN Link -->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<c:url value='/templates/admin/css/style.css' /> ">
+
+    <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- Favicon -->
@@ -31,6 +31,9 @@
     <!-- DataTables -->
     <link rel="stylesheet" type="text/css" href="<c:url value='/templates/admin/datatables/datatables.min.css' />"/>
     <script type="text/javascript" src="<c:url value='/templates/admin/datatables/datatables.min.js' />"></script>
+    
+    <!-- CKEditor -->
+    <script src="<c:url value='/templates/admin/ckeditor/ckeditor.js' />"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><dec:title default="Admin Page"/></title>
@@ -47,5 +50,6 @@
 <!-- Custom JS -->
 <script type="text/javascript" src="<c:url value='/templates/admin/js/script.js' />"></script>
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

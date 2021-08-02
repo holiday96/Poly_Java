@@ -1,7 +1,9 @@
 package com.java4.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -21,7 +23,7 @@ public class CategoryService implements ICategoryService {
 		List<CategoryDTO> dtos = new ArrayList<CategoryDTO>();
 		List<CategoryEntity> entities = categoryRepository.findAll();
 		for (CategoryEntity item : entities) {
-			CategoryDTO CategoryDTO = CategoryConverter.toDto(item);
+			CategoryDTO CategoryDTO = CategoryConverter.toAllDTO(item);
 			dtos.add(CategoryDTO);
 		}
 		return dtos;
@@ -29,19 +31,19 @@ public class CategoryService implements ICategoryService {
 
 	@Override
 	public CategoryDTO findOne(Long id) {
-		return CategoryConverter.toDto(categoryRepository.findOne(id));
+		return CategoryConverter.toAllDTO(categoryRepository.findOne(id));
 	}
 
 	@Override
 	public CategoryDTO save(CategoryDTO dto) {
-		Long id = categoryRepository.save(CategoryConverter.toEntity(dto));
-		return CategoryConverter.toDto(categoryRepository.findOne(id));
+		Long id = categoryRepository.save(CategoryConverter.toAllEntity(dto));
+		return CategoryConverter.toAllDTO(categoryRepository.findOne(id));
 	}
 
 	@Override
 	public CategoryDTO update(CategoryDTO dto) {
-		categoryRepository.update(CategoryConverter.toEntity(dto));
-		return CategoryConverter.toDto(categoryRepository.findOne(dto.getId()));
+		categoryRepository.update(CategoryConverter.toAllEntity(dto));
+		return CategoryConverter.toAllDTO(categoryRepository.findOne(dto.getId()));
 	}
 
 	@Override
@@ -49,6 +51,15 @@ public class CategoryService implements ICategoryService {
 		for (Long id : ids) {
 			categoryRepository.delete(id);
 		}
+	}
+
+	@Override
+	public Set<CategoryDTO> findByIds(Long[] ids) {
+		Set<CategoryDTO> dtos = new HashSet<CategoryDTO>();
+		for (Long id : ids) {
+			dtos.add(CategoryConverter.toAllDTO(categoryRepository.findOne(id)));
+		}
+		return dtos;
 	}
 
 }

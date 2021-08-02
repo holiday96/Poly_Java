@@ -1,5 +1,6 @@
 package com.java4.dto;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +22,7 @@ public class MovieDTO extends AbstractDTO<MovieDTO> {
 	private Set<CategoryDTO> categories = new HashSet<CategoryDTO>();
 	private Set<UserDTO> users = new HashSet<UserDTO>();
 	private Set<ThemeDTO> themes = new HashSet<ThemeDTO>();
+	private String[] idsCategory;
 
 	public String getTitle() {
 		return title;
@@ -148,6 +150,23 @@ public class MovieDTO extends AbstractDTO<MovieDTO> {
 
 	public void setThemes(Set<ThemeDTO> themes) {
 		this.themes = themes;
+	}
+
+	public String[] getIdsCategory() {
+		return idsCategory;
+	}
+
+	public void setIdsCategory(String[] idsCategory) {
+		this.idsCategory = idsCategory;
+	}
+
+	@Override
+	public String toString() {
+		return "MovieDTO [title=" + title + ", description=" + description + ", director=" + director + ", actors="
+				+ actors + ", producer=" + producer + ", country=" + country + ", runtime=" + runtime + ", releaseYear="
+				+ releaseYear + ", viewCount=" + viewCount + ", likeCount=" + likeCount + ", trailer=" + trailer
+				+ ", banner=" + banner + ", poster=" + poster + ", categories=" + categories + ", users=" + users
+				+ ", themes=" + themes + ", idsCategory=" + Arrays.toString(idsCategory) + "]";
 	}
 
 }

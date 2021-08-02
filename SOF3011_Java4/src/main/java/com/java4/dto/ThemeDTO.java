@@ -24,4 +24,9 @@ public class ThemeDTO extends AbstractDTO<ThemeDTO> {
 		this.movies = movies;
 	}
 
+	@Override
+	public String toString() {
+		return "ThemeDTO [name=" + name + ", movies=" + movies + "]";
+	}
+
 }

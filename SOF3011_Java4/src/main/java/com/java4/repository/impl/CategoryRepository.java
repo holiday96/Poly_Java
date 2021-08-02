@@ -111,4 +111,22 @@ public class CategoryRepository implements ICategoryRepository {
 		}
 	}
 
+	@Override
+	public List<CategoryEntity> findByIds(String ids) {
+		EntityManager em = emf.createEntityManager();
+		String query = "SELECT t FROM CategoryEntity t WHERE t.id IN (:ids)";
+
+		TypedQuery<CategoryEntity> tq = em.createQuery(query, CategoryEntity.class);
+		tq.setParameter("ids", ids);
+		List<CategoryEntity> list = new ArrayList<CategoryEntity>();
+		try {
+			list = tq.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return list;
+	}
+
 }

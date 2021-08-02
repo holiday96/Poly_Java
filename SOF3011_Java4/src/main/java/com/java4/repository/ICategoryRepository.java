@@ -11,4 +11,5 @@ public interface ICategoryRepository {
 	Long save(CategoryEntity entity);
 	void update(CategoryEntity entity);
 	void delete(Long id);
+	List<CategoryEntity> findByIds(String ids);
 }
