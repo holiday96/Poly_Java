@@ -11,4 +11,7 @@ public interface IUserService {
 	UserDTO save(UserDTO dto);
 	UserDTO update(UserDTO dto);
 	void delete(Long[] ids);
+	boolean findByEmail(String email);
+	boolean findByUsername(String username);
+	Long[] getIdsMovieByUserID(Long id);
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.java4.converter.UserConverter;
+import com.java4.dto.MovieDTO;
 import com.java4.dto.UserDTO;
 import com.java4.entity.UserEntity;
 import com.java4.repository.IUserRepository;
@@ -49,6 +50,27 @@ public class UserService implements IUserService {
 		for (Long id : ids) {
 			userRepository.delete(id);
 		}
+	}
+
+	@Override
+	public boolean findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
+	@Override
+	public boolean findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	public Long[] getIdsMovieByUserID(Long id) {
+		List<MovieDTO> list = new ArrayList<>();
+		findOne(id).getMovies().forEach(i -> list.add(i));
+		Long[] idsMovie = new Long[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			idsMovie[i] = list.get(i).getId();
+		}
+		return idsMovie;
 	}
 
 }

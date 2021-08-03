@@ -35,13 +35,15 @@ public class MovieAPI extends HttpServlet {
 		response.setContentType("application/json");
 		MovieDTO dto = HttpUtil.of(request.getReader()).toDTO(MovieDTO.class);
 
-		//add categories to movie by Manual
-		Long[] idsCategory = new Long[dto.getIdsCategory().length];
-		for (int i = 0; i < dto.getIdsCategory().length; i++) {
-			idsCategory[i] = Long.parseLong(dto.getIdsCategory()[i]);
+		// add categories to movie by Manual
+		if (dto.getIdsCategory() != null) {
+			Long[] idsCategory = new Long[dto.getIdsCategory().length];
+			for (int i = 0; i < dto.getIdsCategory().length; i++) {
+				idsCategory[i] = Long.parseLong(dto.getIdsCategory()[i]);
+			}
+			Set<CategoryDTO> categories = categoryService.findByIds(idsCategory);
+			dto.setCategories(categories);
 		}
-		Set<CategoryDTO> categories = categoryService.findByIds(idsCategory);
-		dto.setCategories(categories);
 		dto = movieService.save(dto);
 		mapper.writeValue(response.getOutputStream(), dto);
 	}
@@ -53,14 +55,15 @@ public class MovieAPI extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		MovieDTO dto = HttpUtil.of(request.getReader()).toDTO(MovieDTO.class);
-		
-		Long[] idsCategory = new Long[dto.getIdsCategory().length];
-		for (int i = 0; i < dto.getIdsCategory().length; i++) {
-			idsCategory[i] = Long.parseLong(dto.getIdsCategory()[i]);
+
+		if (dto.getIdsCategory() != null) {
+			Long[] idsCategory = new Long[dto.getIdsCategory().length];
+			for (int i = 0; i < dto.getIdsCategory().length; i++) {
+				idsCategory[i] = Long.parseLong(dto.getIdsCategory()[i]);
+			}
+			Set<CategoryDTO> categories = categoryService.findByIds(idsCategory);
+			dto.setCategories(categories);
 		}
-		Set<CategoryDTO> categories = categoryService.findByIds(idsCategory);
-		// test add more categories to movie
-		dto.setCategories(categories);
 		dto = movieService.update(dto);
 		mapper.writeValue(response.getOutputStream(), dto);
 	}

@@ -1,5 +1,6 @@
 package com.java4.dto;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 	private boolean status;
 	private String verify;
 	private Set<MovieDTO> movies = new HashSet<>();
+	private String[] idsMovie;
 
 	public String getUsername() {
 		return username;
@@ -78,10 +80,19 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 		this.movies = movies;
 	}
 
+	public String[] getIdsMovie() {
+		return idsMovie;
+	}
+
+	public void setIdsMovie(String[] idsMovie) {
+		this.idsMovie = idsMovie;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDTO [username=" + username + ", password=" + password + ", fullname=" + fullname + ", email="
-				+ email + ", role=" + role + ", status=" + status + ", verify=" + verify + ", movies=" + movies + "]";
+				+ email + ", role=" + role + ", status=" + status + ", verify=" + verify + ", movies=" + movies
+				+ ", idsMovie=" + Arrays.toString(idsMovie) + "]";
 	}
 
 }

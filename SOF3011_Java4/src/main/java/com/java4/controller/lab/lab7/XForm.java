@@ -127,6 +127,7 @@ public class XForm {
 		dtc.setPattern("MM/dd/yyyy");
 		ConvertUtils.register(dtc, Date.class);
 		try {
+			@SuppressWarnings("deprecation")
 			T bean = clazz.newInstance();
 			BeanUtils.populate(bean, request().getParameterMap());
 			return bean;

@@ -8,7 +8,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 public class FormUtil {
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "deprecation" })
 	public static <T> T toModel(Class<T> clazz, HttpServletRequest request) {
 		T object = null;
 		try {

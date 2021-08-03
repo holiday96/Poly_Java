@@ -11,39 +11,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.java4.dto.CategoryDTO;
-import com.java4.dto.MovieDTO;
-import com.java4.service.ICategoryService;
-import com.java4.service.IMovieService;
+import com.java4.dto.UserDTO;
+import com.java4.service.IUserService;
 
-@WebServlet(urlPatterns = { "/admin/movie", "/admin/movie/edit" })
-public class MovieController extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin/user", "/admin/user/edit" })
+public class UserController extends HttpServlet {
 
 	private static final long serialVersionUID = 1672833033433878897L;
 
 	@Inject
-	private IMovieService movieService;
-	@Inject
-	private ICategoryService categoryService;
+	private IUserService userService;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<MovieDTO> movies = movieService.findAll();
+		List<UserDTO> users = userService.findAll();
 		String uri = request.getRequestURI();
 		String id = request.getParameter("id");
 		String view = "";
 		if (uri.contains("edit")) {
-			List<CategoryDTO> categories = categoryService.findAll();
 			if (id != null) {
-				MovieDTO movie = movieService.findOne(Long.valueOf(id));
-				request.setAttribute("movie", movie);
+				UserDTO user = userService.findOne(Long.valueOf(id));
+				request.setAttribute("user", user);
 			}
-			request.setAttribute("categories", categories);
-			view = "/views/admin/movie/edit.jsp";
+			view = "/views/admin/user/edit.jsp";
 		} else {
-			request.setAttribute("movies", movies);
-			view = "/views/admin/movie/list.jsp";
+			request.setAttribute("users", users);
+			view = "/views/admin/user/list.jsp";
 		}
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);

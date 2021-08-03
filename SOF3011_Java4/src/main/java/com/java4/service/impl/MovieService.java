@@ -1,7 +1,9 @@
 package com.java4.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -49,6 +51,15 @@ public class MovieService implements IMovieService {
 		for (Long id : ids) {
 			movieRepository.delete(id);
 		}
+	}
+
+	@Override
+	public Set<MovieDTO> findByIds(Long[] ids) {
+		Set<MovieDTO> dtos = new HashSet<MovieDTO>();
+		for (Long id : ids) {
+			dtos.add(MovieConverter.toAllDTO(movieRepository.findOne(id)));
+		}
+		return dtos;
 	}
 
 }

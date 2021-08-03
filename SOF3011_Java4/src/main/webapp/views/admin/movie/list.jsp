@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@ include file="/commons/taglib.jsp" %>
 <c:url var="apiURL" value="/api/movie"/>
-<c:url var="listMovieURL" value="/admin/movie"/>
+<c:url var="listURL" value="/admin/movie"/>
 
 <head>
     <title>Movies Management</title>
@@ -47,9 +47,12 @@
                     <c:url var="updateMovieURL" value="/admin/movie/edit">
                         <c:param name="id" value="${i.id}"/>
                     </c:url>
-                    <a href="${updateMovieURL}" style="color: #a900d4;"><i class='bx bxs-edit bx-md bx-tada-hover'></i></a>
-                    <span onclick="btnDelete(${i.id})" style="color: red; cursor: pointer;"><i
-                            class='bx bxs-trash bx-md bx-tada-hover'></i></span>
+                    <a href="${updateMovieURL}" style="color: #a900d4;">
+                    	<i class='bx bxs-edit bx-md bx-tada-hover'></i>
+                    </a>
+                    <span onclick="btnDelete(${i.id})" style="color: red; cursor: pointer;">
+                    	<i class='bx bxs-trash bx-md bx-tada-hover'></i>
+                    </span>
                 </td>
                 <td>
                     <img src="${i.poster}" height="100" alt="">
@@ -61,14 +64,16 @@
                 <td>${i.country}</td>
                 <td>
                     <c:forEach items="${i.categories}" var="cate">
-                        ${cate.name},
+                        ${cate.name}<br>
                     </c:forEach>
                 </td>
-                <td>${i.runtime}</td>
+                <td>
+                	<c:if test="${not empty i.runtime}">${i.runtime} min</c:if>
+                </td>
                 <td>${i.releaseYear}</td>
                 <td>${i.viewCount}</td>
                 <td>${i.likeCount}</td>
-                <td>${i.trailer}</td>
+                <td><a href="${i.trailer}">${i.trailer}</a></td>
                 <td>${i.id}</td>
                 <td>${i.description}</td>
                 <td>
@@ -115,18 +120,18 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 var ids = {"ids": [id]};
-                deleteNew(ids);
+                deleteMovie(ids);
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 swalWithBootstrapButtons.fire(
                     'Cancelled',
-                    'Your imaginary file is safe :)',
+                    'Your data is safe 😘',
                     'error'
                 )
             }
         })
     }
 
-    function deleteNew(data) {
+    function deleteMovie(data) {
         $.ajax({
             url: '${apiURL}',
             type: 'DELETE',
@@ -138,7 +143,7 @@
                     'The movie has been deleted',
                     'success'
                 ).then(() => {
-                    window.location.href = "${listMovieURL}";
+                    window.location.href = "${listURL}";
                 })
             },
             error: function (error) {
@@ -146,8 +151,6 @@
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Something went wrong!',
-                }).then(() => {
-                    window.location.href = "${listMovieURL}";
                 })
             }
         });

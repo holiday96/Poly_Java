@@ -24,7 +24,7 @@
             </ul>
         </li>
         <li>
-            <a href="#">
+            <a href="/admin/category">
                 <i class='bx bxs-category'></i>
                 <span class="link_name">Categories</span>
             </a>
@@ -51,7 +51,7 @@
             </ul>
         </li>
         <li>
-            <a href="#">
+            <a href="/admin/user">
                 <i class='bx bxs-user-account'></i>
                 <span class="link_name">Users</span>
             </a>

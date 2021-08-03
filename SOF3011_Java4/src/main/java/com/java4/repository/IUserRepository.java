@@ -11,4 +11,6 @@ public interface IUserRepository {
 	Long save(UserEntity entity);
 	void update(UserEntity entity);
 	void delete(Long id);
+	boolean findByEmail(String email);
+	boolean findByUsername(String username);
 }

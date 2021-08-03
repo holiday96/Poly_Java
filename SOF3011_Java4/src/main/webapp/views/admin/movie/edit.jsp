@@ -4,6 +4,7 @@
 <c:url var="apiURL" value="/api/movie"/>
 <c:url var="apiAddCategoryURL" value="/api/category"/>
 <c:url var="editMovieURL" value="/admin/movie/edit"/>
+<c:url var="listURL" value="/admin/movie"/>
 
 <head>
     <title>Movies Management</title>
@@ -168,14 +169,12 @@
                           style="height: 100%;">${movie.description}</textarea>
             </div>
         </div>
-        <input type="hidden" id="idsCategory" name="idsCategory" value="${movie.idsCategory}">
         <input type="hidden" id="id" name="id" value="${movie.id}">
     </form>
 </div>
 <script>
     var editor = '';
     var categories = [];
-    var idd = $('#idsCategory').val();
     $(document).ready(function () {
         editor = CKEDITOR.replace('description', {
             height: $('#formSubmit').height() * 0.8
@@ -205,6 +204,7 @@
         }
     });
 
+    //Button Delete
     $('#btnDelete').click(function (e) {
         e.preventDefault();
         var item = $("#showCategory option:selected").val();
@@ -227,7 +227,6 @@
         data["idsCategory"] = categories;
 
         var id = $('#id').val();
-        console.log(data);
         if (id == "") {
             add(data);
         } else {
@@ -252,7 +251,7 @@
                     timer: 2000,
                     timerProgressBar: true,
                 }).then(() => {
-                    window.location.href = "${editMovieURL}";
+                    window.location.href = "${listURL}";
                 })
             },
             error: function (error) {
@@ -317,7 +316,7 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-            	$('#itemCategory').append(new Option(result.name, result.id));
+                $('#itemCategory').append(new Option(result.name, result.id));
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',

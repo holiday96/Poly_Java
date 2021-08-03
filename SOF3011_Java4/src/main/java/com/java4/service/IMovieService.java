@@ -1,6 +1,7 @@
 package com.java4.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.java4.dto.MovieDTO;
 
@@ -11,4 +12,5 @@ public interface IMovieService {
 	MovieDTO save(MovieDTO dto);
 	MovieDTO update(MovieDTO dto);
 	void delete(Long[] ids);
+	Set<MovieDTO> findByIds(Long[] ids);
 }

@@ -33,7 +33,7 @@ public class UserEntity extends BaseEntity {
 
 	@Column(name = "status")
 	private boolean status;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(name = "favorites", joinColumns = @JoinColumn(name = "userid"), inverseJoinColumns = @JoinColumn(name = "movieid"))
 	private Set<MovieEntity> movies = new HashSet<>();
@@ -104,4 +104,11 @@ public class UserEntity extends BaseEntity {
 	public void setMovies(Set<MovieEntity> movies) {
 		this.movies = movies;
 	}
+
+	@Override
+	public String toString() {
+		return "UserEntity [username=" + username + ", password=" + password + ", fullname=" + fullname + ", email="
+				+ email + ", role=" + role + ", status=" + status + ", movies=" + movies + ", verify=" + verify + "]";
+	}
+
 }

@@ -111,4 +111,44 @@ public class UserRepository implements IUserRepository {
 		}
 	}
 
+	@Override
+	public boolean findByEmail(String email) {
+		EntityManager em = emf.createEntityManager();
+		String query = "SELECT u FROM UserEntity u WHERE u.email IN (:email)";
+
+		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
+		tq.setParameter("email", email);
+		try {
+			UserEntity user = tq.getSingleResult();
+			if (user != null) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean findByUsername(String username) {
+		EntityManager em = emf.createEntityManager();
+		String query = "SELECT u FROM UserEntity u WHERE u.username IN (:username)";
+
+		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
+		tq.setParameter("username", username);
+		try {
+			UserEntity user = tq.getSingleResult();
+			if (user != null) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return false;
+	}
+
 }
