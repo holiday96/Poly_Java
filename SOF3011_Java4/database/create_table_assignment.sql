@@ -59,8 +59,8 @@ CREATE TABLE favorites (
 	userid BIGINT NOT NULL,
 	movieid BIGINT NOT NULL,
 	PRIMARY KEY(userid,movieid),
-	FOREIGN KEY (userid) REFERENCES users(id),
-	FOREIGN KEY (movieid) REFERENCES movies(id)
+	FOREIGN KEY (userid) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (movieid) REFERENCES movies(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE themes (
