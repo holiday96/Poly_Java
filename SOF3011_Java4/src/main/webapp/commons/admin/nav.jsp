@@ -33,7 +33,7 @@
             </ul>
         </li>
         <li>
-            <a href="#">
+            <a href="/admin/episode">
                 <i class='bx bx-list-plus'></i>
                 <span class="link_name">Episodes</span>
             </a>

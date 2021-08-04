@@ -11,12 +11,15 @@ import com.java4.converter.MovieConverter;
 import com.java4.dto.MovieDTO;
 import com.java4.entity.MovieEntity;
 import com.java4.repository.IMovieRepository;
+import com.java4.service.IEpisodeService;
 import com.java4.service.IMovieService;
 
 public class MovieService implements IMovieService {
 
 	@Inject
 	private IMovieRepository movieRepository;
+	@Inject
+	private IEpisodeService episodeService;
 
 	@Override
 	public List<MovieDTO> findAll() {
@@ -26,6 +29,7 @@ public class MovieService implements IMovieService {
 			MovieDTO MovieDTO = MovieConverter.toAllDTO(item);
 			dtos.add(MovieDTO);
 		}
+		dtos.forEach(i -> i.setEpisodes(episodeService.findByMovieID(i.getId())));
 		return dtos;
 	}
 

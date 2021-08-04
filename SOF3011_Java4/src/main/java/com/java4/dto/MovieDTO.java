@@ -1,7 +1,9 @@
 package com.java4.dto;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class MovieDTO extends AbstractDTO<MovieDTO> {
@@ -23,6 +25,7 @@ public class MovieDTO extends AbstractDTO<MovieDTO> {
 	private Set<UserDTO> users = new HashSet<UserDTO>();
 	private Set<ThemeDTO> themes = new HashSet<ThemeDTO>();
 	private String[] idsCategory;
+	private List<EpisodeDTO> episodes = new ArrayList<>();
 
 	public String getTitle() {
 		return title;
@@ -158,6 +161,14 @@ public class MovieDTO extends AbstractDTO<MovieDTO> {
 
 	public void setIdsCategory(String[] idsCategory) {
 		this.idsCategory = idsCategory;
+	}
+
+	public List<EpisodeDTO> getEpisodes() {
+		return episodes;
+	}
+
+	public void setEpisodes(List<EpisodeDTO> episodes) {
+		this.episodes = episodes;
 	}
 
 	@Override

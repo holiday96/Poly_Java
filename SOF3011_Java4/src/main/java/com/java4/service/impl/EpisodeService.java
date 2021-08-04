@@ -9,12 +9,14 @@ import com.java4.converter.EpisodeConverter;
 import com.java4.dto.EpisodeDTO;
 import com.java4.entity.EpisodeEntity;
 import com.java4.repository.IEpisodeRepository;
+import com.java4.repository.IMovieRepository;
 import com.java4.service.IEpisodeService;
 
 public class EpisodeService implements IEpisodeService {
 
 	@Inject
 	private IEpisodeRepository episodeRepository;
+	@Inject IMovieRepository movieRepository;
 
 	@Override
 	public List<EpisodeDTO> findAll() {
@@ -49,6 +51,17 @@ public class EpisodeService implements IEpisodeService {
 		for (Long id : ids) {
 			episodeRepository.delete(id);
 		}
+	}
+
+	@Override
+	public List<EpisodeDTO> findByMovieID(Long movieId) {
+		List<EpisodeDTO> dtos = new ArrayList<EpisodeDTO>();
+		List<EpisodeEntity> entities = episodeRepository.findByMovieID(movieRepository.findOne(movieId));
+		for (EpisodeEntity item : entities) {
+			EpisodeDTO EpisodeDTO = EpisodeConverter.toDto(item);
+			dtos.add(EpisodeDTO);
+		}
+		return dtos;
 	}
 
 }

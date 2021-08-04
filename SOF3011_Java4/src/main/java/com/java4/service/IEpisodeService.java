@@ -11,4 +11,5 @@ public interface IEpisodeService {
 	EpisodeDTO save(EpisodeDTO dto);
 	EpisodeDTO update(EpisodeDTO dto);
 	void delete(Long[] ids);
+	List<EpisodeDTO> findByMovieID(Long movieId);
 }

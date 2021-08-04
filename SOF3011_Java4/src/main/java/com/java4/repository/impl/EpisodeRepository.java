@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import com.java4.entity.EpisodeEntity;
+import com.java4.entity.MovieEntity;
 import com.java4.repository.IEpisodeRepository;
 
 public class EpisodeRepository implements IEpisodeRepository {
@@ -19,7 +20,7 @@ public class EpisodeRepository implements IEpisodeRepository {
 	@Override
 	public List<EpisodeEntity> findAll() {
 		EntityManager em = emf.createEntityManager();
-		String query = "SELECT t FROM EpisodeEntity t";
+		String query = "SELECT e FROM EpisodeEntity e";
 
 		TypedQuery<EpisodeEntity> tq = em.createQuery(query, EpisodeEntity.class);
 		List<EpisodeEntity> list = new ArrayList<EpisodeEntity>();
@@ -109,5 +110,23 @@ public class EpisodeRepository implements IEpisodeRepository {
 		} finally {
 			em.close();
 		}
+	}
+
+	@Override
+	public List<EpisodeEntity> findByMovieID(MovieEntity entity) {
+		EntityManager em = emf.createEntityManager();
+		String query = "SELECT e FROM EpisodeEntity e WHERE e.movie=:entity";
+
+		TypedQuery<EpisodeEntity> tq = em.createQuery(query, EpisodeEntity.class);
+		tq.setParameter("entity", entity);
+		List<EpisodeEntity> list = new ArrayList<EpisodeEntity>();
+		try {
+			list = tq.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return list;
 	}
 }

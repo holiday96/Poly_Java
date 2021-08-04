@@ -137,7 +137,6 @@
                     }
 
                     var id = $('#id').val();
-                    console.log(data);
                     if (id == "") {
                         add(data);
                     } else {
