@@ -1,6 +1,7 @@
 package com.java4.api;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.java4.dto.MovieDTO;
 import com.java4.dto.ThemeDTO;
 import com.java4.service.IMovieService;
 import com.java4.service.IThemeService;
@@ -32,8 +34,6 @@ public class ThemeAPI extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		ThemeDTO dto = HttpUtil.of(request.getReader()).toDTO(ThemeDTO.class);
-		//test create theme with a movie
-		dto.getMovies().add(movieService.findOne(1l));
 		dto = themeService.save(dto);
 		mapper.writeValue(response.getOutputStream(), dto);
 	}
@@ -45,6 +45,17 @@ public class ThemeAPI extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
 		ThemeDTO dto = HttpUtil.of(request.getReader()).toDTO(ThemeDTO.class);
+		
+		if (dto.getIdsMovie() != null) {
+			Long[] idsMovie = new Long[dto.getIdsMovie().length];
+			for (int i = 0; i < dto.getIdsMovie().length; i++) {
+				idsMovie[i] = Long.parseLong(dto.getIdsMovie()[i]);
+			}
+			List<MovieDTO> movies = movieService.findListByIds(idsMovie);
+			dto = themeService.findOne(dto.getId());
+			dto.setMovies(movies);
+			System.out.println(dto.toString());
+		}
 		dto = themeService.update(dto);
 		mapper.writeValue(response.getOutputStream(), dto);
 	}

@@ -42,7 +42,7 @@
             </ul>
         </li>
         <li>
-            <a href="#">
+            <a href="/admin/theme">
                 <i class='bx bx-collection'></i>
                 <span class="link_name">Themes</span>
             </a>

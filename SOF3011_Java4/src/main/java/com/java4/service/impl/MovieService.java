@@ -66,4 +66,13 @@ public class MovieService implements IMovieService {
 		return dtos;
 	}
 
+	@Override
+	public List<MovieDTO> findListByIds(Long[] ids) {
+		List<MovieDTO> dtos = new ArrayList<MovieDTO>();
+		for (Long id : ids) {
+			dtos.add(MovieConverter.toAllDTO(movieRepository.findOne(id)));
+		}
+		return dtos;
+	}
+
 }

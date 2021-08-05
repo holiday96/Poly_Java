@@ -65,7 +65,7 @@
                                         <label for="newCategory">New Category</label>
                                     </div>
                                     <div id="btnAddNewCategory" class="form-control" style="cursor: pointer;">
-                                        <i class='bx bx-add-to-queue bx-md bx-burst-hover'
+                                        <i class='bx bx-customize bx-md bx-burst-hover'
                                            style="color: #298c00;"></i>
                                     </div>
                                 </div>

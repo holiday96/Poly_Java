@@ -13,4 +13,5 @@ public interface IMovieService {
 	MovieDTO update(MovieDTO dto);
 	void delete(Long[] ids);
 	Set<MovieDTO> findByIds(Long[] ids);
+	List<MovieDTO> findListByIds(Long[] ids);
 }
