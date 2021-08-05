@@ -13,7 +13,7 @@ public class CookieUtils {
 		response.addCookie(cookie);
 		return cookie;
 	}
-
+	
 	public static String get(String name, HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {

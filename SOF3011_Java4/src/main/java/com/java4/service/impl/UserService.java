@@ -73,4 +73,9 @@ public class UserService implements IUserService {
 		return idsMovie;
 	}
 
+	@Override
+	public UserDTO findByUserLogin(String username, String password) {
+		return UserConverter.toAllDTO(userRepository.findByUserLogin(username, password));
+	}
+
 }

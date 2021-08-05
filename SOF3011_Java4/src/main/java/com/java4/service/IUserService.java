@@ -13,5 +13,6 @@ public interface IUserService {
 	void delete(Long[] ids);
 	boolean findByEmail(String email);
 	boolean findByUsername(String username);
+	UserDTO findByUserLogin(String username, String password);
 	Long[] getIdsMovieByUserID(Long id);
 }

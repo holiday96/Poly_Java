@@ -2,17 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/commons/taglib.jsp"%>
 
+<div class="bg-image-register"></div>
+<div class="bg-image-hover"></div>
 <div class="wrapper">
 	<div class="title">Welcome to WaMo</div>
 	<form action="#">
 		<div class="field">
-			<input type="text" required> <label>Full Name</label>
-		</div>
-		<div class="field">
 			<input type="text" required> <label>Username</label>
-		</div>
-		<div class="field">
-			<input type="email" required> <label>Email Address</label>
 		</div>
 		<div class="field">
 			<input type="password" required> <label>Password</label>
@@ -20,6 +16,12 @@
 		<div class="field">
 			<input type="password" required> <label>Repeat
 				Password</label>
+		</div>
+		<div class="field">
+			<input type="text" required> <label>Full Name</label>
+		</div>
+		<div class="field">
+			<input type="email" required> <label>Email Address</label>
 		</div>
 		<div class="field">
 			<input type="submit" value="Register">

@@ -9,9 +9,15 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.java4.dto.UserDTO;
+import com.java4.utils.SessionUtil;
 
 public class AuthorizationFilter implements Filter {
 
+	@SuppressWarnings("unused")
 	private ServletContext context;
 
 	@Override
@@ -22,24 +28,29 @@ public class AuthorizationFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletRespone, FilterChain filterChain)
 			throws IOException, ServletException {
-//		HttpServletRequest request = (HttpServletRequest) servletRequest;
-//		HttpServletResponse respone = (HttpServletResponse) servletRespone;
-//		String url = request.getRequestURI();
-//		if (url.startsWith("/admin")) {
-//			UserModel model = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-//			if (model != null) {
-//				if (model.getRole().getCode().equals(SystemConstant.ADMIN)) {
-//					filterChain.doFilter(servletRequest, servletRespone);
-//				} else if (model.getRole().getCode().equals(SystemConstant.USER)) {
-//					respone.sendRedirect(
-//							request.getContextPath() + "/login?action=login&message=not_permission&alert=warning");
-//				}
-//			} else {
-//				respone.sendRedirect(request.getContextPath() + "/login?action=login&message=not_login&alert=warning");
+		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		HttpServletResponse response = (HttpServletResponse) servletRespone;
+		String url = request.getRequestURI();
+		if (url.startsWith("/admin")) {
+			UserDTO user = (UserDTO) SessionUtil.getInstance().getValue(request, "USER");
+			if (user != null) {
+				if (user.isRole()) {
+					filterChain.doFilter(servletRequest, servletRespone);
+				} else {
+					response.sendRedirect(
+							request.getContextPath() + "/login?message=" + "Not permission" + "&alert=warning");
+				}
+			} else {
+				response.sendRedirect(request.getContextPath() + "/login?&message=" + "Not login" + "&alert=warning");
+			}
+//		} else if (url.startsWith("/login") || url.startsWith("/register")) {
+//			UserDTO user = (UserDTO) SessionUtil.getInstance().getValue(request, "USER");
+//			if (user != null) {
+//				response.sendRedirect(request.getContextPath() + "/home");
 //			}
-//		} else {
+		} else {
 			filterChain.doFilter(servletRequest, servletRespone);
-//		}
+		}
 	}
 
 	@Override

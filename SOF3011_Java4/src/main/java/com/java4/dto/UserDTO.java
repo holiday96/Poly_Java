@@ -15,6 +15,7 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 	private String verify;
 	private Set<MovieDTO> movies = new HashSet<>();
 	private String[] idsMovie;
+	private String remember;
 
 	public String getUsername() {
 		return username;
@@ -86,6 +87,14 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 
 	public void setIdsMovie(String[] idsMovie) {
 		this.idsMovie = idsMovie;
+	}
+
+	public String getRemember() {
+		return remember;
+	}
+
+	public void setRemember(String remember) {
+		this.remember = remember;
 	}
 
 	@Override

@@ -7,4 +7,5 @@
 </head>	
 <div class="container">
 	Home Page
+	${USER.fullname}
 </div>

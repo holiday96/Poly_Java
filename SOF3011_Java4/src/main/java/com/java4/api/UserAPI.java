@@ -21,7 +21,7 @@ import com.java4.service.IUserService;
 import com.java4.utils.HttpUtil;
 
 @WebServlet(urlPatterns = { "/api/user", "/api/user/status", "/api/user/changeEmail", "/api/user/addFavor",
-		"/api/user/deleteFavor" })
+		"/api/user/deleteFavor", "/api/user/login" })
 public class UserAPI extends HttpServlet {
 
 	@Inject
@@ -37,16 +37,26 @@ public class UserAPI extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper(); // ObjectMapper dùng để đọc outputstream dto qua json
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
+		String uri = request.getRequestURI();
 		UserDTO dto = HttpUtil.of(request.getReader()).toDTO(UserDTO.class);
 
-		// Check unique username and email
-		if (userService.findByUsername(dto.getUsername())) {
-			mapper.writeValue(response.getOutputStream(), "username exist");
-		} else if (userService.findByEmail(dto.getEmail())) {
-			mapper.writeValue(response.getOutputStream(), "email exist");
+		if (uri.contains("login")) {
+			dto = userService.findByUserLogin(dto.getUsername(), dto.getPassword());
+			if (dto.getUsername() == null) {
+				mapper.writeValue(response.getOutputStream(), "failed");
+			} else {
+				mapper.writeValue(response.getOutputStream(), dto);
+			}
 		} else {
-			dto = userService.save(dto);
-			mapper.writeValue(response.getOutputStream(), dto);
+			// Check unique username and email
+			if (userService.findByUsername(dto.getUsername())) {
+				mapper.writeValue(response.getOutputStream(), "username exist");
+			} else if (userService.findByEmail(dto.getEmail())) {
+				mapper.writeValue(response.getOutputStream(), "email exist");
+			} else {
+				dto = userService.save(dto);
+				mapper.writeValue(response.getOutputStream(), dto);
+			}
 		}
 	}
 
@@ -103,7 +113,7 @@ public class UserAPI extends HttpServlet {
 				list.add(oldMovie[i]);
 			}
 			list.remove(Long.parseLong(dto.getIdsMovie()[0]));
-			
+
 			Long[] idsMovie = new Long[list.size()];
 			for (int i = 0; i < list.size(); i++) {
 				idsMovie[i] = list.get(i);

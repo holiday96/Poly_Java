@@ -151,4 +151,23 @@ public class UserRepository implements IUserRepository {
 		return false;
 	}
 
+	@Override
+	public UserEntity findByUserLogin(String username, String password) {
+		EntityManager em = emf.createEntityManager();
+		String query = "SELECT u FROM UserEntity u WHERE u.username=:username AND u.password=:password";
+
+		UserEntity user = new UserEntity();
+		TypedQuery<UserEntity> tq = em.createQuery(query, UserEntity.class);
+		tq.setParameter("username", username);
+		tq.setParameter("password", password);
+		try {
+			user = tq.getSingleResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return user;
+	}
+
 }
