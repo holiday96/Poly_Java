@@ -1,0 +1,187 @@
+@import url(https://db.onlinewebfonts.com/c/3cff9206b4c8d578245ef1aaeeaf9e84?family=SF+Pro+Display);
+body {
+    background-color: #081b27;
+}
+
+li,
+ol,
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+div,
+ul,
+p,
+span {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.logo {
+    position: relative;
+}
+
+.logo .title-logo {
+    font-size: 35px;
+    font-family: 'Bungee Shade', cursive;
+    color: white;
+    margin-right: 15px;
+}
+
+.logo img {
+    position: absolute;
+    top: 15px;
+    width: 35px;
+}
+
+.search-container {
+    float: left;
+    width: 330px;
+}
+
+.form-search #keyword {
+    background: rgb(255, 255, 255);
+    border: 0px;
+    border-radius: 5px;
+    color: rgb(102, 102, 102);
+    height: 35px;
+    line-height: 35px;
+    padding-left: 20px;
+    width: 350px;
+    outline: 0px;
+    float: left;
+}
+
+.search-container .bx-search {
+    position: absolute;
+    right: -5px;
+    top: 8px;
+    font-size: 20px;
+    color: rgb(102, 102, 102);
+}
+
+.count-favor {
+    background: rgb(241, 27, 27);
+    padding: 1px 6px;
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+
+.btn-login,
+.btn-favorite,
+.btn-register {
+    background: rgba(255, 255, 255, 0.12);
+    color: rgb(255, 255, 255);
+    margin-right: 5px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-shadow: rgb(26 26 26) 1px 1px 1px;
+}
+
+.btn-login:hover,
+.btn-favorite:hover,
+.btn-register:hover {
+    background: #6653a1;
+    color: rgb(255, 255, 255);
+    margin-right: 5px;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.main-menu {
+    position: fixed;
+    z-index: 91;
+}
+
+.main-menu ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    top: 68px;
+    left: 0;
+    right: 0;
+    position: fixed;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #142631;
+}
+
+.main-menu li a {
+    display: block;
+    color: white;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.main-menu li a:hover {
+    background-color: #081b27;
+    color: #c0abff;
+}
+
+.main-content {
+    width: 1100px;
+    margin: 140px auto 0;
+}
+
+.block {
+    margin-bottom: 35px;
+}
+
+.block-title {
+    margin-bottom: 20px;
+}
+
+.block-title a {
+    color: white;
+    text-decoration: none;
+}
+
+.block-title h3 {
+    color: #fff;
+    font-family: 'SF Pro Display';
+    font-size: 22px;
+}
+
+.block-content .poster {
+    margin-bottom: 5px;
+}
+
+.block-content .poster img {
+    border-radius: 5px;
+}
+
+.block-content .info .up .view {
+    color: #ffbb00;
+    padding-left: 15px;
+}
+
+.block-content .info .up .like {
+    color: #e80000;
+    padding-right: 30px;
+}
+
+.block-content .info .title {
+    color: white;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: normal !important;
+    font-size: 15px;
+    width: 160px;
+}

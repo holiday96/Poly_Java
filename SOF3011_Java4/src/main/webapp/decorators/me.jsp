@@ -33,7 +33,8 @@
             </div>
             <div class="bio">
                 <p>Have a nice day, boss!</p>
-                <p>It's an honor to meet you again. Can I do something for you?</p>
+                <p>It's an honor to meet you again.</p>
+                <p>Can I do something for you?</p>
                 <p>Go to the <a href="/lab">Lab</a> or Show the <a href="/home">Assignment</a></p>
             </div>
             <div class="network">
