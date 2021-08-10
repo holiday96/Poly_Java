@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<c:url value='/templates/admin/css/style.css' /> ">
+    <link rel="stylesheet" href="<c:url value='/templates/admin/css/style2.css' /> ">
 
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>

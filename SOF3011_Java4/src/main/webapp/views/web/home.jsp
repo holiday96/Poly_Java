@@ -47,183 +47,47 @@
         <div class="ws_shadow"></div>
     </div>
     <div class="slider-wrapper" style="padding: 20px;">
-        <div class="block">
-            <div class="block-title">
-                <a href="#">
-                    <h3>Phim bộ hot</h3>
-                </a>
+        <c:forEach items="${themes}" var="i">
+            <div class="block">
+                <div class="block-title">
+                    <a href="#">
+                        <h3>${i.name}</h3>
+                    </a>
+                </div>
+                <div class="block-content">
+                    <section class="regular slider">
+                        <c:forEach items="${i.movies}" var="movie">
+                            <div>
+                                <div class="poster">
+                                    <a href="#" onclick="view(${movie.id}, ${movie.viewCount})">
+                                        <img src="${movie.poster}" alt="" style="height: 200px; width: 150px;">
+                                    </a>
+                                </div>
+                                <div class="info">
+                                    <div class="up row justify-content-between">
+	                                    <span class="col view">
+	                                        <i class='bx bxs-show'></i>
+	                                        <span class="text">
+	                                        	<c:if test="${movie.viewCount >= 1000}">${(movie.viewCount - movie.viewCount % 1000) / 1000 + (movie.viewCount % 1000 - movie.viewCount % 100) / 1000} K</c:if>
+                   								<c:if test="${movie.viewCount < 1000 }">${movie.viewCount}</c:if>
+	                                        </span>
+	                                    </span>
+                                        <span class="col like">
+                                        	<i class='bx bxs-heart'></i>
+                                        	<span class="text">
+                                        		<c:if test="${movie.likeCount >= 1000}">${(movie.likeCount - movie.likeCount % 1000) / 1000 + (movie.likeCount % 1000 - movie.likeCount % 100) / 1000} K</c:if>
+                   								<c:if test="${movie.likeCount < 1000 }">${movie.likeCount}</c:if>
+                                        	</span>
+                                    	</span>
+                                    </div>
+                                    <div class="title">${movie.title}</div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </section>
+                </div>
             </div>
-            <div class="block-content">
-
-            </div>
-        </div>
-    </div>
-    <div class="slider-wrapper" style="padding: 20px;">
-        <div class="block">
-            <div class="block-title">
-                <a href="#">
-                    <h3>New theme</h3>
-                </a>
-            </div>
-            <div class="block-content">
-                <section class="regular slider">
-                    <div>
-                        <div class="poster">
-                            <a href="#">
-                                <img src="https://picsum.photos/200/300" alt="" style="height: 200px; width: 150px;">
-                            </a>
-                        </div>
-                        <div class="info">
-                            <div class="up row justify-content-between">
-                                    <span class="col view">
-                                        <i class='bx bxs-show'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                                <span class="col like">
-                                        <i class='bx bxs-heart'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                            </div>
-                            <div class="title">
-                                Rurouni Kenshin: The Beginning Part II (2021)
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="poster">
-                            <a href="#">
-                                <img src="https://picsum.photos/200/300" alt="" style="height: 200px; width: 150px;">
-                            </a>
-                        </div>
-                        <div class="info">
-                            <div class="up row justify-content-between">
-                                    <span class="col view">
-                                        <i class='bx bxs-show'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                                <span class="col like">
-                                        <i class='bx bxs-heart'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                            </div>
-                            <div class="title">
-                                Rurouni Kenshin: The Beginning Part II (2021)
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="poster">
-                            <a href="#">
-                                <img src="https://picsum.photos/200/300" alt="" style="height: 200px; width: 150px;">
-                            </a>
-                        </div>
-                        <div class="info">
-                            <div class="up row justify-content-between">
-                                    <span class="col view">
-                                        <i class='bx bxs-show'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                                <span class="col like">
-                                        <i class='bx bxs-heart'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                            </div>
-                            <div class="title">
-                                Rurouni Kenshin: The Beginning Part II (2021)
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="poster">
-                            <a href="#">
-                                <img src="https://picsum.photos/200/300" alt="" style="height: 200px; width: 150px;">
-                            </a>
-                        </div>
-                        <div class="info">
-                            <div class="up row justify-content-between">
-                                    <span class="col view">
-                                        <i class='bx bxs-show'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                                <span class="col like">
-                                        <i class='bx bxs-heart'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                            </div>
-                            <div class="title">
-                                Rurouni Kenshin: The Beginning Part II (2021)
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="poster">
-                            <a href="#">
-                                <img src="https://picsum.photos/200/300" alt="" style="height: 200px; width: 150px;">
-                            </a>
-                        </div>
-                        <div class="info">
-                            <div class="up row justify-content-between">
-                                    <span class="col view">
-                                        <i class='bx bxs-show'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                                <span class="col like">
-                                        <i class='bx bxs-heart'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                            </div>
-                            <div class="title">
-                                Rurouni Kenshin: The Beginning Part II (2021)
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="poster">
-                            <a href="#">
-                                <img src="https://picsum.photos/200/300" alt="" style="height: 200px; width: 150px;">
-                            </a>
-                        </div>
-                        <div class="info">
-                            <div class="up row justify-content-between">
-                                    <span class="col view">
-                                        <i class='bx bxs-show'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                                <span class="col like">
-                                        <i class='bx bxs-heart'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                            </div>
-                            <div class="title">
-                                Rurouni Kenshin: The Beginning Part II (2021)
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="poster">
-                            <a href="#">
-                                <img src="https://picsum.photos/200/300" alt="" style="height: 200px; width: 150px;">
-                            </a>
-                        </div>
-                        <div class="info">
-                            <div class="up row justify-content-between">
-                                    <span class="col view">
-                                        <i class='bx bxs-show'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                                <span class="col like">
-                                        <i class='bx bxs-heart'></i>
-                                        <span class="text">1000</span>
-                                    </span>
-                            </div>
-                            <div class="title">
-                                Rurouni Kenshin: The Beginning Part II (2021)
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
+        </c:forEach>
     </div>
 </div>
 
@@ -235,4 +99,27 @@
             slidesToScroll: 5
         });
     });
+
+    function view(id, viewCount) {
+        var data = {};
+        data["id"] = id;
+        data["viewCount"] = viewCount + 1;
+        updateView(data);
+    }
+
+    //Call API viewCount Movie
+    function updateView(data) {
+        $.ajax({
+            url: '/api/movie/view',
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (result) {
+                window.location.href = "/movie?id=" + data.id;
+            },
+            error: function (error) {
+            }
+        })
+    }
 </script>

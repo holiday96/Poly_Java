@@ -71,8 +71,14 @@
                 	<c:if test="${not empty i.runtime}">${i.runtime} min</c:if>
                 </td>
                 <td>${i.releaseYear}</td>
-                <td>${i.viewCount}</td>
-                <td>${i.likeCount}</td>
+                <td>
+					<c:if test="${i.viewCount >= 1000}">${(i.viewCount - i.viewCount % 1000) / 1000 + (i.viewCount % 1000 - i.viewCount % 100) / 1000} K</c:if>
+                   	<c:if test="${i.viewCount < 1000 }">${i.viewCount}</c:if> 
+				</td>
+                <td>
+                	<c:if test="${i.likeCount >= 1000}">${(i.likeCount - i.likeCount % 1000) / 1000 + (i.likeCount % 1000 - i.likeCount % 100) / 1000} K</c:if>
+                    <c:if test="${i.likeCount < 1000 }">${i.likeCount}</c:if> 
+                </td>
                 <td><a href="${i.trailer}">${i.trailer}</a></td>
                 <td>${i.id}</td>
                 <td>${i.description}</td>

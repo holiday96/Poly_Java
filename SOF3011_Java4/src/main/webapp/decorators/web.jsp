@@ -10,6 +10,9 @@
     <!-- font google -->
     <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&amp;display=swap" rel="stylesheet"/>
 
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 
@@ -46,7 +49,11 @@
 <%@include file="/commons/web/header.jsp" %>
 <%@include file="/commons/web/nav.jsp" %>
 
-<dec:body/>
+<div class="main-content">
+    <dec:body/>
+</div>
+
+<%@include file="/commons/web/footer.jsp" %>
 
 <script src="<c:url value='/templates/web/slider.js' />"></script>
 
@@ -56,5 +63,8 @@
 
 <!-- slick -->
 <script src="<c:url value='/templates/web/slick/slick.js' />" type="text/javascript" charset="utf-8"></script>
+
+<!-- sweetalert2 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

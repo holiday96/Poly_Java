@@ -15,6 +15,10 @@ body{
 	background: #E4E9F7 !important;
 }
 
+a{
+	text-decoration: none !important;
+}
+
 hr {
 	margin: 1rem 0;
 	color: inherit;

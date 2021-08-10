@@ -205,4 +205,13 @@ public class MovieEntity extends BaseEntity {
 		this.users = users;
 	}
 
+	@Override
+	public String toString() {
+		return "MovieEntity [title=" + title + ", description=" + description + ", director=" + director + ", actors="
+				+ actors + ", producer=" + producer + ", country=" + country + ", runtime=" + runtime + ", releaseYear="
+				+ releaseYear + ", viewCount=" + viewCount + ", likeCount=" + likeCount + ", trailer=" + trailer
+				+ ", banner=" + banner + ", poster=" + poster + ", themes=" + themes + ", categories=" + categories
+				+ ", users=" + users + "]";
+	}
+
 }

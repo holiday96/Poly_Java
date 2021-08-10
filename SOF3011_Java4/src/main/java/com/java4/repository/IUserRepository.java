@@ -14,4 +14,6 @@ public interface IUserRepository {
 	boolean findByEmail(String email);
 	boolean findByUsername(String username);
 	UserEntity findByUserLogin(String username, String password);
+	UserEntity findByVerify(String verify);
+	UserEntity findUserByEmail(String email);
 }

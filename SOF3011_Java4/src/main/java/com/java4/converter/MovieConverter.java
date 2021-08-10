@@ -45,24 +45,24 @@ public class MovieConverter {
 
 	public static MovieEntity toListEntity(MovieEntity entity, MovieDTO dto) {
 		dto.getUsers().forEach(i -> entity.getUsers().add(UserConverter.toEntity(i)));
-		dto.getCategories().forEach(i->entity.getCategories().add(CategoryConverter.toEntity(i)));
-		dto.getThemes().forEach(i->entity.getThemes().add(ThemeConverter.toEntity(i)));
+		dto.getCategories().forEach(i -> entity.getCategories().add(CategoryConverter.toEntity(i)));
+		dto.getThemes().forEach(i -> entity.getThemes().add(ThemeConverter.toEntity(i)));
 		return entity;
 	}
 
 	public static MovieDTO toListDTO(MovieDTO dto, MovieEntity entity) {
 		entity.getUsers().forEach(i -> dto.getUsers().add(UserConverter.toDto(i)));
-		entity.getCategories().forEach(i->dto.getCategories().add(CategoryConverter.toDto(i)));
-		entity.getThemes().forEach(i->dto.getThemes().add(ThemeConverter.toDto(i)));
+		entity.getCategories().forEach(i -> dto.getCategories().add(CategoryConverter.toDto(i)));
+		entity.getThemes().forEach(i -> dto.getThemes().add(ThemeConverter.toDto(i)));
 		return dto;
 	}
-	
+
 	public static MovieEntity toAllEntity(MovieDTO dto) {
 		MovieEntity entity = MovieConverter.toEntity(dto);
 		entity = MovieConverter.toListEntity(entity, dto);
 		return entity;
 	}
-	
+
 	public static MovieDTO toAllDTO(MovieEntity entity) {
 		MovieDTO dto = MovieConverter.toDto(entity);
 		dto = MovieConverter.toListDTO(dto, entity);

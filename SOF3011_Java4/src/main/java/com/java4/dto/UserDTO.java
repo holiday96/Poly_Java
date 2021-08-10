@@ -101,7 +101,7 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 	public String toString() {
 		return "UserDTO [username=" + username + ", password=" + password + ", fullname=" + fullname + ", email="
 				+ email + ", role=" + role + ", status=" + status + ", verify=" + verify + ", movies=" + movies
-				+ ", idsMovie=" + Arrays.toString(idsMovie) + "]";
+				+ ", idsMovie=" + Arrays.toString(idsMovie) + ", remember=" + remember + "]";
 	}
 
 }

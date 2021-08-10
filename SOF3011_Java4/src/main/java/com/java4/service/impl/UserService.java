@@ -78,4 +78,14 @@ public class UserService implements IUserService {
 		return UserConverter.toAllDTO(userRepository.findByUserLogin(username, password));
 	}
 
+	@Override
+	public UserDTO findByVerify(String verify) {
+		return UserConverter.toAllDTO(userRepository.findByVerify(verify));
+	}
+
+	@Override
+	public UserDTO findUserByEmail(String email) {
+		return UserConverter.toAllDTO(userRepository.findUserByEmail(email));
+	}
+
 }

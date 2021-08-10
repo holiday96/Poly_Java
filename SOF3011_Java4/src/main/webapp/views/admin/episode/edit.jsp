@@ -23,15 +23,21 @@
     </div>
     <div class="row row-cols-auto">
         <div class="col">
-            <div><img class="rounded" src="https://picsum.photos/200/300" alt="poster.png"></div>
+            <div><img class="rounded" src="${movie.poster}" alt="poster.png"></div>
             <div class="row my-2 ps-2">
                 <div class="col like position-relative">
                     <i class='bx bxs-heart' style="color: red; font-size: 20px;"></i>
-                    <span class="position-absolute" style="font-size: 15px; left: 47px;">${movie.likeCount}</span>
+                    <span class="position-absolute" style="font-size: 15px; left: 47px;">
+                    	<c:if test="${movie.viewCount >= 1000}">${(movie.viewCount - movie.viewCount % 1000) / 1000 + (movie.viewCount % 1000 - movie.viewCount % 100) / 1000} K</c:if>
+                    	<c:if test="${movie.viewCount < 1000 }">${movie.viewCount}</c:if> 
+                   	</span>
                 </div>
                 <div class="col view position-relative">
                     <i class='bx bx-show' style="color: #2300e4; font-size: 20px;"></i>
-                    <span class="position-absolute" style="font-size: 15px; left: 35px;">${movie.likeCount}</span>
+                    <span class="position-absolute" style="font-size: 15px; left: 35px;">
+                    	<c:if test="${movie.likeCount >= 1000}">${(movie.likeCount - movie.likeCount % 1000) / 1000 + (movie.likeCount % 1000 - movie.likeCount % 100) / 1000} K</c:if>
+                    	<c:if test="${movie.likeCount < 1000 }">${movie.likeCount}</c:if> 
+                    </span>
                 </div>
             </div>
         </div>
@@ -129,7 +135,7 @@
         $.each(formData, function (i, v) {
             data["" + v.name + ""] = v.value;
         });
-		console.log(data);
+        console.log(data);
         var id = $('#episodeId').val();
         if (id == "") {
             add(data);

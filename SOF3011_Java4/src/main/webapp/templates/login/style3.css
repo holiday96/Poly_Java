@@ -179,3 +179,12 @@ form .pass-link a, form .signup-link a {
 form .pass-link a:hover, form .signup-link a:hover {
 	text-decoration: underline;
 }
+
+#forgot {
+	color: #4158d0;
+	cursor: pointer;
+}
+
+#forgot:hover{
+	text-decoration: underline;
+}

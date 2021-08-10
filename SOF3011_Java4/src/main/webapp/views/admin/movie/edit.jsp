@@ -218,19 +218,30 @@
     //Button Submit form
     $('#btnConfirm').click(function (e) {
         e.preventDefault();
-        var data = {};
-        var formData = $('#formSubmit').serializeArray();
-        $.each(formData, function (i, v) {
-            data["" + v.name + ""] = v.value;
-        });
-        data["description"] = editor.getData();
-        data["idsCategory"] = categories;
+        if ($('#poster').val() == "") {
+            $('#poster').addClass("is-invalid");
+        }
+        if ($('#title').val() == "") {
+            $('#title').addClass("is-invalid");
+        }
+        if ($('#trailer').val() == "") {
+            $('#trailer').addClass("is-invalid");
+        }
+        if ($('#poster').val() != "" && $('#title').val() != "" && $('#trailer').val() != "") {
+            var data = {};
+            var formData = $('#formSubmit').serializeArray();
+            $.each(formData, function (i, v) {
+                data["" + v.name + ""] = v.value;
+            });
+            data["description"] = editor.getData();
+            data["idsCategory"] = categories;
 
-        var id = $('#id').val();
-        if (id == "") {
-            add(data);
-        } else {
-            update(data);
+            var id = $('#id').val();
+            if (id == "") {
+                add(data);
+            } else {
+                update(data);
+            }
         }
     });
 
@@ -303,8 +314,12 @@
     //Button AddNewCategory
     $('#btnAddNewCategory').click(function (e) {
         e.preventDefault();
-        var data = {name: $('#newCategory').val()};
-        addCategory(data);
+        if ($('#newCategory').val() == "") {
+            $('#newCategory').addClass("is-invalid");
+        } else {
+            var data = {name: $('#newCategory').val()};
+            addCategory(data);
+        }
     });
 
     //API add NewCategory

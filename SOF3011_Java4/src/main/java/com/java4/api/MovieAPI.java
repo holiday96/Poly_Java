@@ -17,7 +17,7 @@ import com.java4.service.ICategoryService;
 import com.java4.service.IMovieService;
 import com.java4.utils.HttpUtil;
 
-@WebServlet(urlPatterns = { "/api/movie" })
+@WebServlet(urlPatterns = { "/api/movie", "/api/movie/like", "/api/movie/view" })
 public class MovieAPI extends HttpServlet {
 
 	@Inject
@@ -43,6 +43,8 @@ public class MovieAPI extends HttpServlet {
 			}
 			Set<CategoryDTO> categories = categoryService.findByIds(idsCategory);
 			dto.setCategories(categories);
+			dto.setLikeCount(0);
+			dto.setViewCount(0);
 		}
 		dto = movieService.save(dto);
 		mapper.writeValue(response.getOutputStream(), dto);
@@ -54,8 +56,10 @@ public class MovieAPI extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper(); // ObjectMapper dùng để đọc outputstream dto qua json
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
+		String uri = request.getRequestURI();
 		MovieDTO dto = HttpUtil.of(request.getReader()).toDTO(MovieDTO.class);
-
+		MovieDTO old = movieService.findOne(dto.getId());
+		
 		if (dto.getIdsCategory() != null) {
 			Long[] idsCategory = new Long[dto.getIdsCategory().length];
 			for (int i = 0; i < dto.getIdsCategory().length; i++) {
@@ -63,6 +67,40 @@ public class MovieAPI extends HttpServlet {
 			}
 			Set<CategoryDTO> categories = categoryService.findByIds(idsCategory);
 			dto.setCategories(categories);
+			dto.setLikeCount(old.getLikeCount());
+			dto.setViewCount(old.getViewCount());
+		}
+
+		if (uri.contains("like")) {
+			dto.setActors(old.getActors());
+			dto.setBanner(old.getBanner());
+			dto.setCategories(old.getCategories());
+			dto.setCountry(old.getCountry());
+			dto.setDescription(old.getDescription());
+			dto.setDirector(old.getDirector());
+			dto.setViewCount(old.getViewCount());
+			dto.setPoster(old.getPoster());
+			dto.setProducer(old.getProducer());
+			dto.setReleaseYear(old.getReleaseYear());
+			dto.setRuntime(old.getRuntime());
+			dto.setTitle(old.getTitle());
+			dto.setTrailer(old.getTrailer());
+		}
+		
+		if (uri.contains("view")) {
+			dto.setActors(old.getActors());
+			dto.setBanner(old.getBanner());
+			dto.setCategories(old.getCategories());
+			dto.setCountry(old.getCountry());
+			dto.setDescription(old.getDescription());
+			dto.setDirector(old.getDirector());
+			dto.setLikeCount(old.getLikeCount());
+			dto.setPoster(old.getPoster());
+			dto.setProducer(old.getProducer());
+			dto.setReleaseYear(old.getReleaseYear());
+			dto.setRuntime(old.getRuntime());
+			dto.setTitle(old.getTitle());
+			dto.setTrailer(old.getTrailer());
 		}
 		dto = movieService.update(dto);
 		mapper.writeValue(response.getOutputStream(), dto);

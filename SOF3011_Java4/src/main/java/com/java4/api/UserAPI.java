@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +21,11 @@ import com.java4.dto.UserDTO;
 import com.java4.service.IMovieService;
 import com.java4.service.IUserService;
 import com.java4.utils.HttpUtil;
+import com.java4.utils.SessionUtil;
 
 @WebServlet(urlPatterns = { "/api/user", "/api/user/status", "/api/user/changeEmail", "/api/user/addFavor",
-		"/api/user/deleteFavor", "/api/user/login" })
+		"/api/user/deleteFavor", "/api/user/login", "/api/user/reset", "/user", "/user/reset",
+		"/api/user/changePassword" })
 public class UserAPI extends HttpServlet {
 
 	@Inject
@@ -30,6 +34,34 @@ public class UserAPI extends HttpServlet {
 	private IMovieService movieService;
 
 	private static final long serialVersionUID = -4163323890724430012L;
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String view = "";
+		String verify = request.getParameter("verify");
+		UserDTO user = userService.findByVerify(verify);
+		String uri = request.getRequestURI();
+		if (user.getUsername() == null) {
+			view = "/views/web/404.jsp";
+		} else {
+			if (uri.contains("reset")) {
+				user.setVerify("");
+				user = userService.update(user);
+				request.setAttribute("user", user);
+				view = "/views/web/reset.jsp";
+			} else {
+				user.setStatus(true);
+				user.setVerify("");
+				user = userService.update(user);
+				SessionUtil.getInstance().putValue(request, "USER", user);
+				view = "/views/web/activated.jsp";
+			}
+		}
+
+		RequestDispatcher rd = request.getRequestDispatcher(view);
+		rd.forward(request, response);
+	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -42,8 +74,10 @@ public class UserAPI extends HttpServlet {
 
 		if (uri.contains("login")) {
 			dto = userService.findByUserLogin(dto.getUsername(), dto.getPassword());
-			if (dto.getUsername() == null) {
+			if (dto == null) {
 				mapper.writeValue(response.getOutputStream(), "failed");
+			} else if (dto.getVerify() != null && !dto.isStatus()) {
+				mapper.writeValue(response.getOutputStream(), "need verify");
 			} else {
 				mapper.writeValue(response.getOutputStream(), dto);
 			}
@@ -54,6 +88,10 @@ public class UserAPI extends HttpServlet {
 			} else if (userService.findByEmail(dto.getEmail())) {
 				mapper.writeValue(response.getOutputStream(), "email exist");
 			} else {
+				UUID uuid = UUID.randomUUID();
+				dto.setRole(false);
+				dto.setStatus(false);
+				dto.setVerify(uuid.toString());
 				dto = userService.save(dto);
 				mapper.writeValue(response.getOutputStream(), dto);
 			}
@@ -77,6 +115,19 @@ public class UserAPI extends HttpServlet {
 			mapper.writeValue(response.getOutputStream(), dto);
 		} else
 
+		// reset password
+		if (uri.contains("reset")) {
+			dto = userService.findUserByEmail(dto.getEmail());
+			if (dto.getUsername() != null) {
+				UUID uuid = UUID.randomUUID();
+				dto.setVerify(uuid.toString());
+				dto = userService.update(dto);
+				mapper.writeValue(response.getOutputStream(), dto);
+			} else {
+				mapper.writeValue(response.getOutputStream(), "failed");
+			}
+		} else
+
 		// Check unique email
 		if (uri.contains("changeEmail")) {
 			if (userService.findByEmail(dto.getEmail())) {
@@ -88,6 +139,16 @@ public class UserAPI extends HttpServlet {
 				dto = userService.update(dto);
 				mapper.writeValue(response.getOutputStream(), dto);
 			}
+		} else
+			
+		// Change password
+		if (uri.contains("changePassword")) {
+			String newPass = dto.getPassword();
+			dto = userService.findOne(dto.getId());
+			dto.setPassword(newPass);
+			dto = userService.update(dto);
+			SessionUtil.getInstance().putValue(request, "USER", dto);
+			mapper.writeValue(response.getOutputStream(), dto);
 		} else
 
 		// Add favor

@@ -15,4 +15,6 @@ public interface IUserService {
 	boolean findByUsername(String username);
 	UserDTO findByUserLogin(String username, String password);
 	Long[] getIdsMovieByUserID(Long id);
+	UserDTO findByVerify(String verify);
+	UserDTO findUserByEmail(String email);
 }
