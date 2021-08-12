@@ -2,24 +2,34 @@ package com.java4.controller.lab.lab8;
 
 import java.io.IOException;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebFilter;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import com.java4.controller.lab.lab7.HttpFilter;
+public class I18nFilter implements Filter {
 
-@WebFilter("/*")
-public class I18nFilter implements HttpFilter {
-
-	@Override
-	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		String lang = request.getParameter("lang");
+		HttpServletRequest req = (HttpServletRequest) request;
+		String lang = req.getParameter("lang");
 		if (lang != null) {
-			request.getSession().setAttribute("lang", lang);
+			req.getSession().setAttribute("lang", lang);
+		} else {
+			req.getSession().setAttribute("lang", "vi");
 		}
 		chain.doFilter(request, response);
+	}
+
+	@SuppressWarnings("unused")
+	private ServletContext context;
+
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+		this.context = filterConfig.getServletContext();
 	}
 }

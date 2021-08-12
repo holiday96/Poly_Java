@@ -2,8 +2,8 @@
          pageEncoding="UTF-8" %>
 <%@include file="/commons/taglib.jsp" %>
 
-<fmt:setLocale value="${sessionScope.lang}" scope="request" />
 <fmt:setBundle basename="global" scope="request" />
+<fmt:setLocale value="${sessionScope.lang}" scope="request" />
 
 <head>
     <title>Lab 8</title>
@@ -36,20 +36,25 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link text-primary fw-bold fs-5" href="/lab/8/home"><fmt:message key="menu.home"/></a>
+                    <a class="nav-link text-primary fw-bold fs-5" href="/lab/8/home">
+                    	<fmt:message key="menu.home"/>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-primary fw-bold fs-5" href="/lab/8/about"><fmt:message
-                            key="menu.about"/></a>
+                    <a class="nav-link text-primary fw-bold fs-5" href="/lab/8/about">
+                    	<fmt:message key="menu.about"/>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-primary fw-bold fs-5" href="/lab/8/contact"><fmt:message
-                            key="menu.contact"/></a>
+                    <a class="nav-link text-primary fw-bold fs-5" href="/lab/8/contact">
+                    	<fmt:message key="menu.contact"/>
+                    </a>
                 </li>
                 <c:if test="${empty model}">
                     <li class="nav-item">
-                        <a class="nav-link text-primary fw-bold fs-5" href="/lab/5/bai4"><fmt:message
-                                key="menu.login"/></a>
+                        <a class="nav-link text-primary fw-bold fs-5" href="/lab/5/bai4">
+                        	<fmt:message key="menu.login"/>
+                       	</a>
                     </li>
                 </c:if>
                 <c:if test="${not empty model}">

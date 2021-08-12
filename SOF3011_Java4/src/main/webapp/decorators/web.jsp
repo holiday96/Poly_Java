@@ -36,7 +36,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value='/templates/web/slick/slick-theme.css' />">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<c:url value='/templates/web/css/style2.css' />">
+    <link rel="stylesheet" href="<c:url value='/templates/web/css/style3.css' />">
     <link rel="stylesheet" href="<c:url value='/templates/web/css/slick-custom.css' />">
     <link rel="stylesheet" href="<c:url value='/templates/web/css/slider2.css' />">
 

@@ -104,7 +104,7 @@
 <script>
     $(document).ready(function () {
         $('.episode').each(function (index) {
-            if ($(this).html() == ${epNumber}) {
+            if ($(this).html() == '${epNumber}') {
                 $(this).css({"background-color": "#3f3567", "color": "white"});
             }
         })

@@ -76,8 +76,12 @@ public class UserAPI extends HttpServlet {
 			dto = userService.findByUserLogin(dto.getUsername(), dto.getPassword());
 			if (dto == null) {
 				mapper.writeValue(response.getOutputStream(), "failed");
-			} else if (dto.getVerify() != null && !dto.isStatus()) {
-				mapper.writeValue(response.getOutputStream(), "need verify");
+			} else if (!dto.isStatus()) {
+				if (!dto.getVerify().isBlank()) {
+					mapper.writeValue(response.getOutputStream(), "need verify");
+				} else {
+					mapper.writeValue(response.getOutputStream(), "block");
+				}
 			} else {
 				mapper.writeValue(response.getOutputStream(), dto);
 			}
@@ -140,7 +144,7 @@ public class UserAPI extends HttpServlet {
 				mapper.writeValue(response.getOutputStream(), dto);
 			}
 		} else
-			
+
 		// Change password
 		if (uri.contains("changePassword")) {
 			String newPass = dto.getPassword();

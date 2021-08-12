@@ -25,7 +25,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<c:url value='/templates/login/style2.css' />">
+    <link rel="stylesheet" href="<c:url value='/templates/login/style3.css' />">
     <title><dec:title default="Login"/></title>
 </head>
 <body>

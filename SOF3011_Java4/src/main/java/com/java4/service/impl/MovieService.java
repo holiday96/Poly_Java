@@ -75,4 +75,16 @@ public class MovieService implements IMovieService {
 		return dtos;
 	}
 
+	@Override
+	public List<MovieDTO> findByTitle(String title) {
+		List<MovieDTO> dtos = new ArrayList<MovieDTO>();
+		List<MovieEntity> entities = movieRepository.findByTitle(title);
+		for (MovieEntity item : entities) {
+			MovieDTO MovieDTO = MovieConverter.toAllDTO(item);
+			dtos.add(MovieDTO);
+		}
+		dtos.forEach(i -> i.setEpisodes(episodeService.findByMovieID(i.getId())));
+		return dtos;
+	}
+
 }

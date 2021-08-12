@@ -111,4 +111,22 @@ public class MovieRepository implements IMovieRepository {
 		}
 	}
 
+	@Override
+	public List<MovieEntity> findByTitle(String title) {
+		EntityManager em = emf.createEntityManager();
+		String query = "SELECT t FROM MovieEntity t WHERE t.title LIKE :title";
+
+		TypedQuery<MovieEntity> tq = em.createQuery(query, MovieEntity.class);
+		tq.setParameter("title", "%" + title + "%");
+		List<MovieEntity> list = new ArrayList<MovieEntity>();
+		try {
+			list = tq.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return list;
+	}
+
 }

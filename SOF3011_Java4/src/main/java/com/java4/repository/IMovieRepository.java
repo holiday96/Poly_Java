@@ -11,4 +11,5 @@ public interface IMovieRepository {
 	Long save(MovieEntity entity);
 	void update(MovieEntity entity);
 	void delete(Long id);
+	List<MovieEntity> findByTitle(String title);
 }

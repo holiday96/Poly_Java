@@ -2,15 +2,15 @@ package com.java4.dto;
 
 public class EpisodeDTO extends AbstractDTO<EpisodeDTO> {
 
-	private Integer number;
+	private String number;
 	private Long movieid;
 	private String link;
 
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(Integer number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 

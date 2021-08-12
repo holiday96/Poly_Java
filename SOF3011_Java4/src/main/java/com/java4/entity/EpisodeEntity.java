@@ -9,10 +9,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "episodes")
-public class EpisodeEntity extends BaseEntity{
+public class EpisodeEntity extends BaseEntity {
 
 	@Column(name = "number")
-	private Integer number;
+	private String number;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "movieid")
@@ -21,11 +21,11 @@ public class EpisodeEntity extends BaseEntity{
 	@Column(name = "link")
 	private String link;
 
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(Integer number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 

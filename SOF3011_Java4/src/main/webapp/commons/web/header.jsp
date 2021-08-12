@@ -29,7 +29,7 @@
         <c:if test="${not empty USER}">
 
             <div style="align-self: center;">
-                <a href="#" class="btn-favorite">
+                <a href="/favorite" class="btn-favorite">
                     <i class='bx bx-heart'></i>
                     <span>Favorite</span>
                     <span class="count-favor">${fn:length(user.movies)}</span>
@@ -46,3 +46,9 @@
         </c:if>
     </div>
 </div>
+<script>
+	function btnSearch(){
+		var keyword = $('#keyword').val();
+		window.location.href = "/search?key="+keyword;
+	}
+</script>

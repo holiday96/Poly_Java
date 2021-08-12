@@ -33,7 +33,7 @@ public class AuthorizationFilter implements Filter {
 		String url = request.getRequestURI();
 		if (url.startsWith("/admin")) {
 			UserDTO user = (UserDTO) SessionUtil.getInstance().getValue(request, "USER");
-			if (user != null) {
+			if (user != null && user.isStatus()) {
 				if (user.isRole()) {
 					filterChain.doFilter(servletRequest, servletRespone);
 				} else {

@@ -3,7 +3,7 @@
 <%@include file="/commons/taglib.jsp" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">

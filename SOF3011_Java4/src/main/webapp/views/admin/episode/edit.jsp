@@ -23,7 +23,7 @@
     </div>
     <div class="row row-cols-auto">
         <div class="col">
-            <div><img class="rounded" src="${movie.poster}" alt="poster.png"></div>
+            <div><img class="rounded" src="${movie.poster}" style="width: 180px;" alt="poster.png"></div>
             <div class="row my-2 ps-2">
                 <div class="col like position-relative">
                     <i class='bx bxs-heart' style="color: red; font-size: 20px;"></i>

@@ -91,6 +91,18 @@
                         no-repeat
                         `,
                     });
+                } else if (result == "block") {
+                    Swal.fire({
+                        title: "Unfortunately!",
+                        text: "Your account has been blocked!",
+                        icon: "error",
+                        backdrop: `
+                        rgba(3, 86, 252,0.2)
+                        url("../templates/img/peachcat-cry.gif")
+                        center top
+                        no-repeat
+                        `,
+                    });
                 } else {
                     Swal.fire({
                         title: `Hi ` + result.fullname + `!`,
