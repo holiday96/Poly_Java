@@ -36,7 +36,7 @@ CREATE TABLE categories_movies (
 
 CREATE TABLE episodes (
 	id BIGINT NOT NULL AUTO_INCREMENT,
-	number INT,
+	number VARCHAR(255),
 	movieid BIGINT,
 	link VARCHAR(255),
 	PRIMARY KEY(id),
