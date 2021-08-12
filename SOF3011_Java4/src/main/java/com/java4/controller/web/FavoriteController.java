@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.java4.dto.UserDTO;
-import com.java4.service.IThemeService;
 import com.java4.service.IUserService;
 import com.java4.utils.SessionUtil;
 
@@ -22,8 +21,6 @@ public class FavoriteController extends HttpServlet {
 
 	@Inject
 	private IUserService userService;
-	@Inject
-	private IThemeService themeService;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
