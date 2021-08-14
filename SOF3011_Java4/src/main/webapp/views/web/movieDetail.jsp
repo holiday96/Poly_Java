@@ -5,6 +5,10 @@
 <c:url var="deleteFavorApiURL" value="/api/user/deleteFavor"/>
 <c:url var="likeApiURL" value="/api/movie/like"/>
 
+<head>
+	<title>${movie.title}</title>
+</head>
+<body>
 <div class="top-content iframe-container">
     <c:if test="${empty link}">
         <iframe width="100%" height="100%" src="${movie.trailer}" title="YouTube video player"
@@ -284,3 +288,4 @@
         })
     }
 </script>
+</body>

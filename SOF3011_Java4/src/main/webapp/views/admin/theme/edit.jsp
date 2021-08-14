@@ -85,7 +85,6 @@
     var idsMovie = [];
     $(document).ready(function () {
         var table = $('#example').DataTable({
-            lengthChange: false,
             colReorder: true,
 
             responsive: true,
