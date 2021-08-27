@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class Bai3Controller {
+public class Lab2Bai3Controller {
 
 	@GetMapping("/lab/lab2/bai3")
 	public ModelAndView showLab() {

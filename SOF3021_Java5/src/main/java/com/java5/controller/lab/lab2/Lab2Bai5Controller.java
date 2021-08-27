@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class Bai5Controller {
+public class Lab2Bai5Controller {
 
 	@GetMapping("/lab/lab2/bai5")
 	public String showLab() {

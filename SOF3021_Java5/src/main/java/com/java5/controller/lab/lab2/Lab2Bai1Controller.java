@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class Bai1Controller {
+public class Lab2Bai1Controller {
 
 	@GetMapping(path = {"/lab/lab2", "/lab/lab2/bai1"})
 	public ModelAndView showLab() {
