@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE tiles-definitions PUBLIC  
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+        
+<tiles-definitions> 
+
+ 	<!-- Web -->
+    <!-- Web Define -->
+    <definition name="webLayout" 
+        template="/layouts/web.jsp">  
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/commons/web/header.jsp" />  
+        <put-attribute name="body" value="" />  
+        <put-attribute name="footer" value="/commons/web/footer.jsp" />  
+    </definition>  
+ 
+    <!-- Home Page -->
+    <definition name="home" extends="webLayout">  
+        <put-attribute name="title" value="Home Page" />
+        <put-attribute name="body" value="/WEB-INF/views/web/home.jsp" />  
+    </definition>  
+       
+    <!-- ContactUs Page -->
+    <definition name="contact" extends="webLayout">  
+        <put-attribute name="title" value="Contact Us" />  
+        <put-attribute name="body" value="/WEB-INF/views/web/contact.jsp" />  
+    </definition>   
+    
+    <!-- Admin -->
+    <!-- Admin Define -->
+    <definition name="adminLayout"
+        template="/layouts/admin.jsp">  
+        <put-attribute name="title" value="" />  
+        <put-attribute name="header" value="/commons/admin/header.jsp" />  
+        <put-attribute name="body" value="" />  
+        <put-attribute name="footer" value="/commons/admin/footer.jsp" />  
+    </definition> 
+    
+    <!-- Admin Home -->
+    <definition name="adminHome" extends="adminLayout">  
+        <put-attribute name="title" value="ADMIN MANAGEMENT" />  
+        <put-attribute name="body" value="/WEB-INF/views/admin/home.jsp" />  
+    </definition>  
+       
+    <!-- Admin Contact -->
+    <definition name="adminContact" extends="adminLayout">  
+        <put-attribute name="title" value="ADMIN Contact Us" />  
+        <put-attribute name="body" value="/WEB-INF/views/admin/contact.jsp" />  
+    </definition>
+    
+    <!-- Lab -->
+    <!-- Lab Define -->
+    <definition name="labLayout"
+        template="/layouts/lab.jsp">
+        <put-attribute name="header" value="/commons/lab/header.jsp" />
+        <put-attribute name="title" value="" />
+        <put-attribute name="welcome" value="" />
+        <put-attribute name="body" value="" />  
+    </definition>
+    
+    <!-- Lab Home -->
+    <definition name="lab" extends="labLayout">
+        <put-attribute name="title" value="Lab" />
+        <put-attribute name="welcome" value="/WEB-INF/views/lab/lab.jsp" />
+    </definition>
+    
+    <!-- Lab 1 -->
+    <definition name="lab1" extends="labLayout">
+        <put-attribute name="title" value="Lab 1" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab1/lab1.jsp" />  
+    </definition>
+       
+    <!-- Lab 2 Bai 1 -->
+    <definition name="lab2bai1" extends="labLayout">
+        <put-attribute name="title" value="Lab 2 Bai 1" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab2/bai1.jsp" />  
+    </definition>
+    
+    <!-- Lab 2 Bai 2 -->
+    <definition name="lab2bai2" extends="labLayout">
+        <put-attribute name="title" value="Lab 2 Bai 2" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab2/bai2.jsp" />  
+    </definition>
+    
+    <!-- Lab 2 Bai 3 -->
+    <definition name="lab2bai3" extends="labLayout">
+        <put-attribute name="title" value="Lab 2 Bai 3" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab2/bai3.jsp" />  
+    </definition>
+    
+    <!-- Lab 2 Bai 4 -->
+    <definition name="lab2bai4" extends="labLayout">
+        <put-attribute name="title" value="Lab 2 Bai 4" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab2/bai4.jsp" />  
+    </definition>
+    
+    <!-- Lab 2 Bai 5 -->
+    <definition name="lab2bai5" extends="labLayout">
+        <put-attribute name="title" value="Lab 2 Bai 5" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab2/bai5.jsp" />  
+    </definition>
+ 
+</tiles-definitions> 
