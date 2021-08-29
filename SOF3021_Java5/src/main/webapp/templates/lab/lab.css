@@ -8,6 +8,8 @@ body {
 	background-color: #52ACFF;
 	background-image: linear-gradient(152deg, #52ACFF 25%, #FFE32C 100%);
 	font-family: "Open Sans", sans-serif;
+	transition: all 0s, opacity 0.5s linear;
+	overflow-y: hidden;
 }
 
 ::-webkit-scrollbar-track {
