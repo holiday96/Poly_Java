@@ -1,4 +1,4 @@
-package com.java5.controller.lab.lab4;
+package com.java5.controller.lab.lab4.part1;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
