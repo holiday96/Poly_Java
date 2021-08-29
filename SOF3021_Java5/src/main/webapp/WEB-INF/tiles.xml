@@ -61,7 +61,7 @@
     
     <!-- Lab Home -->
     <definition name="lab" extends="labLayout">
-        <put-attribute name="title" value="Lab" />
+        <put-attribute name="title" value="Welcome to Lab" />
         <put-attribute name="welcome" value="/WEB-INF/views/lab/lab.jsp" />
     </definition>
     
@@ -107,10 +107,10 @@
         <put-attribute name="body" value="/WEB-INF/views/lab/lab3/lab3.jsp" />  
     </definition>
     
-    <!-- Lab 4 Bai 1 -->
-    <definition name="lab4bai1" extends="labLayout">
-        <put-attribute name="title" value="Lab 4 Bai 1" />  
-        <put-attribute name="body" value="/WEB-INF/views/lab/lab4/bai1.jsp" />  
+    <!-- Lab 4 Part 1 -->
+    <definition name="lab4part1" extends="labLayout">
+        <put-attribute name="title" value="Lab 4 Part 1" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab4/part1.jsp" />  
     </definition>
  
 </tiles-definitions> 
