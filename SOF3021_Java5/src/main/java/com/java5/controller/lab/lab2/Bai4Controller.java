@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class Lab2Bai4Controller {
+public class Bai4Controller {
 
 	@GetMapping("/lab/lab2/bai4")
 	public ModelAndView showLab() {
