@@ -32,7 +32,7 @@ public class Lab3Controller {
 	@Autowired
 	private ServletContext context;
 
-	@GetMapping(path = { "/lab/lab3" })
+	@GetMapping("/lab/lab3")
 	public ModelAndView showLab(Model model) {
 		ModelAndView mav = new ModelAndView("lab3");
 		model.addAttribute("student", new Student());
