@@ -2,12 +2,12 @@
          pageEncoding="UTF-8" %>
 <%@ include file="/commons/taglib.jsp" %>
 
-<form action="/lab/lab2/bai4" method="post" class="mb-3">
-    <div class="col-4 mb-3 form-floating">
+<form action="/lab/lab2/bai4" method="post" class="mb-3 text-center">
+    <div class="col-4 mb-3 form-floating mx-auto" style="width: 200px;">
         <input type="text" class="form-control" name="name" id="name" placeholder="name" required>
         <label for="name">Name</label>
     </div>
-    <div class="col-4 mb-3 form-floating">
+    <div class="col-4 mb-3 form-floating mx-auto" style="width: 200px;">
         <input type="number" class="form-control" name="price" id="price" placeholder="price" required>
         <label for="price">Price</label>
     </div>

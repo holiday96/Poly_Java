@@ -2,8 +2,8 @@
          pageEncoding="UTF-8" %>
 <%@ include file="/commons/taglib.jsp" %>
 
-<form action="/lab/lab2/bai2/2021" method="post" class="mb-3">
-    <div class="col-3 mb-3 form-floating">
+<form action="/lab/lab2/bai2/2021" method="post" class="mb-3 text-center">
+    <div class="col-3 mb-3 form-floating mx-auto" style="width: 200px;">
         <input type="text" class="form-control" name="x" id="x" placeholder="x" required>
         <label for="x">Input value of X</label>
     </div>

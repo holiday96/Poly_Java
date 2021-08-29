@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@ include file="/commons/taglib.jsp" %>
 
-<form action="/lab/lab2/bai1/ok" method="post" class="mb-3">
+<form action="/lab/lab2/bai1/ok" method="post" class="mb-3 text-center">
     <button class="btn btn-primary me-2">OK 1</button>
     <button formmethod="get" class="btn btn-warning me-2">OK 2</button>
     <button formaction="/lab/lab2/bai1/ok3" class="btn btn-success">OK 3</button>
