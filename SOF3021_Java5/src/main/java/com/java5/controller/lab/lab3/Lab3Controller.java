@@ -51,7 +51,6 @@ public class Lab3Controller {
 				try {
 					String path = application.getRealPath("/");
 					String filePath = path + "/files/" + multipartFile.getOriginalFilename();
-					System.out.println(filePath);
 					multipartFile.transferTo(Path.of(filePath));
 					student.setImage("/files/" + multipartFile.getOriginalFilename());
 				} catch (Exception e) {
