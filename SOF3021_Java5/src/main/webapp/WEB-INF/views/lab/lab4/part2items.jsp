@@ -3,12 +3,12 @@
 <%@ include file="/commons/taglib.jsp" %>
 
 <div class="row mb-3">
-	<div class="col-auto me-auto fw-bold fs-1" style="color: yellow">Shopping Online</div>
-	<div class="col-auto">
-		<a href="/lab/lab4/part2/cart" class="btn btn-primary">
-			<i class='bx bxs-cart bx-flashing-hover text-warning' style='color:#4f00a2; font-size: 40px;' ></i>
-		</a>
-	</div>
+    <div class="col-auto me-auto fw-bold fs-1" style="color: yellow">Shopping Online</div>
+    <div class="col-auto">
+        <a href="/lab/lab4/part2/cart" class="btn btn-primary">
+            <i class='bx bxs-cart bx-flashing-hover text-warning' style='color:#4f00a2; font-size: 40px;'></i>
+        </a>
+    </div>
 </div>
 <div class="row row-cols-4 g-5">
     <c:forEach items="${items}" var="i">
