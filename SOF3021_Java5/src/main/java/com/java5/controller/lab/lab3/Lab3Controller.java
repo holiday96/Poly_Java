@@ -1,11 +1,6 @@
 package com.java5.controller.lab.lab3;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class Lab3Controller {
 
 	@Autowired
-	private ServletContext context;
+	private ServletContext application;
 
 	@GetMapping("/lab/lab3")
 	public ModelAndView showLab(Model model) {
@@ -53,15 +48,15 @@ public class Lab3Controller {
 			student.setHobbies(newHobbies);
 
 			if (!multipartFile.isEmpty()) {
-				String fileName = multipartFile.getOriginalFilename();
-				File photoFile = new File(context.getRealPath("/files/" + fileName));
-				try (InputStream inputStream = multipartFile.getInputStream()) {
-					Path filePath = photoFile.toPath();
-					Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-				} catch (IOException ioe) {
-					System.out.println("Could not save image file: " + fileName);
+				try {
+					String path = application.getRealPath("/");
+					String filePath = path + "/files/" + multipartFile.getOriginalFilename();
+					System.out.println(filePath);
+					multipartFile.transferTo(Path.of(filePath));
+					student.setImage("/files/" + multipartFile.getOriginalFilename());
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				student.setImage("/files/" + fileName);
 			}
 		}
 		return mav;
