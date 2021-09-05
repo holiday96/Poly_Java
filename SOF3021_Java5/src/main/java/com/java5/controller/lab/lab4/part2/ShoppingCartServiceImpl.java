@@ -60,7 +60,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	public double getAmount() {
 		double amount = 0;
 		for (Item item : map.values()) {
-			amount += item.getPrice();
+			amount += item.getPrice() * item.getQuantity();
 		}
 		return amount;
 	}
