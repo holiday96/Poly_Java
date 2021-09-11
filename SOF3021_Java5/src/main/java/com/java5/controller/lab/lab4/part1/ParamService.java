@@ -1,6 +1,10 @@
 package com.java5.controller.lab.lab4.part1;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,6 +12,7 @@ import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,5 +81,33 @@ public class ParamService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public File save(String dataBase64, String path, String name) {
+		String[] strings = dataBase64.split(",");
+		String extension;
+		switch (strings[0]) {
+		case "data:image/jpeg;base64":
+			extension = "jpeg";
+			break;
+		case "data:image/gif;base64":
+			extension = "gif";
+			break;
+		case "data:image/png;base64":
+			extension = "png";
+			break;
+		default:
+			extension = "jpg";
+			break;
+		}
+		byte[] data = DatatypeConverter.parseBase64Binary(strings[1]);
+		String pathApp = application.getRealPath("/");
+		File file = new File(pathApp + path + "/" + name + "." + extension);
+		try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
+			outputStream.write(data);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return file;
 	}
 }

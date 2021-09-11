@@ -29,7 +29,12 @@
                         <li><a href="/lab/lab4/part2">Part 2</a></li>
                     </ul>
                 </li>
-                <li><a class="nav-link scrollto" id="lab5" href="/lab/lab5">5</a></li>
+                <li class="dropdown"><a class="nav-link scrollto" id="lab5" href="/lab/lab5">5</a>
+                	<ul>
+                        <li><a href="/lab/lab5/category">Categories</a></li>
+                        <li><a href="/lab/lab5/product">Products</a></li>
+                    </ul>
+                </li>
                 <li><a class="nav-link scrollto" id="lab6" href="/lab/lab6">6</a></li>
             </ul>
         </nav>

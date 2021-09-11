@@ -35,11 +35,16 @@
 <body>
 <tiles:insertAttribute name="header"/>
 <tiles:insertAttribute name="welcome"/>
-<div class="main container">
-    <tiles:insertAttribute name="body"/>
+<div class="main">
+	<div class="background"></div>
+	<div class="container">
+    	<tiles:insertAttribute name="body"/>
+    </div>
 </div>
 
     <!-- Bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <!-- pagination -->
+	<script src="/templates/lab/jquery.twbsPagination.min.js"></script>
 </body>
 </html>

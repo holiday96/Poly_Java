@@ -124,5 +124,17 @@
         <put-attribute name="title" value="Lab 4 Part 2 - Cart" />  
         <put-attribute name="body" value="/WEB-INF/views/lab/lab4/part2cart.jsp" />  
     </definition>
+    
+    <!-- Lab 5 Category -->
+    <definition name="lab5category" extends="labLayout">
+        <put-attribute name="title" value="Lab 5 - Category" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab5/lab5category.jsp" />  
+    </definition>
+    
+    <!-- Lab 5 Product -->
+    <definition name="lab5product" extends="labLayout">
+        <put-attribute name="title" value="Lab 5 - Product" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab5/lab5product.jsp" />  
+    </definition>
  
 </tiles-definitions> 
