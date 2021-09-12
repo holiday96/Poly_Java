@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,14 +39,15 @@ public class Lab5ProductController {
 
 	@GetMapping(path = { "/lab/lab5/product" })
 	public ModelAndView index(@RequestParam(name = "field", required = false) Optional<String> field,
-			@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer limit) {
+			@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer limit,
+			@RequestParam(defaultValue = "desc") String direction) {
 		ModelAndView mav = new ModelAndView("lab5product");
 		Lab5ProductDTO item = new Lab5ProductDTO();
 		item.setPage(page);
 		Sort sort = null;
 		Pageable pageable;
 		if (!field.isEmpty()) {
-			sort = Sort.by(Sort.Direction.DESC, field.orElse("price"));
+			sort = Sort.by(Direction.fromString(direction), field.orElse("price"));
 			pageable = PageRequest.of(page - 1, limit, sort);
 		} else {
 			pageable = PageRequest.of(page - 1, limit);

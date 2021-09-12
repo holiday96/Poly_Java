@@ -57,19 +57,19 @@
             <th scope="col">#</th>
             <th scope="col">Avatar</th>
             <th scope="col">
-                <a href="/lab/lab5/product?field=name">Name<i class='bx bx-sort-down'></i></a>
+                <a href="#" onclick="filter('name')">Name<i class='bx bx-sort'></i></a>
             </th>
             <th scope="col">
-                <a href="/lab/lab5/product?field=price">Price<i class='bx bx-sort-down'></i></a>
+                <a href="#" onclick="filter('price')">Price<i class='bx bx-sort'></i></a>
             </th>
             <th scope="col">
-                <a href="/lab/lab5/product?field=categoryCode">Category<i class='bx bx-sort-down'></i></a>
+                <a href="#" onclick="filter('categoryCode')">Category<i class='bx bx-sort'></i></a>
             </th>
             <th scope="col">
-                <a href="/lab/lab5/product?field=createDate">Create Date<i class='bx bx-sort-down'></i></a>
+                <a href="#" onclick="filter('createDate')">Create Date<i class='bx bx-sort'></i></a>
             </th>
             <th scope="col">
-                <a href="/lab/lab5/product?field=available">Available<i class='bx bx-sort-down'></i></a>
+                <a href="#" onclick="filter('available')">Available<i class='bx bx-sort'></i></a>
             </th>
             <th></th>
         </tr>
@@ -126,7 +126,7 @@
                     if (currentPage != page) {
                         let searchParams = new URLSearchParams(window.location.search);
                         if (searchParams.has('field')) {
-                            window.location.href = '/lab/lab5/product?page=' + page + '&field=' + searchParams.get('field');
+                            window.location.href = '/lab/lab5/product?page=' + page + '&field=' + searchParams.get('field') + '&direction=' + searchParams.get('direction');
                         } else {
                             window.location.href = '/lab/lab5/product?page=' + page;
                         }
@@ -135,6 +135,15 @@
             });
         });
     });
+
+    function filter(field) {
+        let searchParams = new URLSearchParams(window.location.search);
+        if (searchParams.get('direction') == 'asc' || !searchParams.has('field')) {
+            window.location.href = '/lab/lab5/product?field=' + field + '&direction=desc';
+        } else if (searchParams.get('direction') == 'desc') {
+            window.location.href = '/lab/lab5/product?field=' + field + '&direction=asc';
+        }
+    }
 
     $('.img-chose').click(function () {
         $('#image').trigger('click');
