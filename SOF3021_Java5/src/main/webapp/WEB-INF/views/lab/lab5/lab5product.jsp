@@ -112,7 +112,6 @@
         var a = $(location).attr("href").split('/').pop();
         if ($.isNumeric(a)) {
             $('#createProduct').html('Save');
-            $('#formCreate').attr('action', '/lab/lab5/product/edit');
         }
 
         var totalPages = ${productItem.totalPage};
@@ -126,9 +125,9 @@
                     if (currentPage != page) {
                         let searchParams = new URLSearchParams(window.location.search);
                         if (searchParams.has('field')) {
-                            window.location.href = '/lab/lab5/product?page=' + page + '&field=' + searchParams.get('field') + '&direction=' + searchParams.get('direction');
+                            window.location.href = '${APIurl}?page=' + page + '&field=' + searchParams.get('field') + '&direction=' + searchParams.get('direction');
                         } else {
-                            window.location.href = '/lab/lab5/product?page=' + page;
+                            window.location.href = '${APIurl}?page=' + page;
                         }
                     }
                 }
@@ -139,9 +138,9 @@
     function filter(field) {
         let searchParams = new URLSearchParams(window.location.search);
         if (searchParams.get('direction') == 'asc' || !searchParams.has('field')) {
-            window.location.href = '/lab/lab5/product?field=' + field + '&direction=desc';
+            window.location.href = '${APIurl}?field=' + field + '&direction=desc';
         } else if (searchParams.get('direction') == 'desc') {
-            window.location.href = '/lab/lab5/product?field=' + field + '&direction=asc';
+            window.location.href = '${APIurl}?field=' + field + '&direction=asc';
         }
     }
 
