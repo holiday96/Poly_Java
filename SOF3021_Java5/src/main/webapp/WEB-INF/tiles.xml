@@ -136,5 +136,17 @@
         <put-attribute name="title" value="Lab 5 - Product" />  
         <put-attribute name="body" value="/WEB-INF/views/lab/lab5/lab5product.jsp" />  
     </definition>
+    
+    <!-- Lab 6 Search Product -->
+    <definition name="lab6search" extends="labLayout">
+        <put-attribute name="title" value="Lab 6 - Search Product" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab6/lab6product.jsp" />  
+    </definition>
+    
+    <!-- Lab 6 Report Product -->
+    <definition name="lab6report" extends="labLayout">
+        <put-attribute name="title" value="Lab 6 - Report Product" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab6/lab6report.jsp" />  
+    </definition>
  
 </tiles-definitions> 

@@ -79,7 +79,7 @@
             <tr>
                 <th>${index.index + 1}</th>
                 <td>
-                    <img src="${i.imageURL}" width="100">
+                    <img src="${not empty i.imageURL?i.imageURL:'https://www.pariyes.net/wp-content/uploads/2021/06/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'}" width="100">
                 </td>
                 <td>${i.name}</td>
                 <td>
@@ -108,7 +108,7 @@
 <script>
     $(document).ready(function () {
         $('#lab5').addClass("active");
-
+        
         var a = $(location).attr("href").split('/').pop();
         if ($.isNumeric(a)) {
             $('#createProduct').html('Save');

@@ -69,7 +69,7 @@ public class Lab5ProductController {
 			}
 		}
 		item.setCategory(categoryRepository.findOneByCode(item.getCategoryCode()));
-		if (item.getImageURL() != null) {
+		if (!item.getImageURL().isBlank()) {
 			File file = paramService.save(item.getImageURL(), "/files", item.getName());
 			item.setImageURL("/files/" + file.getName());
 		}

@@ -1,5 +1,6 @@
 package com.java5.controller.lab.lab5.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,7 +17,9 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "Lab5Categories")
-public class Lab5CategoryEntity extends Lab5BaseEntity{
+public class Lab5CategoryEntity extends Lab5BaseEntity implements Serializable{
+	
+	private static final long serialVersionUID = 6558208196446254227L;
 	
 	@NotBlank(message = "Category code is empty")
 	private String code;

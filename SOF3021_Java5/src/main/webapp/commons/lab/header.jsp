@@ -35,7 +35,12 @@
                         <li><a href="/lab/lab5/product">Products</a></li>
                     </ul>
                 </li>
-                <li><a class="nav-link scrollto" id="lab6" href="/lab/lab6">6</a></li>
+                <li class="dropdown"><a class="nav-link scrollto" id="lab6" href="/lab/lab6">6</a>
+                	<ul>
+                        <li><a href="/lab/lab6/product">Search Product</a></li>
+                        <li><a href="/lab/lab6/product/report">Report Product</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- .navbar -->

@@ -57,4 +57,32 @@ public class Lab5ProductService implements ILab5ProductService {
 		return (int) lab5ProductRepository.count();
 	}
 
+	@Override
+	public List<Lab5ProductDTO> findByNameContaining(String name, Pageable pageable) {
+		List<Lab5ProductDTO> list = new ArrayList<>();
+		lab5ProductRepository.findByNameContaining(name, pageable).forEach(item -> list.add(Lab5ProductConverter.toDto(item)));
+		return list;
+	}
+
+	@Override
+	public List<Lab5ProductDTO> findByPriceGreaterThanEqual(Double price, Pageable pageable) {
+		List<Lab5ProductDTO> list = new ArrayList<>();
+		lab5ProductRepository.findByPriceGreaterThanEqual(price, pageable).forEach(item -> list.add(Lab5ProductConverter.toDto(item)));
+		return list;
+	}
+
+	@Override
+	public List<Lab5ProductDTO> findByPriceLessThanEqual(Double price, Pageable pageable) {
+		List<Lab5ProductDTO> list = new ArrayList<>();
+		lab5ProductRepository.findByPriceLessThanEqual(price, pageable).forEach(item -> list.add(Lab5ProductConverter.toDto(item)));
+		return list;
+	}
+
+	@Override
+	public List<Lab5ProductDTO> findByPriceBetween(Double min, Double max, Pageable pageable) {
+		List<Lab5ProductDTO> list = new ArrayList<>();
+		lab5ProductRepository.findByPriceBetween(min, max, pageable).forEach(item -> list.add(Lab5ProductConverter.toDto(item)));
+		return list;
+	}
+
 }
