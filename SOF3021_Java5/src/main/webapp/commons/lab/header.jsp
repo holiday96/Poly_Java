@@ -44,8 +44,8 @@
                 <li class="dropdown"><a class="nav-link scrollto" id="lab7" href="/lab/lab7">7</a>
                 	<ul>
                         <li><a href="/lab/lab7/email">Schedule emails</a></li>
-                        <li><a href="/lab/lab7/product/link">Link Address</a></li>
-                        <li><a href="/lab/lab7/product/auth">Authorization Interceptor</a></li>
+                        <li><a href="/lab/lab7/link">Link Address</a></li>
+                        <li><a href="/lab/lab7/auth">Authorization Interceptor</a></li>
                     </ul>
                 </li>
             </ul>

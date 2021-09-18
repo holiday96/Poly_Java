@@ -2,6 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@ include file="/commons/taglib.jsp" %>
 
+<div class="form mb-3 text-danger fw-bold">${uri}</div>
 <c:if test="${not empty message}">
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">

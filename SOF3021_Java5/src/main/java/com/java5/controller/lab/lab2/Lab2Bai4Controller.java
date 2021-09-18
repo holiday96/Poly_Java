@@ -7,14 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/lab/lab2")
 public class Lab2Bai4Controller {
 
-	@GetMapping("bai4")
+	@GetMapping("/lab/lab2/bai4")
 	public ModelAndView showLab() {
 		ModelAndView mav = new ModelAndView("lab2bai4");
 		Product p = new Product("iPhone XXS", 10000l);
@@ -22,7 +20,7 @@ public class Lab2Bai4Controller {
 		return mav;
 	}
 	
-	@PostMapping("bai4")
+	@PostMapping("/lab/lab2/bai4")
 	public ModelAndView createProduct(Product product) {
 		ModelAndView mav = new ModelAndView("lab2bai4");
 		mav.addObject("product", new Product(product.getName(), product.getPrice()));

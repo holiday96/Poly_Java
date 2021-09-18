@@ -7,13 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java5.utils.CookieUtils;
 
 @Controller
-@RequestMapping("/lab/lab1")
 public class Lab1Controller {
 
 	@Autowired
@@ -22,13 +20,13 @@ public class Lab1Controller {
 	@Autowired
 	private HttpServletResponse response;
 
-	@GetMapping
+	@GetMapping("/lab/lab1")
 	public ModelAndView showLab() {
 		ModelAndView mav = new ModelAndView("lab1");
 		return mav;
 	}
 
-	@PostMapping
+	@PostMapping("/lab/lab1")
 	public ModelAndView result() {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
