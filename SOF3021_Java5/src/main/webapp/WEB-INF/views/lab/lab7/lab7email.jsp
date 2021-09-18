@@ -26,12 +26,24 @@
         </div>
     </div>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" name="from" id="from" placeholder="from" required>
+        <input type="text" class="form-control" name="from" id="from" placeholder="from">
         <label for="from">From</label>
     </div>
+    <div id="valid-from" class="valid-feedback mb-3">
+        Looks good!
+    </div>
+    <div id="invalid-from" class="invalid-feedback mb-3">
+        Please enter a valid email.
+    </div>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" name="to" id="to" placeholder="to" required>
+        <input type="text" class="form-control" name="to" id="to" placeholder="to">
         <label for="to">To</label>
+    </div>
+    <div id="valid-to" class="valid-feedback mb-3">
+        Looks good!
+    </div>
+    <div id="invalid-to" class="invalid-feedback mb-3">
+        Please enter a valid email.
     </div>
     <div id="formCc" class="form-floating mb-3" style="display: none">
         <input type="text" class="form-control" name="cc" id="cc" placeholder="cc">
@@ -42,8 +54,11 @@
         <label for="bcc">Bcc</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" name="subject" id="subject" placeholder="subject" required>
+        <input type="text" class="form-control" name="subject" id="subject" placeholder="subject">
         <label for="subject">Subject</label>
+    </div>
+    <div id="invalid-subject" class="invalid-feedback mb-3">
+        Please enter subject.
     </div>
     <div class="mb-3">
         <label for="body" class="form-label">Content</label>
@@ -82,12 +97,17 @@
         e.preventDefault();
         if ($('#from').val() == '' || !pattern.test($('#from').val())) {
             $('#from').addClass('is-invalid');
+            $('#invalid-from').show();
+            $('#valid-from').hide();
         }
         if ($('#to').val() == '' || !pattern.test($('#to').val())) {
             $('#to').addClass('is-invalid');
+            $('#invalid-to').show();
+            $('#valid-to').hide();
         }
         if ($('#subject').val() == '') {
             $('#subject').addClass('is-invalid');
+            $('#invalid-subject').show();
         }
         if ($('#from').hasClass('is-valid') && $('#to').hasClass('is-valid') && !$('#subject').hasClass('is-invalid')) {
             $('#formSubmit').submit();
@@ -95,18 +115,23 @@
     });
 
     $('#from').change(function () {
-        $('#from').removeClass('is-invalid');
         if (pattern.test($('#from').val())) {
+            $('#from').removeClass('is-invalid');
             $('#from').addClass('is-valid');
+            $('#invalid-from').hide();
+            $('#valid-from').show();
         }
     });
     $('#to').change(function () {
-        $('#to').removeClass('is-invalid');
         if (pattern.test($('#to').val())) {
+            $('#to').removeClass('is-invalid');
             $('#to').addClass('is-valid');
+            $('#invalid-to').hide();
+            $('#valid-to').show();
         }
     });
     $('#subject').change(function () {
         $('#subject').removeClass('is-invalid');
+        $('#invalid-subject').hide();
     });
 </script>
