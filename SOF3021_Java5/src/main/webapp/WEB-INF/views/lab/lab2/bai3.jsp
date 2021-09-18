@@ -8,7 +8,7 @@
         <label for="name">Name</label>
     </div>
     <div class="col-4 mb-3 form-floating mx-auto" style="width: 200px;">
-        <input type="number" class="form-control" name="price" id="price" placeholder="price" required>
+        <input type="number" class="form-control" name="price" id="price" min="0" placeholder="price" required>
         <label for="price">Price</label>
     </div>
     <button class="btn btn-primary">Save</button>

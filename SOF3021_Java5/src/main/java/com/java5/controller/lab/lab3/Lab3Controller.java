@@ -17,24 +17,26 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/lab/lab3")
 public class Lab3Controller {
 
 	@Autowired
 	private ServletContext application;
 
-	@GetMapping("/lab/lab3")
+	@GetMapping
 	public ModelAndView showLab(Model model) {
 		ModelAndView mav = new ModelAndView("lab3");
 		model.addAttribute("student", new Student());
 		return mav;
 	}
 
-	@PostMapping("/lab/lab3")
+	@PostMapping
 	public ModelAndView method1(@Validated @ModelAttribute Student student, BindingResult result,
 			@RequestParam(name = "photo") MultipartFile multipartFile) {
 		ModelAndView mav = new ModelAndView("lab3");
