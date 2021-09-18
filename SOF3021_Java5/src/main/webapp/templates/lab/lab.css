@@ -396,3 +396,10 @@ table i:hover {
 .img-input {
 	display: none;
 }
+
+.mail-option:hover {
+	cursor: pointer;
+	color: #3878b9!important;
+	text-decoration: underline;
+	transition: 0.2s;
+}

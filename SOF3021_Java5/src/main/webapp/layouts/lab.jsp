@@ -31,6 +31,9 @@
 
 	<!-- Custom CSS -->
     <link href="/templates/lab/lab.css" rel="stylesheet"/>
+    
+    <!-- CKEditor 4 -->
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 </head>
 <body>
 <tiles:insertAttribute name="header"/>

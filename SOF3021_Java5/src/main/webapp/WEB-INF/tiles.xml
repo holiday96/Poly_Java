@@ -148,5 +148,23 @@
         <put-attribute name="title" value="Lab 6 - Report Product" />  
         <put-attribute name="body" value="/WEB-INF/views/lab/lab6/lab6report.jsp" />  
     </definition>
+    
+    <!-- Lab 7 Schedule Emails -->
+    <definition name="lab7email" extends="labLayout">
+        <put-attribute name="title" value="Lab 7 - Schedule Emails" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab7/lab7email.jsp" />  
+    </definition>
+    
+    <!-- Lab 7 Link Address -->
+    <definition name="lab7link" extends="labLayout">
+        <put-attribute name="title" value="Lab 7 - Link Address" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab7/lab7link.jsp" />  
+    </definition>
+    
+    <!-- Lab 7 Auth Interceptor -->
+    <definition name="lab7auth" extends="labLayout">
+        <put-attribute name="title" value="Lab 7 - Auth Interceptor" />  
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab7/lab7auth.jsp" />  
+    </definition>
  
 </tiles-definitions> 
