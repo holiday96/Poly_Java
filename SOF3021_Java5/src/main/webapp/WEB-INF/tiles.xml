@@ -54,9 +54,9 @@
     <definition name="labLayout"
         template="/layouts/lab.jsp">
         <put-attribute name="header" value="/commons/lab/header.jsp" />
-        <put-attribute name="title" value="" />
         <put-attribute name="welcome" value="" />
-        <put-attribute name="body" value="" />  
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="" />
     </definition>
     
     <!-- Lab Home -->
@@ -166,5 +166,11 @@
         <put-attribute name="title" value="Lab 7 - Auth Interceptor" />  
         <put-attribute name="body" value="/WEB-INF/views/lab/lab7/lab7auth.jsp" />  
     </definition>
- 
+    
+    <!-- Lab 8 layout -->
+    <definition name="lab8" extends="labLayout">
+        <put-attribute name="title" value="Lab 8" />
+        <put-attribute name="body" value="/WEB-INF/views/lab/lab8/lab8body.jsp" />
+    </definition>
+    
 </tiles-definitions> 

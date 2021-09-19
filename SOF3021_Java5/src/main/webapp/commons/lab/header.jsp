@@ -48,6 +48,7 @@
                         <li><a href="/lab/lab7/auth">Authorization Interceptor</a></li>
                     </ul>
                 </li>
+                <li><a class="nav-link scrollto" id="lab8" href="/lab/lab8">8</a></li>
             </ul>
         </nav>
         <!-- .navbar -->
