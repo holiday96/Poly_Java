@@ -35,7 +35,7 @@
                 <p>Have a nice day, boss!</p>
                 <p>It's an honor to meet you again.</p>
                 <p>Can I do something for you?</p>
-                <p>Go to the <a href="/lab">Lab</a> or Show the <a href="/home">Assignment</a></p>
+                <p>Go to the <a href="/lab">Lab</a> or Show the <a href="http://localhost:3000/">Assignment</a></p>
             </div>
             <div class="network">
                 <ul>

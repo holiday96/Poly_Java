@@ -13,7 +13,7 @@ import com.java5.controller.lab.lab4.part1.CookieService;
 
 @Controller
 public class Lab8Controller {
-	
+
 	@Autowired
 	private CookieService cookieService;
 
@@ -22,9 +22,11 @@ public class Lab8Controller {
 		ModelAndView mav = new ModelAndView("lab8");
 		ResourceBundle resourceBundle = null;
 		String lang = cookieService.getValue(CookieLocaleResolver.LOCALE_REQUEST_ATTRIBUTE_NAME);
-		if (lang.equals("vi")) {
+		if (lang == null) {
+			resourceBundle = ResourceBundle.getBundle("i18n/home");
+		} else if (lang.equals("vi")) {
 			resourceBundle = ResourceBundle.getBundle("i18n/home_vi");
-		} else if (lang.equals("en")){
+		} else if (lang.equals("en")) {
 			resourceBundle = ResourceBundle.getBundle("i18n/home");
 		}
 		if (path != null) {
